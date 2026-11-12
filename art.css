@@ -34,3 +34,5 @@ aside{background:linear-gradient(145deg,#302a2070,#171713);box-shadow:inset 0 0 
 @media(max-width:1100px){.class-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.class-art{height:220px}.class-art img{height:205px}}
 @media(max-width:650px){.class-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.class-gallery .class-card:last-child{grid-column:1/-1}.codex-heading{display:block}.class-art{height:210px}.class-art img{height:200px}.fighters{gap:10px;padding-left:10px;padding-right:10px}.fighter{width:135px}.combat-sprite{width:150px;height:190px}.figure,.enemy .figure{height:190px}.arena{min-height:440px}.class-portrait{display:none}.run-controls{flex-wrap:wrap}.choice{min-height:unset}}
 @media(prefers-reduced-motion:reduce){.class-card,.class-art img{transition:none}}
+
+.attribute-row.attribute-editable{grid-template-columns:28px minmax(0,1fr) 28px}.attribute-row.attribute-editable>b{grid-column:2;text-align:center}.attribute-row.attribute-editable>.attribute-minus{grid-column:1}.attribute-row.attribute-editable>.attribute-plus{grid-column:3}
