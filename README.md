@@ -99,3 +99,9 @@ Validar dificuldade das cinco classes em partidas reais; expandir cada classe pa
 - Ato II: HP `2800 + 340 × índice`, com +2000 no boss (7860 HP); dano `52 + 4 × índice` (88 no boss). Além do ritual individual, a pressão abissal causa 18% da vida máxima a cada 7s, absorvível por escudos.
 - Cada nível comprado no legado do personagem reduz a pressão em 0,8% (limite 65%) e os demais danos do Ato II em 0,48% (limite 39%). O legado da run é fixado no início. Saves antigos recebem a resistência correspondente ao seu legado; encontros abissais em andamento migram os HP inimigos proporcionalmente.
 - `node status-test.cjs` verifica Defesa de 0 a 100, consulta das 40 habilidades sem mutações, histórico e saves antigos. `node act-balance-test.cjs` simula cinco builds em 0/2/5 níveis por upgrade: nenhuma sem legado conclui Ato II; todas com legado completo concluem. São cenários planejados de atributos/aprimoramentos comuns, não prova de impossibilidade matemática de toda combinação de drops.
+
+### Organização da página de combate
+- Cabeçalho compacto com ficha, menu, classes, opções, velocidade e pausa. No celular, os seis controles ocupam uma grade regular de duas linhas.
+- Informações do inimigo e a dica de combate ficam no botão `i` junto ao nome. O próximo golpe e sua barra continuam visíveis abaixo da arena.
+- Backup e instruções ficam em “Opções e ajuda”; a galeria de classes abre em seu próprio diálogo. A crônica é recolhível. O antigo quadro de expedição foi removido.
+- Menus de consulta pausam o combate, fecham pelo botão, Escape ou clique fora e preservam o estado de pausa até Retomar.
