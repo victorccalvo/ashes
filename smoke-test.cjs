@@ -46,7 +46,7 @@ check(run.slam>0&&run.bastion>0,'Cooldown begins');
 check(scaling('slam').includes('Poder')&&scaling('bastion').includes('Defesa'),'Scaling is visible');
 run.time+=1;renderSkillActivity();check($('skill-state-slam').textContent.includes('Recarga'),'Cooldown label');
 check($('enemy-health').textContent.includes('Vida'),'Enemy health visible');
-run.stage=9;startDuel();run.enemy.hp=0;tick(.05);check(mode==='won'&&save.best===20,'Boss reward');
+run.stage=9;startDuel();run.enemy.hp=0;tick(.05);check(mode==='won'&&save.best===elites.length,'Boss reward');
 persist();validateArchive(JSON.parse(localStorage.getItem(STORAGE)));
 `,restored);
 assert(storage.has('ashes-save-v3'));
@@ -146,7 +146,7 @@ run.stage=14;startDuel();persist();
 const secondActReload=vm.createContext({console,Math,Blob,URL,setTimeout,clearTimeout,confirm:()=>true,window:{addEventListener(){}},document:{body:element(),getElementById(id){if(!elements.has(id))elements.set(id,element());return elements.get(id)},createElement:element,addEventListener(){}},localStorage:{removeItem:k=>storage.delete(k),getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)},requestAnimationFrame(){}});
 const htmlScripts=[...fs.readFileSync('index.html','utf8').matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]);
 vm.runInContext(htmlScripts.map(file=>fs.readFileSync(file,'utf8')).join('\n'),secondActReload);
-assert(vm.runInContext("run.stage===14&&mode==='fight'&&paused&&elites.length===20",secondActReload),'Restore an Act II fight paused');
+assert(vm.runInContext("run.stage===14&&mode==='fight'&&paused&&elites.length===40",secondActReload),'Restore an Act II fight paused');
 for(const file of vm.runInContext('ENEMY_ART.map(e=>"assets/"+e.file+".png")',secondActReload))assert(fs.existsSync(file),'Missing two-act artwork: '+file);
 console.log('PASS: both acts, boss legendary reward, ten Act II rituals, save validation, 40 skills, meta upgrades, damage indicators, transitions.');
 

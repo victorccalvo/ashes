@@ -24,6 +24,9 @@ jobs:
           node hunter-test.cjs
           node status-test.cjs
           node act-balance-test.cjs
+          node campaign-test.cjs
+          node campaign-balance.cjs
+          node campaign-progression.cjs
       - name: Prepare static site
         run: node scripts/build-site.cjs
       - uses: actions/configure-pages@v5

@@ -9,7 +9,7 @@ function skillSnapshot(key){
  else {let direct=sheetDamage(value);if(key==='bloodrush'&&run.hp>=run.max*furyThreshold()&&Math.max(1,run.hp-run.hp*.04*(1-trait(5)*.03))<run.max*furyThreshold())direct*=1.2;lines.push('Dano direto: '+sheetNumber(direct)+' · crítico: '+sheetNumber(direct*run.critDamage)+'.'+(key==='volley'?' Total dos três projéteis.':''));}
  if(['poison','bleed','fire'].includes(s.effect)){const kind=s.effect;let duration=kind==='fire'?4+(key==='fireball'?trait(0):0):6+(key==='venom'?trait(1):0);if(key==='comet')duration=6+trait(6)*.3;if(key==='plague')duration+=trait(8)*.5;const dps=sheetDamage(value*(kind==='poison'?.25:.2)*(kind==='fire'&&run.character==='arcanist'?1+.02*trait(4):1)*(key==='rend'?1+.1*trait(1):1),true);lines.push('Dano contínuo: '+sheetNumber(dps)+'/s por '+sheetNumber(duration)+'s · total '+sheetNumber(dps*duration)+'.');}
  if(s.effect==='drain')lines.push('Cura: '+sheetNumber(value*(.35+.05*trait(1)))+'.');
- if(key==='dog')lines.push('Cura: '+sheetNumber(run.max*(.02+.003*trait(0)))+'; escudo contra marcado: '+sheetNumber(value*(.15+.03*trait(11)))+'.');
+ if(key==='dog')lines.push('Cura: '+sheetNumber(run.max*(.01+.003*trait(0)))+'; escudo contra marcado: '+sheetNumber(value*(.15+.03*trait(11)))+'.');
  if(key==='pact')lines.push('Escudo: '+sheetNumber(run.agility*.8)+'.');
  if(key==='skeleton'&&trait(3))lines.push('Escudo por ataque do servo: '+sheetNumber(2*trait(3))+'.');
  if(key==='aegis')lines.push('Retaliação do escudo atual: '+sheetNumber(sheetDamage(run.shield*.25))+'.');

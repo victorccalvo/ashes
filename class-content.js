@@ -3,15 +3,15 @@ const CLASS_DEFS={
  guardian:{name:'Guardião',icon:'shield',flavor:'Aço, resistência e retaliação.',passive:'Tenacidade · Abaixo de 40% de vida, recebe 15% menos dano físico.',base:{vitality:10,power:10,defense:10,agility:4,focus:6},skills:['thorns','slam','bastion','counter','second']},
  berserker:{name:'Berserker',icon:'axe',flavor:'Fúria, feridas e sobrevivência.',passive:'Fúria ancestral · Abaixo de 50% de vida, causa 20% mais dano.',base:{vitality:11,power:13,defense:5,agility:7,focus:4},skills:['rend','whirlwind','warcry','bloodthirst','execution']},
  arcanist:{name:'Arcanista',icon:'staff',flavor:'Fogo, controle e proteção arcana.',passive:'Fluxo arcano · Habilidades recarregam 15% mais rápido.',base:{vitality:7,power:12,defense:5,agility:4,focus:12},skills:['fireball','frost','missiles','ward','echo']},
- hunter:{name:'Caçador',icon:'bow',flavor:'Mobilidade, controle e proteção da matilha.',passive:'Olho da presa · Básicos ganham 0,45 × Agilidade. A cada 5 básicos, causa 2 × Agilidade de dano extra e recupera 3% da vida máxima.',base:{vitality:9,power:10,defense:7,agility:10,focus:4},skills:['precise','venom','dog','trap','evade']},
+ hunter:{name:'Caçador',icon:'bow',flavor:'Mobilidade, controle e proteção da matilha.',passive:'Olho da presa · Básicos ganham 0,45 × Agilidade. A cada 5 básicos, causa 2 × Agilidade de dano extra e recupera 1,5% da vida máxima.',base:{vitality:9,power:10,defense:7,agility:10,focus:4},skills:['precise','venom','dog','trap','evade']},
  necromancer:{name:'Necromante',icon:'skull',flavor:'Lacaios, maldições e drenagem.',passive:'Vínculo profano · Ao usar uma habilidade, recupera 2% da vida máxima. Intervalo mínimo de 3s.',base:{vitality:9,power:10,defense:5,agility:5,focus:11},skills:['skeleton','drain','curse','plague','bone']}
 };
 // Values below are the actual coefficients used by simulation and UI.
 const EXTRA_SKILLS={
- rend:{name:'Corte profundo',desc:'Golpe que causa sangramento por 6s (20% do dano por segundo).',cd:5,icon:'axe',base:8,power:2,effect:'bleed'},
+ rend:{name:'Corte profundo',desc:'Golpe que causa sangramento por 6s (20% do dano por segundo).',cd:5,icon:'axe',base:12,power:2,effect:'bleed'},
  whirlwind:{name:'Redemoinho',desc:'Uma sequência de cortes concentrada no elite.',cd:7,icon:'axe',base:14,power:2.5,agility:.8},
- warcry:{name:'Grito de guerra',desc:'Transforma vigor em proteção temporária.',cd:12,icon:'shield',base:12,vitality:2,defense:1,type:'shield'},
- bloodthirst:{name:'Sede de sangue',desc:'Recupera vida com a força da fúria.',cd:9,icon:'heart',base:4,power:.8,vitality:1.4,type:'heal'},
+ warcry:{name:'Grito de guerra',desc:'Transforma vigor em proteção e enfraquece ataques físicos inimigos por 4s.',cd:12,icon:'shield',base:12,vitality:2,defense:1,type:'shield'},
+ bloodthirst:{name:'Sede de sangue',desc:'Recupera vida com a força da fúria.',cd:9,icon:'heart',base:8,power:.8,vitality:1.4,type:'heal'},
  execution:{name:'Execução',desc:'Causa o dobro do dano contra alvos abaixo de 35% de vida.',cd:9,icon:'axe',base:10,power:2.3,effect:'execute'},
  fireball:{name:'Bola de fogo',desc:'Aplica queimadura por 4s (20% do dano por segundo).',cd:6,icon:'flame',base:12,power:2,focus:1,effect:'fire'},
  frost:{name:'Lança de gelo',desc:'Atrasa o próximo ataque inimigo em 1,4s.',cd:8,icon:'staff',base:10,power:1,focus:1.5,effect:'slow'},
@@ -20,9 +20,9 @@ const EXTRA_SKILLS={
  echo:{name:'Eco mágico',desc:'Libera uma descarga concentrada de energia arcana.',cd:12,icon:'staff',base:20,focus:3},
  precise:{name:'Tiro preciso',desc:'Disparo concentrado. Contra presa marcada, causa +30% de dano.',cd:5.5,icon:'bow',base:14,power:1.5,agility:2},
  venom:{name:'Flecha venenosa',desc:'Aplica veneno por 6s (25% do dano por segundo) e reduz o dano físico da presa por 3s.',cd:5,icon:'bow',base:7,power:.8,agility:1,effect:'poison'},
- dog:{name:'Investida do companheiro',desc:'Seu cão ataca e recupera 2% da sua vida máxima. Contra presa marcada, também gera escudo.',cd:3,icon:'bow',base:8,power:.6,agility:1,vitality:.5},
- trap:{name:'Armadilha de caça',desc:'Interrompe preparações, atrasa o ataque em 1,5s e marca a presa por 6s.',cd:7,icon:'bow',base:12,agility:1.5,power:.8,effect:'trap'},
- evade:{name:'Passo evasivo',desc:'Cria barreira, remove sangramento e atrasa o ataque inimigo em 0,6s.',cd:9,icon:'shield',base:12,agility:2.2,defense:1,type:'shield'},
+ dog:{name:'Investida do companheiro',desc:'Seu cão ataca e recupera 1% da sua vida máxima. Contra presa marcada, também gera escudo.',cd:4,icon:'bow',base:8,power:.6,agility:1,vitality:.5},
+ trap:{name:'Armadilha de caça',desc:'Interrompe preparações, atrasa o ataque em 1s e marca a presa por 6s.',cd:10,icon:'bow',base:12,agility:1.5,power:.8,effect:'trap'},
+ evade:{name:'Passo evasivo',desc:'Cria barreira, remove sangramento e atrasa o ataque inimigo em 0,6s.',cd:12,icon:'shield',base:8,agility:1.5,defense:1,type:'shield'},
  skeleton:{name:'Servo ossudo',desc:'Um servo invocado ataca periodicamente.',cd:3,icon:'skull',base:4,power:1,focus:1},
  drain:{name:'Drenar vida',desc:'Causa dano e recupera 35% do valor base causado.',cd:7,icon:'heart',base:8,power:1,focus:1,effect:'drain'},
  curse:{name:'Maldição da fraqueza',desc:'Reduz o dano dos ataques físicos inimigos em 18% por 5s.',cd:10,icon:'skull',base:6,focus:1.5,effect:'curse'},
@@ -44,7 +44,7 @@ function updateExtraSkills(dt){
  if(s.effect==='drain')run.hp=Math.min(run.max,run.hp+value*(.35+.05*trait(1)));
  if(s.effect==='curse')st.weak=5+trait(2);
  if(s.effect==='slow')run.enemyTimer+=1.4+.2*trait(3);
- if(s.effect==='trap'){run.enemyTimer+=1.5;if(run.windup>0){run.windup=0;log('Armadilha interrompeu a preparação!');}}
+ if(s.effect==='trap'){run.enemyTimer+=1;if(run.windup>0){run.windup=0;log('Armadilha interrompeu a preparação!');}}
  evolveAfterCast(key,value);expansionAfter(key,value);run.damageSource=null;
  if(run.enemy.hp<=0)break;
  }

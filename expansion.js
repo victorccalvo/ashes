@@ -11,7 +11,7 @@ const NEW_SKILLS={
  prism:{name:'Prisma glacial',desc:'Cria escudo e atrasa o ataque inimigo em 1s se ele estiver queimando.',cd:12,icon:'ice',base:8,focus:1.2,defense:.5,type:'shield'},
  mark:{name:'Marca da presa',desc:'Marca por 8s e deixa o alvo vulnerável: +18% de dano direto por 6s.',cd:8,icon:'eye',base:10,agility:1.2,focus:.8},
  volley:{name:'Salva de farpas',desc:'Três impactos. +25% contra alvo envenenado ou marcado (não acumula).',cd:7,icon:'bow',base:14,agility:1.8,power:1.2},
- pact:{name:'Pacto da matilha',desc:'Cura, remove sangramento e gera escudo de 0,8 × Agilidade. Fortalece o próximo ataque do cão em 50%.',cd:10,icon:'paw',base:12,vitality:2,agility:.7,type:'heal'},
+ pact:{name:'Pacto da matilha',desc:'Cura, remove sangramento e gera escudo de 0,8 × Agilidade. Fortalece o próximo ataque do cão em 50%.',cd:12,icon:'paw',base:8,vitality:1.5,agility:.5,type:'heal'},
  harvest:{name:'Colheita fúnebre',desc:'Consome o veneno restante: causa 60% do dano restante e cura 10% dele.',cd:10,icon:'siphon',base:8,focus:1.3,power:.6},
  prison:{name:'Prisão de ossos',desc:'Cria escudo, interrompe preparações e atrasa o ataque inimigo em 1s.',cd:13,icon:'ribs',base:8,defense:1.6,focus:.8,type:'shield'},
  wraith:{name:'Espectro faminto',desc:'Invoca um espectro para atacar. +35% de dano contra um alvo amaldiçoado.',cd:7,icon:'skull',base:10,focus:1.5,power:.8}
@@ -52,9 +52,10 @@ function expansionAfter(key,value){
  if(key==='comet')run.status.fire=6+trait(6)*.3;
  if(key==='pact'){run.packReady=true;run.bleed=0;run.shield=Math.min(shieldLimit(),run.shield+run.agility*.8);}
  if(key==='evade'){run.bleed=0;run.enemyTimer+=.6;}
+ if(key==='warcry')run.status.weak=Math.max(run.status.weak,4);
  if(key==='venom')run.status.weak=Math.max(run.status.weak,3);
  if(key==='trap')run.marked=Math.max(run.marked,6);
- if(key==='dog'){run.hp=Math.min(run.max,run.hp+run.max*.02);if(run.marked>0)run.shield=Math.min(shieldLimit(),run.shield+value*.15);}
+ if(key==='dog'){run.hp=Math.min(run.max,run.hp+run.max*.01);if(run.marked>0)run.shield=Math.min(shieldLimit(),run.shield+value*.15);}
  if(key==='trap')run.enemyTimer+=trait(8)*.1;
  if(key==='dog'&&run.marked>0)run.shield=Math.min(shieldLimit(),run.shield+value*.03*trait(11));
  if(key==='harvest'&&run.status.poison>0){const stored=run.status.poisonDps*run.status.poison;hurtEnemy(stored*(.6+trait(4)*.03),'Colheita fúnebre',false,true);run.hp=Math.min(run.max,run.hp+stored*.1);run.status.poison=0;}

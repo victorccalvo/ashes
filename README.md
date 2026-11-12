@@ -105,3 +105,33 @@ Validar dificuldade das cinco classes em partidas reais; expandir cada classe pa
 - Informações do inimigo e a dica de combate ficam no botão `i` junto ao nome. O próximo golpe e sua barra continuam visíveis abaixo da arena.
 - Backup e instruções ficam em “Opções e ajuda”; a galeria de classes abre em seu próprio diálogo. A crônica é recolhível. O antigo quadro de expedição foi removido.
 - Menus de consulta pausam o combate, fecham pelo botão, Escape ou clique fora e preservam o estado de pausa até Retomar.
+
+## Campanha de quatro atos — versão atual
+
+A expedição tem 40 encontros: nove elites e um soberano por ato. Os três primeiros chefes dão uma escolha lendária garantida e abrem o próximo mapa na mesma run; a essência só é recebida ao morrer ou concluir o Ato IV. Saves anteriores permanecem compatíveis, sem reset.
+
+- **III — A Forja do Sol Morto:** bronze, carvão e máquinas. HP 8500 + 650 por encontro; Hélion tem 19350 HP. Dano 95 + 6 por encontro. Pressão regional de 22% da vida a cada 7s, antes da resistência do legado.
+- **IV — O Jardim do Último Eclipse:** marfim, raízes e entidades lunares. HP 25000 + 1200 por encontro; a Regente tem 41800 HP. Dano 145 + 8 por encontro. Pressão de 27% a cada 6s, antes da resistência. Após 180s nos novos atos, o colapso regional causa dano crescente para evitar impasses infinitos.
+- Artes originais: `assets/act3-atlas.png`, `assets/act4-atlas.png` e `assets/minion-atlas.png`. Prompts e origem em `assets/CAMPAIGN-ART.md`. O jogo recorta os sprites no canvas, com alternativa por background CSS para arquivos locais que bloqueiem exportação do canvas.
+
+### Invocações
+
+No máximo duas por batalha, com vida, dano, Defesa, intervalo e escudo próprios. HP por ato: 24/42/72/110; dano: 3/5/8/12. São fracas em comparação ao elite. Quatro modelos: Acólito Menor, Brasa Viva, Eco Lunar e Cão de Espinhos. Invocações aparecem no Mosteiro, na Catedral e em vários elites/chefes novos. Não geram essência separada e somem quando o elite cai. Os básicos as priorizam; habilidades atingem o elite. Redemoinho, Ruptura de Pedra, Cometa, Salva e Peste também causam 35% do valor direto nas invocações. O estado delas é salvo e restaurado em pausa.
+
+### Abertura mais exigente
+
+O primeiro encontro continua acessível. Os encontros 2–10 do Ato I ganharam 25% de vida e 15% de dano. O excesso de cura e controle do Caçador foi reduzido; Corte Profundo, Sede de Sangue e Grito de Guerra foram ajustados para viabilizar a rota do Berserker.
+
+`node search-campaign.cjs` avalia 280 combinações sem legado e sem críticos, com um plano fixo de pontos e aprimoramentos comuns. Foram 20 vitórias; não é prova de exclusividade de build, pois outras distribuições, ordens, críticos e drops alteram o resultado. Cinco rotas de margem estreita são verificadas em `campaign-balance.cjs`:
+
+| Classe | Habilidades na ordem de aprendizagem | Vida restante aproximada |
+|---|---|---|
+| Guardião | Golpe de Escudo / Bastião / Juramento Restaurador | 8% |
+| Berserker | Corte Profundo / Grito de Guerra / Sede de Sangue | 3% |
+| Arcanista | Lança de Gelo / Barreira Arcana / Raio de Tormenta | 1% |
+| Caçador | Flecha Venenosa / Investida do Companheiro / Pacto da Matilha | 6% |
+| Necromante | Peste / Armadura de Ossos / Prisão de Ossos | 8% |
+
+O cenário usa 1 Vitalidade e 1 atributo principal por vitória; o atributo principal é Defesa para Guardião, Foco para Arcanista/Necromante e Agilidade para Caçador/Berserker. Após três habilidades, alterna aprimoramentos comuns de Vitalidade e do atributo ofensivo (Defesa/Foco/Poder). O resultado não promete sobreviver com qualquer escolha nem com toda semente aleatória.
+
+`campaign-progression.cjs` usa um plano diferente: recarga e aprimoramentos defensivos/ofensivos, drops comuns no começo, raros após o Ato II e lendários nos chefes. As cinco builds com legado completo concluem os quatro atos; nenhuma sem legado conclui. Testes de transição, rituais únicos, limite de minions, alvo automático, dano em área e validação de saves estão em `campaign-test.cjs`.

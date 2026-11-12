@@ -11,7 +11,7 @@ function renderTitleScreen(){
  const count=affordableMeta();$('open-meta').textContent=count?'✦ Metaprogressão · '+count+' melhorias disponíveis':'Metaprogressão';$('open-meta').classList.toggle('has-upgrades',count>0);$('open-meta').disabled=locked;$('meta-description').textContent=classes[run.character].name+' · Melhorias permanentes exclusivas deste personagem. Aplicadas na próxima run.';
  const c=classes[run.character];$('title-character').innerHTML=pixelIcon(c.icon)+c.name;$('title-passive').textContent=c.passive;
  $('title-attributes').textContent='VIT '+c.base.vitality+' · POD '+c.base.power+' · DEF '+c.base.defense+' · AGI '+c.base.agility+' · FOC '+c.base.focus;
- $('title-legacy').textContent=save.essence+' essência · '+save.meta.reduce((a,b)=>a+b,0)+' melhorias permanentes · melhor avanço '+save.best+'/20';
+ $('title-legacy').textContent=save.essence+' essência · '+save.meta.reduce((a,b)=>a+b,0)+' melhorias permanentes · melhor avanço '+save.best+'/'+elites.length;
 }
 function bindTitleScreen(){
  $('title-start').onclick=()=>{titleOpen=false;if(mode==='dead'||mode==='won')fresh();else render();};

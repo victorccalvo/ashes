@@ -14,7 +14,8 @@ const ENEMY_ART=[
 function renderEnemyIntent(){
  const info=ENEMY_ART[run.stage];let label=info.trigger,progress=0;
  if(mode==='fight'){
- if(run.enemy.type==='act2'){label=info.move+' · ritual em '+Math.max(0,7-(run.abyssTimer||0)).toFixed(1)+'s';progress=(run.abyssTimer||0)/7;}
+ if(run.stage>=20){const period=run.stage>=30?6:7;label=info.move+' · ritual em '+Math.max(0,period-(run.campaignTimer||0)).toFixed(1)+'s';progress=(run.campaignTimer||0)/period;}
+ else if(run.enemy.type==='act2'){label=info.move+' · ritual em '+Math.max(0,7-(run.abyssTimer||0)).toFixed(1)+'s';progress=(run.abyssTimer||0)/7;}
  else if(run.windup>0){label='PREPARANDO '+info.move+' · '+run.windup.toFixed(1)+'s';progress=1-run.windup/2.5;}
  else if(['bleed','reflect'].includes(run.enemy.type)){label=info.move+(run.enemy.type==='bleed'?' · a cada ataque inimigo':' · ao receber ataques básicos');progress=1;}
  else if(run.enemy.type==='frenzy'){label=run.phase?'FÚRIA ATIVA · ataques a cada 1,25s':'FÚRIA ao cair abaixo de 50% de vida';progress=run.phase?1:Math.min(1,(1-run.enemy.hp/run.enemy.max)*2);}
