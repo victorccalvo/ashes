@@ -10,3 +10,5 @@ body{background:radial-gradient(ellipse at 50% 0,#25272944,transparent 50%),#080
 @media(max-width:850px){.title-classes{grid-template-columns:repeat(3,minmax(0,1fr))}.title-class img{height:180px}.title-content{padding:30px 22px}.title-summary{grid-template-columns:1fr;gap:8px}.title-summary>div:last-child{text-align:left}}
 @media(max-width:500px){.title-classes{grid-template-columns:repeat(2,minmax(0,1fr))}.title-class img{height:150px}.title-class strong{font-size:17px}.title-class small{font-size:9px}.title-kicker{letter-spacing:2px;font-size:8px}.title-tagline{font-size:14px}#ashes-title{font-size:66px}.title-content{padding:25px 15px}.enemy-dossier{padding:16px;gap:12px}}
 @media(prefers-reduced-motion:reduce){.title-class img{transition:none}.title-class.selected img,.title-class:hover:enabled img{transform:none}}
+.arena.act-two{background:radial-gradient(ellipse at bottom,#173a4b,#080c1b 75%);border-color:#426070}.act-two .moon{background:#82c6da}.path{flex-wrap:wrap}.node{min-width:7%}
+.path{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:7px}.node{min-width:0}

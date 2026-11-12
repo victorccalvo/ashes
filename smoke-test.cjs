@@ -3,7 +3,7 @@ const elements=new Map(),storage=new Map();
 storage.set('ashes-save-v2',JSON.stringify({essence:9999,meta:[5,5,5,5,5]}));
 storage.set('vigilia-save-v1',JSON.stringify({essence:9999,meta:[5,5,5,5,5]}));
 function element(){const e={textContent:'',style:{setProperty(){}},children:[],classList:{toggle(){},add(){},remove(){}},append(...xs){for(const x of xs){x.parent=this;this.children.push(x)}},prepend(x){x.parent=this;this.children.unshift(x)},setAttribute(){},click(){},listeners:{},getBoundingClientRect(){return{left:10,top:10,right:110,bottom:110}},addEventListener(type,handler){(this.listeners[type]??=[]).push(handler)},showModal(){this.open=true},close(){this.open=false},remove(){if(this.parent)this.parent.children.splice(this.parent.children.indexOf(this),1)},get lastChild(){return this.children[this.children.length-1]}};Object.defineProperty(e,'innerHTML',{set(){this.children=[]},get(){return ''}});return e;}
-function boot(){elements.clear();const c=vm.createContext({console,Math,Blob,URL,setTimeout,clearTimeout,confirm:()=>true,window:{addEventListener(){}},document:{body:element(),getElementById(id){if(!elements.has(id))elements.set(id,element());return elements.get(id)},createElement:element,addEventListener(){}},localStorage:{removeItem:k=>storage.delete(k),getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)},requestAnimationFrame(){}});vm.runInContext(fs.readFileSync('game.js','utf8')+'\n'+fs.readFileSync('art-ui.js','utf8')+'\n'+fs.readFileSync('enemy-content.js','utf8')+'\n'+fs.readFileSync('class-content.js','utf8')+'\n'+fs.readFileSync('class-ui.js','utf8')+'\n'+fs.readFileSync('title-screen.js','utf8')+'\n'+fs.readFileSync('combat-ui.js','utf8')+'\n'+fs.readFileSync('progression.js','utf8')+'\n'+fs.readFileSync('encounter-flow.js','utf8')+'\n'+fs.readFileSync('skill-evolutions.js','utf8')+'\n'+fs.readFileSync('attack-effects.js','utf8')+'\n'+fs.readFileSync('expansion.js','utf8')+'\n'+fs.readFileSync('scene-effects.js','utf8')+'\n'+fs.readFileSync('runtime.js','utf8'),c);return c;}
+function boot(){elements.clear();const c=vm.createContext({console,Math,Blob,URL,setTimeout,clearTimeout,confirm:()=>true,window:{addEventListener(){}},document:{body:element(),getElementById(id){if(!elements.has(id))elements.set(id,element());return elements.get(id)},createElement:element,addEventListener(){}},localStorage:{removeItem:k=>storage.delete(k),getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)},requestAnimationFrame(){}});vm.runInContext(fs.readFileSync('game.js','utf8')+'\n'+fs.readFileSync('art-ui.js','utf8')+'\n'+fs.readFileSync('enemy-content.js','utf8')+'\n'+fs.readFileSync('class-content.js','utf8')+'\n'+fs.readFileSync('class-ui.js','utf8')+'\n'+fs.readFileSync('title-screen.js','utf8')+'\n'+fs.readFileSync('combat-ui.js','utf8')+'\n'+fs.readFileSync('progression.js','utf8')+'\n'+fs.readFileSync('encounter-flow.js','utf8')+'\n'+fs.readFileSync('skill-evolutions.js','utf8')+'\n'+fs.readFileSync('attack-effects.js','utf8')+'\n'+fs.readFileSync('expansion.js','utf8')+'\n'+fs.readFileSync('scene-effects.js','utf8')+'\n'+fs.readFileSync('runtime.js','utf8')+'\n'+fs.readFileSync('boot.js','utf8'),c);return c;}
 const c=boot();
 vm.runInContext(`
 function check(v,m){if(!v)throw Error(m)}
@@ -46,7 +46,7 @@ check(run.slam>0&&run.bastion>0,'Cooldown begins');
 check(scaling('slam').includes('Poder')&&scaling('bastion').includes('Defesa'),'Scaling is visible');
 run.time+=1;renderSkillActivity();check($('skill-state-slam').textContent.includes('Recarga'),'Cooldown label');
 check($('enemy-health').textContent.includes('Vida'),'Enemy health visible');
-run.stage=9;startDuel();run.enemy.hp=0;tick(.05);check(mode==='won'&&save.best===10,'Boss reward');
+run.stage=9;startDuel();run.enemy.hp=0;tick(.05);check(mode==='won'&&save.best===20,'Boss reward');
 persist();validateArchive(JSON.parse(localStorage.getItem(STORAGE)));
 `,restored);
 assert(storage.has('ashes-save-v3'));
@@ -134,4 +134,19 @@ styleRun('necromancer',['harvest']);run.status.poison=6;run.status.poisonDps=10;
 styleRun('hunter',['pact','dog']);run.skillTimers.pact=0;run.skillTimers.dog=99;updateExtraSkills(.05);check(run.packReady,'Pack interaction prepared');run.skillTimers.dog=0;run.skillTimers.pact=99;updateExtraSkills(.05);check(!run.packReady,'Companion consumes pact');
 const oldCreate=document.createElement;document.createElement=tag=>{const el=oldCreate(tag);el.animate=()=>({finished:Promise.resolve()});return el;};floatingDamage(27,0,'Tiro preciso',false,false);const popup=$('damage-numbers').lastChild;check(popup.children[0].textContent==='27'&&popup.children[1].textContent==='Tiro preciso','Damage value and source');for(const key of Object.keys(SKILL_VISUALS)){check(sceneArt(key).includes('<'),'Skill has scene artwork');playSceneSkill(key);}check($('skill-fx-layer').children.length<=12,'Scene effects bounded');document.createElement=oldCreate;cancelOutcome();
 `,restored);
-console.log('PASS: 40 skills and scene effects, 85 meta options, save migration, damage indicators, new skill interactions, result transitions, core combat.');
+vm.runInContext(fs.readFileSync('act-two.js','utf8'),restored);
+vm.runInContext(`
+styleRun('guardian',['slam','bastion','second']);run.stage=9;startDuel();const funds=save.essence;run.enemy.hp=0;tick(.05);check(mode==='camp'&&run.stage===10,'First boss opens second act');check(options.length===3&&options.every(o=>o.rarity==='legendary'),'Guaranteed legendary boss reward');check(save.essence===funds,'No premature essence payout');completeOutcome();run.points=0;chosen=0;$('advance').onclick();check(mode==='fight'&&run.stage===10&&run.enemy.max>elites[9][5],'Act II begins with scaled enemy');
+for(let i=10;i<20;i++){run.stage=i;startDuel();run.hp=run.max=10000;run.enemy.hp=run.enemy.max=100000;run.attackTimer=999;run.enemyTimer=999;run.abyssTimer=6.99;tick(.05);check(run.abyssTimer===0&&Number.isFinite(run.hp),'Unique ritual executes: '+i);persist();validateArchive(JSON.parse(localStorage.getItem(STORAGE)));}
+run.stage=19;startDuel();run.enemy.hp=0;tick(.05);check(mode==='won'&&save.best===20,'Final boss ends the full expedition');cancelOutcome();
+check(new Set(ENEMY_ART.map(e=>e.file)).size===20,'Twenty distinct enemy artworks');
+// Reload a second-act run through the same script order as production.
+run.stage=14;startDuel();persist();
+`,restored);
+const secondActReload=vm.createContext({console,Math,Blob,URL,setTimeout,clearTimeout,confirm:()=>true,window:{addEventListener(){}},document:{body:element(),getElementById(id){if(!elements.has(id))elements.set(id,element());return elements.get(id)},createElement:element,addEventListener(){}},localStorage:{removeItem:k=>storage.delete(k),getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)},requestAnimationFrame(){}});
+const htmlScripts=[...fs.readFileSync('index.html','utf8').matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]);
+vm.runInContext(htmlScripts.map(file=>fs.readFileSync(file,'utf8')).join('\n'),secondActReload);
+assert(vm.runInContext("run.stage===14&&mode==='fight'&&paused&&elites.length===20",secondActReload),'Restore an Act II fight paused');
+for(const file of vm.runInContext('ENEMY_ART.map(e=>"assets/"+e.file+".png")',secondActReload))assert(fs.existsSync(file),'Missing two-act artwork: '+file);
+console.log('PASS: both acts, boss legendary reward, ten Act II rituals, save validation, 40 skills, meta upgrades, damage indicators, transitions.');
+

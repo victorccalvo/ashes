@@ -22,6 +22,10 @@ Cada um dos nove elites e o chefe tem uma arte própria e um cartão com tipo, n
 
 ## Primeiro recorte
 
+- Dois atos na mesma expedição: Mosteiro sem Sol e Catedral Submersa, cada um com nove elites e um chefe. O primeiro chefe oferece três aprimoramentos **lendários** (escolha um), dois pontos e recuperação de 40% da vida. A essência continua pendente até a morte ou conclusão do segundo ato.
+- Ato II: vida de 1900 a 3740 nos elites e 5670 no chefe; dano básico de 38 a 62 nos elites e 65 no chefe. Cada inimigo tem ritual próprio a cada 7s. O chefe lunar muda o ritual em 66% e 33% de vida. São valores iniciais de balanceamento, a validar com partidas e níveis diferentes de legado.
+- Saves antigos continuam válidos. O índice de encontro aceita 0–19 e o melhor avanço até 20. O jogo inicia depois de carregar os dados e comportamentos dos dois atos.
+
 - Expansão: oito habilidades por classe (40 no total), mantendo três espaços. Novas opções incluem Ruptura de Pedra, Juramento Restaurador e Égide; Reabrir Feridas, Ímpeto e Uivo; Raio, Cometa e Prisma; Marca, Salva e Pacto; Colheita, Prisão e Espectro. O catálogo mostra as novas fórmulas e interações.
 - Dezessete opções de legado por personagem: cinco básicas e doze de estilo. Oito novas por classe custam 30 + 18 por nível (as nove anteriores mantêm os preços). Saves de cinco ou nove opções são ampliados sem perder compras. São 85 opções e até 425 níveis de compra entre as cinco classes.
 - Efeitos de habilidade desenhados na cena: estacas de gelo, explosões de fogo, relâmpagos, contornos de escudo, cães/servos espectrais, partículas de cura, runas e cortes. Substituem os símbolos que voavam na arena; a barra de habilidades continua usando símbolos para identificação. Ainda são efeitos e silhuetas sobre as poses existentes, não animações quadro a quadro do corpo completo.
