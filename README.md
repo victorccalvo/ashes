@@ -85,3 +85,9 @@ Validar dificuldade das cinco classes em partidas reais; expandir cada classe pa
 - Ataque básico: 2 × Poder. Armadura do Porteiro reduz básicos em 20%; primeiro elite com 240 HP e 12 de dano. Os demais inimigos mantêm seus atributos.
 - Retaliação: 2,4 × Poder + 1,2 × Defesa. Segundo Fôlego ativa abaixo de 60% da vida, uma vez por duelo. Barreira Arcana tem base 12, mantendo limites e duração.
 - `node balance-test.cjs`: 40 escolhas iniciais isoladas, sem legado, em 21 cenários (sem críticos e 20 sementes), exigindo vitória com pelo menos 50% de HP antes do descanso. `node smoke-test.cjs` mantém as regressões gerais.
+
+### Caçador: mobilidade e matilha
+- Base: Vitalidade 9 / Poder 10 / Defesa 7 / Agilidade 10 / Foco 4 (40 pontos, 210 HP). Básicos recebem +0,45 × Agilidade; a quinta flecha mantém o dano extra e cura 3% da vida máxima.
+- Cão ganha scaling de Agilidade, cura 2% da vida por investida e protege contra presas marcadas. Armadilha marca, interrompe e atrasa; Passo Evasivo remove sangramento; Veneno enfraquece ataques físicos; Pacto cura, protege e limpa sangramento mesmo sem o cão.
+- Marca dura 8s, aplica vulnerabilidade de 18% por 6s e fortalece Tiro Preciso/Salva. Todos os oito slots de habilidade continuam compatíveis com saves e upgrades existentes.
+- `node hunter-test.cjs` verifica interações e quatro builds em dez encontros, sem legado nem críticos. O cenário distribui 1 Agilidade + 1 Vitalidade por vitória e alterna aprimoramentos comuns de Poder/Vitalidade após completar a build; não garante vitória com qualquer escolha aleatória.

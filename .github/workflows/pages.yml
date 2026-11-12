@@ -21,6 +21,7 @@ jobs:
         run: |
           node smoke-test.cjs
           node balance-test.cjs
+          node hunter-test.cjs
       - name: Prepare static site
         run: node scripts/build-site.cjs
       - uses: actions/configure-pages@v5

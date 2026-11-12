@@ -1,6 +1,6 @@
 'use strict';
 const ENEMY_ART=[
- {file:'enemy-elite',type:'Cavaleiro blindado',icon:'shield',move:'Sentença de Ferro',trigger:'Carrega por 2,5s · ciclo de 8s',detail:'Reduz ataques básicos em 35%. O golpe carregado causa 2,6× o dano físico.'},
+ {file:'enemy-elite',type:'Cavaleiro blindado',icon:'shield',move:'Sentença de Ferro',trigger:'Carrega por 2,5s · ciclo de 8s',detail:'Reduz ataques básicos em 20%. O golpe carregado causa 2,6× o dano físico.'},
  {file:'enemy-widow',type:'Espectro hemorrágico',icon:'sword',move:'Lamento Cortante',trigger:'Sangramento a cada ataque',detail:'Cada ataque renova um sangramento de 6s que ignora a Defesa.'},
  {file:'enemy-penitent',type:'Monge regenerador',icon:'heart',move:'Comunhão Faminta',trigger:'Canaliza por 2,5s · ciclo de 8s',detail:'Recupera 13% da própria vida máxima ao completar o ritual. Pode ser interrompido.'},
  {file:'enemy-thorn',type:'Cavaleiro de espinhos',icon:'shield',move:'Coroa de Farpas',trigger:'Reage a cada ataque básico',detail:'Reflete 12% do dano dos seus ataques básicos. Habilidades não são refletidas.'},
