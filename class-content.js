@@ -30,18 +30,19 @@ const EXTRA_SKILLS={
  bone:{name:'Armadura de ossos',desc:'Cria uma barreira de ossos, limitada a 45% da vida máxima.',cd:10,icon:'shield',base:10,focus:1,defense:2,type:'shield'}
 };
 for(const [key,s] of Object.entries(EXTRA_SKILLS))skillIcons[key]=s.icon;
-function classSkillValue(key){const s=EXTRA_SKILLS[key];return (s.base+['vitality','power','defense','agility','focus'].reduce((sum,a)=>sum+(s[a]||0)*run[a],0))*(1+(run.skillBoost?.[key]||0)/100);}
+function classSkillValue(key){const s=EXTRA_SKILLS[key];return (s.base+['vitality','power','defense','agility','focus'].reduce((sum,a)=>sum+(s[a]||0)*run[a],0))*(1+(run.skillBoost?.[key]||0)/100)*(key==='precise'?1+.1*trait(2):key==='skeleton'?1+.08*trait(0):1);}
 function cooldownRate(){return (1+run.focus*.04)*(run.character==='arcanist'?1.15:1);}
 function extraScaling(key){const s=EXTRA_SKILLS[key],labels={vitality:'Vitalidade',power:'Poder',defense:'Defesa',agility:'Agilidade',focus:'Foco'};return 'Escala: '+[s.base,...Object.keys(labels).filter(a=>s[a]).map(a=>s[a]+' × '+labels[a])].join(' + ')+'. '+({shield:'Escudo',heal:'Cura'}[s.type]||'Dano')+' atual: '+Math.round(classSkillValue(key))+'. Recarga: '+(s.cd/cooldownRate()).toFixed(1)+'s.';}
 function updateExtraSkills(dt){
  run.skillTimers=run.skillTimers||{};run.status=run.status||{poison:0,poisonDps:0,bleed:0,bleedDps:0,fire:0,fireDps:0,weak:0};
  const st=run.status;for(const kind of ['poison','bleed','fire'])if(st[kind]>0){const active=Math.min(st[kind],dt);st[kind]=Math.max(0,st[kind]-dt);hurtEnemy(st[kind+'Dps']*active,null,false,true);}st.weak=Math.max(0,st.weak-dt);
- for(const key of run.skills){const s=EXTRA_SKILLS[key];if(!s)continue;run.skillTimers[key]=Math.max(0,(run.skillTimers[key]??1)-dt*cooldownRate());if(run.skillTimers[key]>0)continue;run.skillTimers[key]=s.cd;triggerSkill(key);let value=classSkillValue(key);
- if(s.type==='heal')run.hp=Math.min(run.max,run.hp+value);else if(s.type==='shield')run.shield=Math.min(run.max*.45,run.shield+value+run.barrier);else{if(s.effect==='execute'&&run.enemy.hp<run.enemy.max*.35)value*=2;hurtEnemy(value,s.name);}
- if(['bleed','fire','poison'].includes(s.effect)){const kind=s.effect;st[kind]=kind==='fire'?4:6;st[kind+'Dps']=value*(kind==='poison'?.25:.2);}
- if(s.effect==='drain')run.hp=Math.min(run.max,run.hp+value*.35);
- if(s.effect==='curse')st.weak=5;
- if(s.effect==='slow')run.enemyTimer+=1.4;
+ for(const key of run.skills){const s=EXTRA_SKILLS[key];if(!s)continue;run.skillTimers[key]=Math.max(0,(run.skillTimers[key]??(run.character==='arcanist'?1/(1+.2*trait(2)):1))-dt*cooldownRate());if(run.skillTimers[key]>0)continue;run.skillTimers[key]=s.cd;triggerSkill(key);let value=classSkillValue(key);
+ if(s.type==='heal')run.hp=Math.min(run.max,run.hp+value);else if(s.type==='shield')run.shield=Math.min(shieldLimit(),run.shield+value+run.barrier);else{if(s.effect==='execute'&&run.enemy.hp<run.enemy.max*(.35+.02*trait(2)))value*=2;hurtEnemy(value,s.name);}
+ if(['bleed','fire','poison'].includes(s.effect)){const kind=s.effect;st[kind]=kind==='fire'?4+(key==='fireball'?trait(0):0):6+(key==='venom'?trait(1):0);st[kind+'Dps']=value*(kind==='poison'?.25:.2)*(key==='rend'?1+.1*trait(1):1);}
+ if(key==='dog')run.hp=Math.min(run.max,run.hp+run.max*.003*trait(0));if(key==='skeleton')run.shield=Math.min(shieldLimit(),run.shield+2*trait(3));
+ if(s.effect==='drain')run.hp=Math.min(run.max,run.hp+value*(.35+.05*trait(1)));
+ if(s.effect==='curse')st.weak=5+trait(2);
+ if(s.effect==='slow')run.enemyTimer+=1.4+.2*trait(3);
  if(s.effect==='trap'){run.enemyTimer+=1;if(run.windup>0){run.windup=0;log('Armadilha interrompeu a preparação!');}}
  if(run.enemy.hp<=0)break;
  }

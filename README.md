@@ -22,6 +22,11 @@ Cada um dos nove elites e o chefe tem uma arte própria e um cartão com tipo, n
 
 ## Primeiro recorte
 
+- Cada classe oferece nove upgrades permanentes: cinco básicos preservados de versões anteriores e quatro exclusivos do seu estilo. Os novos níveis são inicializados em zero ao carregar saves antigos. Os efeitos de estilo são copiados para a próxima run, mantendo uma run já em andamento intacta.
+- Guardião: escudo inicial, cura ao interromper, maior limite de barreira e espinhos. Berserker: roubo de vida, sangramento, execução e limiar de fúria. Arcanista: queimadura, conversão de dano em barreira, primeira conjuração e lentidão. Caçador: cura pelo cão, veneno, Tiro Preciso e controle no quinto ataque. Necromante: dano do servo, drenagem, duração de maldição e barreira pelo servo.
+- Cada personagem tem um botão **Ver habilidades** na seleção. O catálogo mostra passiva, todas as habilidades, efeitos, escala e recarga base, sem trocar o personagem selecionado.
+- Janelas opcionais fecham pelo clique no fundo; escolhas obrigatórias de habilidade e aprimoramento não fecham por clique fora, Escape ou X. Cartões de aprimoramento usam borda, fundo e faixa inteiros na cor da raridade, além do nome escrito.
+
 - Metaprogressão em uma janela exclusiva da seleção de personagem. O botão e os cartões de classe indicam compras possíveis de acordo com a essência e os níveis atuais. Não se compram melhorias durante uma run ativa. Compras feitas na preparação atualizam os valores iniciais antes da partida; dados existentes são preservados.
 - Três habilidades em uma barra junto à arena, fixa ao rolar a área de combate. Mostra símbolos próprios, contagem de recarga, progresso, condições reativas e destaque de ativação. Clique em um símbolo para consultar a descrição e a escala; durante o combate, isso pausa a run.
 - Cada uma das 25 habilidades tem símbolo e configuração visual próprios: trajetórias, cores, duração, rotação e escala, com cortes, projéteis, proteção, invocações, cura e maldições. São efeitos gráficos e movimentos sobre as artes existentes, respeitando movimento reduzido. O nome e símbolo da ação atual aparecem sobre a arena. Em telas estreitas, o combate vem antes dos atributos.
