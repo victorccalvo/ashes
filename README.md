@@ -22,6 +22,11 @@ Cada um dos nove elites e o chefe tem uma arte própria e um cartão com tipo, n
 
 ## Primeiro recorte
 
+- Expansão: oito habilidades por classe (40 no total), mantendo três espaços. Novas opções incluem Ruptura de Pedra, Juramento Restaurador e Égide; Reabrir Feridas, Ímpeto e Uivo; Raio, Cometa e Prisma; Marca, Salva e Pacto; Colheita, Prisão e Espectro. O catálogo mostra as novas fórmulas e interações.
+- Dezessete opções de legado por personagem: cinco básicas e doze de estilo. Oito novas por classe custam 30 + 18 por nível (as nove anteriores mantêm os preços). Saves de cinco ou nove opções são ampliados sem perder compras. São 85 opções e até 425 níveis de compra entre as cinco classes.
+- Efeitos de habilidade desenhados na cena: estacas de gelo, explosões de fogo, relâmpagos, contornos de escudo, cães/servos espectrais, partículas de cura, runas e cortes. Substituem os símbolos que voavam na arena; a barra de habilidades continua usando símbolos para identificação. Ainda são efeitos e silhuetas sobre as poses existentes, não animações quadro a quadro do corpo completo.
+- Números sobre o inimigo mostram vida efetivamente removida, crítico, fonte e dano absorvido. Ataques diretos aparecem individualmente; dano periódico é agrupado para evitar dezenas de números por segundo. Elementos visuais têm limite de quantidade e são removidos após a animação.
+
 - Atualização da Barreira Arcana: potência +15% em relação ao ajuste anterior e teto de 23% da vida máxima. Conjura normalmente com qualquer escudo existente: substitui a parcela anterior da própria barreira e preserva as demais fontes, respeitando o limite total. Recarga de 14s e duração de 5s mantidas.
 - Resultados agora permanecem por 7 segundos, com botão para avançar imediatamente e contagem regressiva. A derrota conduz ao resultado/legado, com retorno ao menu; vitórias intermediárias levam aos aprimoramentos.
 - Ataques básicos têm arma/projétil separado e animado: espada, dois machados, flecha e projéteis mágicos. Incluem preparação, golpe e recuperação do corpo. São efeitos sobre as artes existentes, não sprites desenhados quadro a quadro.

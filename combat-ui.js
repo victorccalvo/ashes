@@ -69,18 +69,10 @@ function playSkillEffect(key){
  // A clear current-action banner accompanies the three cooldown indicators.
  $('arena-action').innerHTML=skillSymbol(key)+'<strong>'+skillData[key][0]+'</strong>';$('arena-action').style.setProperty('--skill-color',v.color);$('arena-action').hidden=false;
  if(typeof window.matchMedia==='function'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
- const layer=$('skill-fx-layer'),fx=document.createElement('span');if(typeof fx.animate!=='function')return;
- while(layer.children.length>=8)layer.children[0].remove();fx.className='skill-fx fx-'+v.kind;fx.innerHTML=skillSymbol(key);fx.style.color=v.color;fx.setAttribute('aria-hidden','true');layer.append(fx);
- const enemy=['strike','spin','fall','snap','sigil','cloud'].includes(v.kind);const start=enemy?73:27;let end=start,fromY=0,toY=0;
- if(['projectile','volley','pounce','summon'].includes(v.kind))end=73;
- if(v.kind==='return'){end=27;fx.style.left='73%';}else fx.style.left=start+'%';
- if(v.kind==='rise'){fromY=35;toY=-45;}if(v.kind==='fall'){fromY=-95;toY=20;}if(v.kind==='pounce'){fromY=15;toY=-15;}if(v.kind==='summon')fromY=65;if(v.kind==='dodge')end=12;
- const travel=v.kind==='return'?'-46cqw':(end-start)*1+'cqw';
- const frames=[{opacity:0,transform:'translate(-50%, '+fromY+'px) scale(.4) rotate(0deg)'},{opacity:1,offset:.3},{opacity:0,transform:'translate(calc(-50% + '+travel+'), '+toY+'px) scale('+v.scale+') rotate('+v.rotation+'deg)'}];
- const animation=fx.animate(frames,{duration:v.duration,easing:'ease-out'});animation.finished.then(()=>fx.remove(),()=>fx.remove());
- const sprite=$('guardian-art');if(typeof sprite.animate==='function'){const dx=v.kind==='dodge'?-20:['strike','pounce'].includes(v.kind)?18:0;const tilt=['spin','strike','fall'].includes(v.kind)?Math.min(12,v.rotation/10):0;sprite.animate([{transform:'translate(0,0)'},{transform:'translate('+dx+'px,'+(v.kind==='rise'?-8:0)+'px) rotate('+tilt+'deg)',filter:'brightness(1.3)'},{transform:'translate(0,0)',filter:'brightness(1)'}],{duration:Math.min(650,v.duration),easing:'ease-out'});}
+ playSceneSkill(key);
 }
-function affordableMeta(profile=save){return profile.meta.reduce((n,level)=>n+(level<5&&profile.essence>=12+level*10?1:0),0);}
+
+function affordableMeta(profile=save){return profile.meta.reduce((n,level,i)=>n+(level<5&&profile.essence>=metaCost(i,level)?1:0),0);}
 function bindCombatUI(){
  $('open-meta').onclick=()=>{if(!titleOpen||mode==='fight'||mode==='camp')return;render();$('meta-dialog').showModal();};$('close-meta').onclick=()=>$('meta-dialog').close();$('close-skill-detail').onclick=()=>$('skill-detail-dialog').close();
 }
