@@ -28,6 +28,7 @@ jobs:
           node campaign-balance.cjs
           node campaign-progression.cjs
           node endless-test.cjs
+          node equipment-test.cjs
       - name: Prepare static site
         run: node scripts/build-site.cjs
       - uses: actions/configure-pages@v5
