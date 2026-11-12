@@ -16,7 +16,7 @@ const EXTRA_SKILLS={
  fireball:{name:'Bola de fogo',desc:'Aplica queimadura por 4s (20% do dano por segundo).',cd:6,icon:'flame',base:12,power:2,focus:1,effect:'fire'},
  frost:{name:'Lança de gelo',desc:'Atrasa o próximo ataque inimigo em 1,4s.',cd:8,icon:'staff',base:10,power:1,focus:1.5,effect:'slow'},
  missiles:{name:'Mísseis arcanos',desc:'Projéteis arcanos de recarga curta.',cd:4,icon:'spark',base:5,power:1.2,focus:.8},
- ward:{name:'Barreira arcana',desc:'Cria um escudo, limitado a 45% da vida máxima.',cd:10,icon:'shield',base:12,focus:2,defense:1,type:'shield'},
+ ward:{name:'Barreira arcana',desc:'Barreira de 5s, limitada a 20% da vida máxima. Não acumula consigo mesma.',cd:14,icon:'shield',base:8,focus:1.2,defense:.6,type:'shield'},
  echo:{name:'Eco mágico',desc:'Libera uma descarga concentrada de energia arcana.',cd:12,icon:'staff',base:20,focus:3},
  precise:{name:'Tiro preciso',desc:'Disparo concentrado que pode causar crítico.',cd:6,icon:'bow',base:12,power:2,agility:1},
  venom:{name:'Flecha venenosa',desc:'Aplica veneno por 6s (25% do dano por segundo).',cd:5,icon:'bow',base:5,power:1,agility:.6,effect:'poison'},
@@ -35,15 +35,17 @@ function cooldownRate(){return (1+run.focus*.04)*(run.character==='arcanist'?1.1
 function extraScaling(key){const s=EXTRA_SKILLS[key],labels={vitality:'Vitalidade',power:'Poder',defense:'Defesa',agility:'Agilidade',focus:'Foco'};return 'Escala: '+[s.base,...Object.keys(labels).filter(a=>s[a]).map(a=>s[a]+' × '+labels[a])].join(' + ')+'. '+({shield:'Escudo',heal:'Cura'}[s.type]||'Dano')+' atual: '+Math.round(classSkillValue(key))+'. Recarga: '+(s.cd/cooldownRate()).toFixed(1)+'s.';}
 function updateExtraSkills(dt){
  run.skillTimers=run.skillTimers||{};run.status=run.status||{poison:0,poisonDps:0,bleed:0,bleedDps:0,fire:0,fireDps:0,weak:0};
+ run.vulnerable=Math.max(0,(run.vulnerable||0)-dt);if(run.wardExpiry>0){run.wardExpiry=Math.max(0,run.wardExpiry-dt);if(!run.wardExpiry){run.shield=Math.max(0,run.shield-(run.wardShield||0));run.wardShield=0;}}
  const st=run.status;for(const kind of ['poison','bleed','fire'])if(st[kind]>0){const active=Math.min(st[kind],dt);st[kind]=Math.max(0,st[kind]-dt);hurtEnemy(st[kind+'Dps']*active,null,false,true);}st.weak=Math.max(0,st.weak-dt);
- for(const key of run.skills){const s=EXTRA_SKILLS[key];if(!s)continue;run.skillTimers[key]=Math.max(0,(run.skillTimers[key]??(run.character==='arcanist'?1/(1+.2*trait(2)):1))-dt*cooldownRate());if(run.skillTimers[key]>0)continue;run.skillTimers[key]=s.cd;triggerSkill(key);let value=classSkillValue(key);
- if(s.type==='heal')run.hp=Math.min(run.max,run.hp+value);else if(s.type==='shield')run.shield=Math.min(shieldLimit(),run.shield+value+run.barrier);else{if(s.effect==='execute'&&run.enemy.hp<run.enemy.max*(.35+.02*trait(2)))value*=2;hurtEnemy(value,s.name);}
+ for(const key of run.skills){const s=EXTRA_SKILLS[key];if(!s)continue;run.skillTimers[key]=Math.max(0,(run.skillTimers[key]??(run.character==='arcanist'?1/(1+.2*trait(2)):1))-dt*cooldownRate());if(run.skillTimers[key]>0)continue;run.skillTimers[key]=s.cd;triggerSkill(key);let value=evolveBeforeCast(key,classSkillValue(key));
+ if(s.type==='heal')run.hp=Math.min(run.max,run.hp+value);else if(s.type==='shield'){if(key==='ward'){run.shield=Math.max(0,run.shield-(run.wardShield||0));const grant=Math.min(run.max*.2,value+run.barrier);run.wardShield=Math.min(grant,Math.max(0,shieldLimit()-run.shield));run.shield+=run.wardShield;run.wardExpiry=5;}else run.shield=Math.min(shieldLimit(),run.shield+value+run.barrier);}else{if(s.effect==='execute'&&run.enemy.hp<run.enemy.max*(.35+.02*trait(2)))value*=2;hurtEnemy(value,s.name);}
  if(['bleed','fire','poison'].includes(s.effect)){const kind=s.effect;st[kind]=kind==='fire'?4+(key==='fireball'?trait(0):0):6+(key==='venom'?trait(1):0);st[kind+'Dps']=value*(kind==='poison'?.25:.2)*(key==='rend'?1+.1*trait(1):1);}
  if(key==='dog')run.hp=Math.min(run.max,run.hp+run.max*.003*trait(0));if(key==='skeleton')run.shield=Math.min(shieldLimit(),run.shield+2*trait(3));
  if(s.effect==='drain')run.hp=Math.min(run.max,run.hp+value*(.35+.05*trait(1)));
  if(s.effect==='curse')st.weak=5+trait(2);
  if(s.effect==='slow')run.enemyTimer+=1.4+.2*trait(3);
  if(s.effect==='trap'){run.enemyTimer+=1;if(run.windup>0){run.windup=0;log('Armadilha interrompeu a preparação!');}}
+ evolveAfterCast(key,value);
  if(run.enemy.hp<=0)break;
  }
 }

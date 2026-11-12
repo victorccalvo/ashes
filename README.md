@@ -22,6 +22,11 @@ Cada um dos nove elites e o chefe tem uma arte própria e um cartão com tipo, n
 
 ## Primeiro recorte
 
+- Vitória e derrota têm uma transição de 1,45s antes do popup (0,45s sem movimento quando movimento reduzido está ativo). O resultado é salvo imediatamente para evitar recompensas duplicadas ao recarregar. Na derrota há um botão **Voltar ao menu**.
+- Cartões de escolhas compartilham as linhas de raridade, título e descrição com CSS subgrid, mantendo alinhamento mesmo com textos de tamanhos diferentes.
+- Barreira Arcana: base 8 + 1,2 × Foco + 0,6 × Defesa; recarga base 14s; duração 5s; no máximo 20% da vida máxima por aplicação; substitui a própria barreira anterior. Outras fontes de proteção continuam sujeitas ao limite total de escudos.
+- Dezesseis modificadores comportamentais para as quatro classes além do Guardião: limpeza de sangramento, conversão de dano em proteção, detonação de queimaduras, conjuração tripla, sinergia cão/veneno, vulnerabilidade, contra-ataque evasivo e proteção pelo servo. Cada modificador aparece apenas para uma habilidade aprendida e pode ser escolhido uma vez na run. Bônus de potência comuns continuam disponíveis.
+
 - Cada classe oferece nove upgrades permanentes: cinco básicos preservados de versões anteriores e quatro exclusivos do seu estilo. Os novos níveis são inicializados em zero ao carregar saves antigos. Os efeitos de estilo são copiados para a próxima run, mantendo uma run já em andamento intacta.
 - Guardião: escudo inicial, cura ao interromper, maior limite de barreira e espinhos. Berserker: roubo de vida, sangramento, execução e limiar de fúria. Arcanista: queimadura, conversão de dano em barreira, primeira conjuração e lentidão. Caçador: cura pelo cão, veneno, Tiro Preciso e controle no quinto ataque. Necromante: dano do servo, drenagem, duração de maldição e barreira pelo servo.
 - Cada personagem tem um botão **Ver habilidades** na seleção. O catálogo mostra passiva, todas as habilidades, efeitos, escala e recarga base, sem trocar o personagem selecionado.
