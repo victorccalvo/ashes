@@ -30,11 +30,11 @@ const MORE_META={
 for(const [id,items] of Object.entries(MORE_META))CLASS_META[id].push(...items.map(([name,desc])=>[name,desc,CLASS_DEFS[id].icon]));
 function expansionSkillRate(key){return 1+(run.character==='guardian'&&['bastion','aegis'].includes(key)?trait(10)*.01:key==='dog'||key==='skeleton'?trait(7)*.02:0);}
 function expansionDamageBonus(){if(run.character==='guardian')return run.shield>0?trait(4)*.02:0;if(run.character==='berserker')return run.status?.bleed>0?trait(4)*.02:0;if(run.character==='hunter')return run.marked>0?trait(4)*.02:0;if(run.character==='necromancer')return run.status?.weak>0?trait(10)*.02:0;return 0;}
-function expansionBefore(key,value){
+function expansionBefore(key,value,preview=false){
  if(key==='lightning'&&run.chilled>0)value*=1.4+trait(5)*.03;
  if(key==='comet'&&run.status.fire>0)value*=1.3;
- if(key==='bloodrush'){run.hp=Math.max(1,run.hp-run.hp*.04*(1-trait(5)*.03));if(run.hp<run.max*furyThreshold())value*=1.4;}
- if(key==='dog'&&run.packReady){value*=1.5;run.packReady=false;}
+ if(key==='bloodrush'){const nextHp=Math.max(1,run.hp-run.hp*.04*(1-trait(5)*.03));if(!preview)run.hp=nextHp;if(nextHp<run.max*furyThreshold())value*=1.4;}
+ if(key==='dog'&&run.packReady){value*=1.5;if(!preview)run.packReady=false;}
  if(key==='wraith'&&run.status.weak>0)value*=1.35;
  if(key==='volley'&&(run.status.poison>0||run.marked>0))value*=1.25;
  if(key==='precise'&&run.marked>0)value*=1.3;

@@ -1,5 +1,5 @@
 loadProgress();
-bindClassControls();bindTitleScreen();bindCombatUI();bindProgressionUI();bindEncounterFlow();
+bindClassControls();bindTitleScreen();bindCombatUI();bindProgressionUI();bindEncounterFlow();if(typeof bindCharacterSheet==='function')bindCharacterSheet();
 // Act II hooks are installed before loading a run.
 if(loadedSession)restoreSession(loadedSession);else fresh();if(storageIssue)$('save-note').textContent='Não foi possível recuperar o salvamento local. Use um backup exportado, se disponível.';requestAnimationFrame(frame);
 
