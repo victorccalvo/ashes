@@ -22,6 +22,10 @@ Cada um dos nove elites e o chefe tem uma arte própria e um cartão com tipo, n
 
 ## Primeiro recorte
 
+- Atualização da Barreira Arcana: potência +15% em relação ao ajuste anterior e teto de 23% da vida máxima. Conjura normalmente com qualquer escudo existente: substitui a parcela anterior da própria barreira e preserva as demais fontes, respeitando o limite total. Recarga de 14s e duração de 5s mantidas.
+- Resultados agora permanecem por 7 segundos, com botão para avançar imediatamente e contagem regressiva. A derrota conduz ao resultado/legado, com retorno ao menu; vitórias intermediárias levam aos aprimoramentos.
+- Ataques básicos têm arma/projétil separado e animado: espada, dois machados, flecha e projéteis mágicos. Incluem preparação, golpe e recuperação do corpo. São efeitos sobre as artes existentes, não sprites desenhados quadro a quadro.
+
 - Vitória e derrota têm uma transição de 1,45s antes do popup (0,45s sem movimento quando movimento reduzido está ativo). O resultado é salvo imediatamente para evitar recompensas duplicadas ao recarregar. Na derrota há um botão **Voltar ao menu**.
 - Cartões de escolhas compartilham as linhas de raridade, título e descrição com CSS subgrid, mantendo alinhamento mesmo com textos de tamanhos diferentes.
 - Barreira Arcana: base 8 + 1,2 × Foco + 0,6 × Defesa; recarga base 14s; duração 5s; no máximo 20% da vida máxima por aplicação; substitui a própria barreira anterior. Outras fontes de proteção continuam sujeitas ao limite total de escudos.
