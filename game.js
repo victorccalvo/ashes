@@ -1,6 +1,6 @@
 'use strict';
 const elites=[
- ['O Porteiro de Ferro','O PRIMEIRO JURAMENTO','♜','Golpe carregado a cada 8s. Armadura reduz ataques básicos.','Invista em defesa para amortecer o golpe; Golpe de Escudo interrompe a preparação.',260,16,'armor'],
+ ['O Porteiro de Ferro','O PRIMEIRO JURAMENTO','♜','Golpe carregado a cada 8s. Armadura reduz ataques básicos.','Invista em defesa para amortecer o golpe; Golpe de Escudo interrompe a preparação.',240,12,'armor'],
  ['A Viúva dos Sinos','SANGUE SOB O VÉU','♝','Seus ataques acumulam sangramento por 6s.','Vitalidade e Segundo Fôlego ajudam a sobreviver ao dano contínuo.',330,17,'bleed'],
  ['O Penitente Faminto','UMA FÉ DEVORADORA','♟','Canaliza uma cura a cada 8s.','Interromper a canalização evita a cura. Poder ajuda a superar sua regeneração.',410,19,'heal'],
  ['Cavaleiro do Espinheiro','AÇO CONTRA AÇO','♞','Devolve 12% do dano dos seus ataques básicos.','Escudos absorvem a retaliação. Poder também fortalece habilidades, que não são refletidas.',490,20,'reflect'],

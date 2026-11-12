@@ -79,3 +79,9 @@ Fantasia sombria original: mosteiro abandonado, juramentos, cinzas, pedra e ouro
 ## Próximas iterações
 
 Validar dificuldade das cinco classes em partidas reais; expandir cada classe para dez habilidades; criar artes individuais dos elites; adicionar animações quadro a quadro, invocações visuais independentes e áudio.
+
+### Balanceamento da abertura e custos do legado
+- Cada nível do mesmo upgrade custa o dobro do anterior: slots 0–8 custam 12/24/48/96/192; slots 9–16 custam 30/60/120/240/480 essências. Compras existentes e saldos são preservados.
+- Ataque básico: 2 × Poder. Armadura do Porteiro reduz básicos em 20%; primeiro elite com 240 HP e 12 de dano. Os demais inimigos mantêm seus atributos.
+- Retaliação: 2,4 × Poder + 1,2 × Defesa. Segundo Fôlego ativa abaixo de 60% da vida, uma vez por duelo. Barreira Arcana tem base 12, mantendo limites e duração.
+- `node balance-test.cjs`: 40 escolhas iniciais isoladas, sem legado, em 21 cenários (sem críticos e 20 sementes), exigindo vitória com pelo menos 50% de HP antes do descanso. `node smoke-test.cjs` mantém as regressões gerais.

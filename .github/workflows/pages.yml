@@ -18,7 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Test game
-        run: node smoke-test.cjs
+        run: |
+          node smoke-test.cjs
+          node balance-test.cjs
       - name: Prepare static site
         run: node scripts/build-site.cjs
       - uses: actions/configure-pages@v5

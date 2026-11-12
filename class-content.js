@@ -16,7 +16,7 @@ const EXTRA_SKILLS={
  fireball:{name:'Bola de fogo',desc:'Aplica queimadura por 4s (20% do dano por segundo).',cd:6,icon:'flame',base:12,power:2,focus:1,effect:'fire'},
  frost:{name:'Lança de gelo',desc:'Atrasa o próximo ataque inimigo em 1,4s.',cd:8,icon:'staff',base:10,power:1,focus:1.5,effect:'slow'},
  missiles:{name:'Mísseis arcanos',desc:'Projéteis arcanos de recarga curta.',cd:4,icon:'spark',base:5,power:1.2,focus:.8},
- ward:{name:'Barreira arcana',desc:'Barreira de 5s, limitada a 23% da vida máxima. Não acumula consigo mesma.',cd:14,icon:'shield',base:8,focus:1.2,defense:.6,type:'shield'},
+ ward:{name:'Barreira arcana',desc:'Barreira de 5s, limitada a 23% da vida máxima. Não acumula consigo mesma.',cd:14,icon:'shield',base:12,focus:1.2,defense:.6,type:'shield'},
  echo:{name:'Eco mágico',desc:'Libera uma descarga concentrada de energia arcana.',cd:12,icon:'staff',base:20,focus:3},
  precise:{name:'Tiro preciso',desc:'Disparo concentrado que pode causar crítico.',cd:6,icon:'bow',base:12,power:2,agility:1},
  venom:{name:'Flecha venenosa',desc:'Aplica veneno por 6s (25% do dano por segundo).',cd:5,icon:'bow',base:5,power:1,agility:.6,effect:'poison'},
