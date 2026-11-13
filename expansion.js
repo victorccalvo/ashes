@@ -6,15 +6,15 @@ const NEW_SKILLS={
  rupture:{name:'Reabrir feridas',desc:'Consome o sangramento restante, causando 75% do dano restante imediatamente.',cd:9,icon:'fang',base:8,power:1.6},
  bloodrush:{name:'Ímpeto sangrento',desc:'Consome 4% da vida atual e causa dano; fica 40% mais forte sob a passiva de fúria.',cd:6,icon:'blood',base:14,power:2.2,vitality:.5},
  ancestors:{name:'Uivo ancestral',desc:'Cura e concede 5% de roubo de vida por 5s.',cd:13,icon:'shout',base:5,vitality:1.2,type:'heal'},
- lightning:{name:'Raio de tormenta',desc:'Causa +40% de dano contra um alvo recentemente atingido por gelo.',cd:7,icon:'stars',base:10,focus:1.8,power:1},
- comet:{name:'Cometa de cinzas',desc:'Aplica queimadura por 6s. Se o alvo já queimava, causa +30% de dano direto.',cd:12,icon:'flame',base:18,focus:1.5,power:1.5,effect:'fire'},
- prism:{name:'Prisma glacial',desc:'Cria escudo e atrasa o ataque inimigo em 1s se ele estiver queimando.',cd:12,icon:'ice',base:8,focus:1.2,defense:.5,type:'shield'},
- mark:{name:'Marca da presa',desc:'Marca por 8s e deixa o alvo vulnerável: +18% de dano direto por 6s.',cd:8,icon:'eye',base:10,agility:1.2,focus:.8},
+ lightning:{name:'Raio de tormenta',desc:'Causa +40% de dano contra um alvo recentemente atingido por gelo.',cd:7,icon:'stars',base:10,power:2.8},
+ comet:{name:'Cometa de cinzas',desc:'Aplica queimadura por 6s. Se o alvo já queimava, causa +30% de dano direto.',cd:12,icon:'flame',base:18,power:3,effect:'fire'},
+ prism:{name:'Prisma glacial',desc:'Cria escudo e atrasa o ataque inimigo em 1s se ele estiver queimando.',cd:12,icon:'ice',base:8,defense:3.38,type:'shield'},
+ mark:{name:'Marca da presa',desc:'Marca por 8s e deixa o alvo vulnerável: +18% de dano direto por 6s.',cd:8,icon:'eye',base:10,agility:1.52},
  volley:{name:'Salva de farpas',desc:'Três impactos. +25% contra alvo envenenado ou marcado (não acumula).',cd:7,icon:'bow',base:14,agility:1.8,power:1.2},
  pact:{name:'Pacto da matilha',desc:'Cura, remove sangramento e gera escudo de 0,8 × Agilidade. Fortalece o próximo ataque do cão em 50%.',cd:12,icon:'paw',base:8,vitality:1.5,agility:.5,type:'heal'},
- harvest:{name:'Colheita fúnebre',desc:'Consome o veneno restante: causa 60% do dano restante e cura 10% dele.',cd:10,icon:'siphon',base:8,focus:1.3,power:.6},
- prison:{name:'Prisão de ossos',desc:'Cria escudo, interrompe preparações e atrasa o ataque inimigo em 1s.',cd:13,icon:'ribs',base:8,defense:1.6,focus:.8,type:'shield'},
- wraith:{name:'Espectro faminto',desc:'Invoca um espectro para atacar. +35% de dano contra um alvo amaldiçoado.',cd:7,icon:'skull',base:10,focus:1.5,power:.8}
+ harvest:{name:'Colheita fúnebre',desc:'Consome o veneno restante: causa 60% do dano restante e cura 10% dele.',cd:10,icon:'siphon',base:8,power:2.03},
+ prison:{name:'Prisão de ossos',desc:'Cria escudo, interrompe preparações e atrasa o ataque inimigo em 1s.',cd:13,icon:'ribs',base:8,defense:3.36,type:'shield'},
+ wraith:{name:'Espectro faminto',desc:'Invoca um espectro para atacar. +35% de dano contra um alvo amaldiçoado.',cd:7,icon:'skull',base:10,power:2.45}
 };
 const additions={guardian:['quake','oath','aegis'],berserker:['rupture','bloodrush','ancestors'],arcanist:['lightning','comet','prism'],hunter:['mark','volley','pact'],necromancer:['harvest','prison','wraith']};
 for(const [id,keys] of Object.entries(additions))CLASS_DEFS[id].skills.push(...keys);
@@ -23,7 +23,7 @@ for(const [key,s] of Object.entries(NEW_SKILLS)){skillIcons[key]=s.icon;SKILL_VI
 const MORE_META={
  guardian:[['Aço em guarda','Com escudo ativo: +2% de dano direto por nível.'],['Retorno de ferro','Receber um ataque físico devolve 0,4 de dano por nível.'],['Brasa interior','Segundo Fôlego cura +2% da vida máxima por nível.'],['Olho da muralha','+0,5 ponto percentual de crítico por nível.'],['Pedra partida','Ruptura de Pedra causa +5% de dano por nível.'],['Promessa duradoura','Juramento Restaurador cura +1% da vida máxima por nível.'],['Disciplina do abrigo','Bastião e Égide recarregam +1% mais rápido por nível.'],['Primeira vigília','+3 de escudo inicial por nível.']],
  berserker:[['Rastro rubro','Contra alvo sangrando: +2% de dano direto por nível.'],['Dor disciplinada','Ímpeto consome 3% menos vida por nível (redução relativa).'],['Ferida profunda','Reabrir Feridas detona +4% do sangramento restante por nível.'],['Garganta de guerra','Grito de Guerra concede +4% de escudo por nível.'],['Sangue quente','Sede de Sangue cura +4% por nível.'],['Golpe cruel','+3% de multiplicador crítico por nível.'],['Fôlego do vencedor','Recupera +1% da vida máxima entre duelos por nível.'],['Voz dos antigos','Roubo de vida do Uivo dura +0,4s por nível.']],
- arcanist:[['Fogo profundo','Queimaduras causam +2% de dano por nível.'],['Condutor glacial','Raio contra alvo gelado causa +3% de dano por nível.'],['Cauda do cometa','Queimadura do Cometa dura +0,3s por nível.'],['Cristal espesso','Prisma concede +4% de escudo por nível.'],['Barreira estável','Barreira Arcana dura +0,15s por nível.'],['Ressonância','Eco Mágico causa +4% de dano por nível.'],['Precisão arcana','+0,5 ponto percentual de crítico por nível.'],['Quarta palavra','Cada quarta habilidade causa dano extra de 15% do Foco por nível.']],
+ arcanist:[['Fogo profundo','Queimaduras causam +2% de dano por nível.'],['Condutor glacial','Raio contra alvo gelado causa +3% de dano por nível.'],['Cauda do cometa','Queimadura do Cometa dura +0,3s por nível.'],['Cristal espesso','Prisma concede +4% de escudo por nível.'],['Barreira estável','Barreira Arcana dura +0,15s por nível.'],['Ressonância','Eco Mágico causa +4% de dano por nível.'],['Precisão arcana','+0,5 ponto percentual de crítico por nível.'],['Quarta palavra','Cada quarta habilidade causa dano extra de 15% do Poder por nível.']],
  hunter:[['Alvo conhecido','Contra alvo marcado: +2% de dano direto por nível.'],['Aljava farpada','Salva de Farpas causa +4% de dano por nível.'],['Pacto profundo','Pacto da Matilha cura +4% por nível.'],['Companheiro veloz','Investida do cão recarrega +2% mais rápido por nível.'],['Armadilha paciente','Armadilha atrasa o inimigo em +0,1s por nível.'],['Instinto preciso','+0,5 ponto percentual de crítico por nível.'],['Passo protetor','Passo Evasivo concede +4% de escudo por nível.'],['Presas em guarda','Cão contra alvo marcado gera escudo igual a 3% do dano base por nível.']],
  necromancer:[['Ceifa profunda','Colheita detona +3% do veneno restante por nível.'],['Cela espessa','Prisão de Ossos concede +4% de escudo por nível.'],['Fome espectral','Espectro causa +4% de dano por nível.'],['Círculo dos mortos','Servo recarrega +2% mais rápido por nível.'],['Peste lenta','Veneno de Peste dura +0,5s por nível.'],['Tributo vital','A cura da passiva aumenta em 0,2% da vida máxima por nível.'],['Maldição corrosiva','Contra alvo amaldiçoado: +2% de dano direto por nível.'],['Último ossário','Armadura de Ossos concede +4% de escudo por nível.']]
 };
@@ -61,5 +61,5 @@ function expansionAfter(key,value){
  if(key==='harvest'&&run.status.poison>0){const stored=run.status.poisonDps*run.status.poison;hurtEnemy(stored*(.6+trait(4)*.03),'Colheita fúnebre',false,true);run.hp=Math.min(run.max,run.hp+stored*.1);run.status.poison=0;}
  if(key==='prison'){run.windup=0;run.enemyTimer+=1;}
  if(key==='plague')run.status.poison+=trait(8)*.5;
- if(run.character==='arcanist'&&trait(11)){run.arcaneCasts=(run.arcaneCasts||0)+1;if(run.arcaneCasts%4===0)hurtEnemy(run.focus*.15*trait(11),'Quarta palavra');}
+ if(run.character==='arcanist'&&trait(11)){run.arcaneCasts=(run.arcaneCasts||0)+1;if(run.arcaneCasts%4===0)hurtEnemy(run.power*.15*trait(11),'Quarta palavra');}
 }

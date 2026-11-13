@@ -13,21 +13,21 @@ const EXTRA_SKILLS={
  warcry:{name:'Grito de guerra',desc:'Transforma vigor em proteção e enfraquece ataques físicos inimigos por 4s.',cd:12,icon:'shield',base:12,vitality:2,defense:1,type:'shield'},
  bloodthirst:{name:'Sede de sangue',desc:'Recupera vida com a força da fúria.',cd:9,icon:'heart',base:8,power:.8,vitality:1.4,type:'heal'},
  execution:{name:'Execução',desc:'Causa o dobro do dano contra alvos abaixo de 35% de vida.',cd:9,icon:'axe',base:10,power:2.3,effect:'execute'},
- fireball:{name:'Bola de fogo',desc:'Aplica queimadura por 4s (20% do dano por segundo).',cd:6,icon:'flame',base:12,power:2,focus:1,effect:'fire'},
- frost:{name:'Lança de gelo',desc:'Atrasa o próximo ataque inimigo em 1,4s.',cd:8,icon:'staff',base:10,power:1,focus:1.5,effect:'slow'},
- missiles:{name:'Mísseis arcanos',desc:'Projéteis arcanos de recarga curta.',cd:4,icon:'spark',base:5,power:1.2,focus:.8},
- ward:{name:'Barreira arcana',desc:'Barreira de 5s, limitada a 23% da vida máxima. Não acumula consigo mesma.',cd:14,icon:'shield',base:12,focus:1.2,defense:.6,type:'shield'},
- echo:{name:'Eco mágico',desc:'Libera uma descarga concentrada de energia arcana.',cd:12,icon:'staff',base:20,focus:3},
+ fireball:{name:'Bola de fogo',desc:'Aplica queimadura por 4s (20% do dano por segundo).',cd:6,icon:'flame',base:12,power:3,effect:'fire'},
+ frost:{name:'Lança de gelo',desc:'Atrasa o próximo ataque inimigo em 1,4s.',cd:8,icon:'staff',base:10,power:2.5,effect:'slow'},
+ missiles:{name:'Mísseis arcanos',desc:'Projéteis arcanos de recarga curta.',cd:4,icon:'spark',base:5,power:2},
+ ward:{name:'Barreira arcana',desc:'Barreira de 5s, limitada a 23% da vida máxima. Não acumula consigo mesma.',cd:14,icon:'shield',base:12,defense:3.5,type:'shield'},
+ echo:{name:'Eco mágico',desc:'Libera uma descarga concentrada de energia arcana.',cd:12,icon:'staff',base:20,power:3},
  precise:{name:'Tiro preciso',desc:'Disparo concentrado. Contra presa marcada, causa +30% de dano.',cd:5.5,icon:'bow',base:14,power:1.5,agility:2},
  venom:{name:'Flecha venenosa',desc:'Aplica veneno por 6s (25% do dano por segundo) e reduz o dano físico da presa por 3s.',cd:5,icon:'bow',base:7,power:.8,agility:1,effect:'poison'},
  dog:{name:'Investida do companheiro',desc:'Seu cão ataca e recupera 1% da sua vida máxima. Contra presa marcada, também gera escudo.',cd:4,icon:'bow',base:8,power:.6,agility:1,vitality:.5},
  trap:{name:'Armadilha de caça',desc:'Interrompe preparações, atrasa o ataque em 1s e marca a presa por 6s.',cd:10,icon:'bow',base:12,agility:1.5,power:.8,effect:'trap'},
  evade:{name:'Passo evasivo',desc:'Cria barreira, remove sangramento e atrasa o ataque inimigo em 0,6s.',cd:12,icon:'shield',base:8,agility:1.5,defense:1,type:'shield'},
- skeleton:{name:'Servo ossudo',desc:'Um servo invocado ataca periodicamente.',cd:3,icon:'skull',base:4,power:1,focus:1},
- drain:{name:'Drenar vida',desc:'Causa dano e recupera 35% do valor base causado.',cd:7,icon:'heart',base:8,power:1,focus:1,effect:'drain'},
- curse:{name:'Maldição da fraqueza',desc:'Reduz o dano dos ataques físicos inimigos em 18% por 5s.',cd:10,icon:'skull',base:6,focus:1.5,effect:'curse'},
- plague:{name:'Peste',desc:'Aplica veneno por 6s (25% do dano por segundo).',cd:6,icon:'skull',base:4,focus:1.3,power:.7,effect:'poison'},
- bone:{name:'Armadura de ossos',desc:'Cria uma barreira de ossos, limitada a 45% da vida máxima.',cd:10,icon:'shield',base:10,focus:1,defense:2,type:'shield'}
+ skeleton:{name:'Servo ossudo',desc:'Um servo invocado ataca periodicamente.',cd:3,icon:'skull',base:4,power:2.1},
+ drain:{name:'Drenar vida',desc:'Causa dano e recupera 35% do valor base causado.',cd:7,icon:'heart',base:8,power:2.1,effect:'drain'},
+ curse:{name:'Maldição da fraqueza',desc:'Reduz o dano dos ataques físicos inimigos em 18% por 5s.',cd:10,icon:'skull',base:6,power:1.65,effect:'curse'},
+ plague:{name:'Peste',desc:'Aplica veneno por 6s (25% do dano por segundo).',cd:6,icon:'skull',base:4,power:2.13,effect:'poison'},
+ bone:{name:'Armadura de ossos',desc:'Cria uma barreira de ossos, limitada a 45% da vida máxima.',cd:10,icon:'shield',base:10,defense:4.2,type:'shield'}
 };
 for(const [key,s] of Object.entries(EXTRA_SKILLS))skillIcons[key]=s.icon;
 function classSkillValue(key){const s=EXTRA_SKILLS[key];return (s.base+['vitality','power','defense','agility','focus'].reduce((sum,a)=>sum+(s[a]||0)*run[a],0))*(1+(run.skillBoost?.[key]||0)/100)*(key==='precise'?1+.1*trait(2):key==='skeleton'?1+.08*trait(0):key==='ward'?1.15:1);}
