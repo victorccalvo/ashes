@@ -8,7 +8,7 @@
     "falls": 2,
     "returns": 0,
     "timeout": false,
-    "seconds": 255.45,
+    "seconds": 196.1,
     "hp": [
       0,
       0
@@ -19,13 +19,13 @@
     "rear": "berserker",
     "meta": 3,
     "seed": 29,
-    "cleared": 24,
-    "falls": 0,
-    "returns": 0,
+    "cleared": 29,
+    "falls": 1,
+    "returns": 1,
     "timeout": true,
-    "seconds": 1345.75,
+    "seconds": 1423.05,
     "hp": [
-      96.18,
+      65.35,
       100
     ]
   },
@@ -34,14 +34,14 @@
     "rear": "berserker",
     "meta": 5,
     "seed": 29,
-    "cleared": 20,
-    "falls": 0,
+    "cleared": 22,
+    "falls": 1,
     "returns": 0,
     "timeout": true,
-    "seconds": 917.4,
+    "seconds": 896.5,
     "hp": [
       100,
-      100
+      0
     ]
   },
   {
@@ -49,11 +49,11 @@
     "rear": "witch",
     "meta": 0,
     "seed": 29,
-    "cleared": 5,
+    "cleared": 8,
     "falls": 2,
     "returns": 0,
     "timeout": false,
-    "seconds": 84.1,
+    "seconds": 120.5,
     "hp": [
       0,
       0
@@ -64,13 +64,13 @@
     "rear": "witch",
     "meta": 3,
     "seed": 29,
-    "cleared": 8,
-    "falls": 2,
-    "returns": 0,
-    "timeout": false,
-    "seconds": 135.85,
+    "cleared": 22,
+    "falls": 7,
+    "returns": 6,
+    "timeout": true,
+    "seconds": 1202.75,
     "hp": [
-      0,
+      100,
       0
     ]
   },
@@ -79,13 +79,13 @@
     "rear": "witch",
     "meta": 5,
     "seed": 29,
-    "cleared": 19,
-    "falls": 6,
+    "cleared": 23,
+    "falls": 7,
     "returns": 5,
-    "timeout": true,
-    "seconds": 952.8,
+    "timeout": false,
+    "seconds": 691.15,
     "hp": [
-      100,
+      0,
       0
     ]
   },
@@ -98,7 +98,7 @@
     "falls": 3,
     "returns": 1,
     "timeout": false,
-    "seconds": 361.15,
+    "seconds": 241.15,
     "hp": [
       0,
       0
@@ -109,14 +109,14 @@
     "rear": "guardian",
     "meta": 3,
     "seed": 29,
-    "cleared": 9,
-    "falls": 2,
+    "cleared": 20,
+    "falls": 1,
     "returns": 0,
-    "timeout": false,
-    "seconds": 231.7,
+    "timeout": true,
+    "seconds": 649.7,
     "hp": [
       0,
-      0
+      100
     ]
   },
   {
@@ -124,11 +124,11 @@
     "rear": "guardian",
     "meta": 5,
     "seed": 29,
-    "cleared": 20,
+    "cleared": 23,
     "falls": 1,
     "returns": 0,
     "timeout": true,
-    "seconds": 638.7,
+    "seconds": 603.25,
     "hp": [
       0,
       100
@@ -139,11 +139,11 @@
     "rear": "alchemist",
     "meta": 0,
     "seed": 29,
-    "cleared": 9,
+    "cleared": 10,
     "falls": 2,
     "returns": 0,
     "timeout": false,
-    "seconds": 133.5,
+    "seconds": 122.35,
     "hp": [
       0,
       0
@@ -154,11 +154,11 @@
     "rear": "alchemist",
     "meta": 3,
     "seed": 29,
-    "cleared": 10,
+    "cleared": 22,
     "falls": 2,
     "returns": 0,
     "timeout": false,
-    "seconds": 144.25,
+    "seconds": 409.65,
     "hp": [
       0,
       0
@@ -169,11 +169,11 @@
     "rear": "alchemist",
     "meta": 5,
     "seed": 29,
-    "cleared": 11,
-    "falls": 2,
-    "returns": 0,
+    "cleared": 22,
+    "falls": 7,
+    "returns": 5,
     "timeout": false,
-    "seconds": 171.15,
+    "seconds": 672.15,
     "hp": [
       0,
       0
@@ -183,27 +183,27 @@
     "front": "necromancer",
     "rear": "jailer",
     "meta": 0,
-    "seed": 29,
-    "cleared": 5,
-    "falls": 2,
-    "returns": 0,
-    "timeout": false,
-    "seconds": 110.2,
-    "hp": [
-      0,
-      0
-    ]
-  },
-  {
-    "front": "necromancer",
-    "rear": "jailer",
-    "meta": 3,
     "seed": 29,
     "cleared": 8,
     "falls": 2,
     "returns": 0,
     "timeout": false,
-    "seconds": 205.7,
+    "seconds": 131.45,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "necromancer",
+    "rear": "jailer",
+    "meta": 3,
+    "seed": 29,
+    "cleared": 15,
+    "falls": 5,
+    "returns": 3,
+    "timeout": false,
+    "seconds": 644.65,
     "hp": [
       0,
       0
@@ -214,11 +214,11 @@
     "rear": "jailer",
     "meta": 5,
     "seed": 29,
-    "cleared": 22,
-    "falls": 8,
-    "returns": 6,
+    "cleared": 32,
+    "falls": 3,
+    "returns": 1,
     "timeout": false,
-    "seconds": 743.5,
+    "seconds": 795.1,
     "hp": [
       0,
       0
@@ -229,11 +229,11 @@
     "rear": "hunter",
     "meta": 0,
     "seed": 29,
-    "cleared": 4,
+    "cleared": 9,
     "falls": 2,
     "returns": 0,
     "timeout": false,
-    "seconds": 63.45,
+    "seconds": 100.6,
     "hp": [
       0,
       0
@@ -244,11 +244,11 @@
     "rear": "hunter",
     "meta": 3,
     "seed": 29,
-    "cleared": 10,
+    "cleared": 12,
     "falls": 2,
     "returns": 0,
     "timeout": false,
-    "seconds": 136,
+    "seconds": 129,
     "hp": [
       0,
       0
@@ -257,58 +257,58 @@
   {
     "front": "eclipse",
     "rear": "hunter",
+    "meta": 5,
+    "seed": 29,
+    "cleared": 32,
+    "falls": 3,
+    "returns": 1,
+    "timeout": false,
+    "seconds": 647.95,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "alchemist",
+    "rear": "necromancer",
+    "meta": 0,
+    "seed": 29,
+    "cleared": 9,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 129.3,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "alchemist",
+    "rear": "necromancer",
+    "meta": 3,
+    "seed": 29,
+    "cleared": 23,
+    "falls": 1,
+    "returns": 0,
+    "timeout": true,
+    "seconds": 595.85,
+    "hp": [
+      0,
+      93.97
+    ]
+  },
+  {
+    "front": "alchemist",
+    "rear": "necromancer",
     "meta": 5,
     "seed": 29,
     "cleared": 21,
     "falls": 2,
     "returns": 0,
     "timeout": false,
-    "seconds": 440.15,
-    "hp": [
-      0,
-      0
-    ]
-  },
-  {
-    "front": "alchemist",
-    "rear": "necromancer",
-    "meta": 0,
-    "seed": 29,
-    "cleared": 4,
-    "falls": 2,
-    "returns": 0,
-    "timeout": false,
-    "seconds": 84.45,
-    "hp": [
-      0,
-      0
-    ]
-  },
-  {
-    "front": "alchemist",
-    "rear": "necromancer",
-    "meta": 3,
-    "seed": 29,
-    "cleared": 9,
-    "falls": 2,
-    "returns": 0,
-    "timeout": false,
-    "seconds": 170.65,
-    "hp": [
-      0,
-      0
-    ]
-  },
-  {
-    "front": "alchemist",
-    "rear": "necromancer",
-    "meta": 5,
-    "seed": 29,
-    "cleared": 9,
-    "falls": 2,
-    "returns": 0,
-    "timeout": false,
-    "seconds": 116.4,
+    "seconds": 356.25,
     "hp": [
       0,
       0
@@ -318,42 +318,42 @@
     "front": "jailer",
     "rear": "arcanist",
     "meta": 0,
-    "seed": 29,
-    "cleared": 4,
-    "falls": 2,
-    "returns": 0,
-    "timeout": false,
-    "seconds": 83.65,
-    "hp": [
-      0,
-      0
-    ]
-  },
-  {
-    "front": "jailer",
-    "rear": "arcanist",
-    "meta": 3,
-    "seed": 29,
-    "cleared": 9,
-    "falls": 2,
-    "returns": 0,
-    "timeout": false,
-    "seconds": 154.2,
-    "hp": [
-      0,
-      0
-    ]
-  },
-  {
-    "front": "jailer",
-    "rear": "arcanist",
-    "meta": 5,
     "seed": 29,
     "cleared": 10,
     "falls": 2,
     "returns": 0,
     "timeout": false,
-    "seconds": 160.8,
+    "seconds": 139.3,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "jailer",
+    "rear": "arcanist",
+    "meta": 3,
+    "seed": 29,
+    "cleared": 21,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 412.85,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "jailer",
+    "rear": "arcanist",
+    "meta": 5,
+    "seed": 29,
+    "cleared": 31,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 618.5,
     "hp": [
       0,
       0
@@ -364,11 +364,11 @@
     "rear": "eclipse",
     "meta": 0,
     "seed": 29,
-    "cleared": 4,
+    "cleared": 9,
     "falls": 2,
     "returns": 0,
     "timeout": false,
-    "seconds": 64.1,
+    "seconds": 100.5,
     "hp": [
       0,
       0
@@ -379,11 +379,11 @@
     "rear": "eclipse",
     "meta": 3,
     "seed": 29,
-    "cleared": 8,
-    "falls": 3,
-    "returns": 1,
+    "cleared": 16,
+    "falls": 2,
+    "returns": 0,
     "timeout": false,
-    "seconds": 105.35,
+    "seconds": 208.8,
     "hp": [
       0,
       0
@@ -394,11 +394,11 @@
     "rear": "eclipse",
     "meta": 5,
     "seed": 29,
-    "cleared": 10,
+    "cleared": 33,
     "falls": 2,
     "returns": 0,
     "timeout": false,
-    "seconds": 123.9,
+    "seconds": 612.1,
     "hp": [
       0,
       0

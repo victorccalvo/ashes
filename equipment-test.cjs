@@ -5,7 +5,7 @@ const check=(v,m)=>{if(!v)throw Error(m);};presentOutcome=(kind,settle)=>settle(
 function item(slot,cls=null,variant=0,rarity='rare'){const gear=ensureGearArchive(),i={id:'relic-'+gear.nextId++,slot,classId:cls,variant,rarity};gear.items.push(i);return i;}
 function selectForTest(id){mode='prep';titleOpen=true;preferredExpedition='campaign';archive.selected=id;save=archive.characters[id];save.meta=Array(18).fill(0);fresh();}
 check(metaDefinitions('guardian').length===18&&metaCap(17)===3,'New three-level legacy');
-selectForTest('guardian');const armor=item('armor');for(const id of Object.keys(classes)){selectForTest(id);const hp=run.max;equipItem(armor.id);check(archive.gear.loadouts[id].armor===armor.id&&run.max===hp+105,'Universal item '+id);check(Object.values(archive.gear.loadouts).filter(slots=>slots.armor===armor.id).length===1,'Single owner');}
+selectForTest('guardian');const armor=item('armor');for(const id of Object.keys(classes)){selectForTest(id);const hp=run.max;equipItem(armor.id);check(archive.gear.loadouts[id].armor===armor.id&&run.max===hp+75,'Universal item '+id);check(Object.values(archive.gear.loadouts).filter(slots=>slots.armor===armor.id).length===1,'Single owner');}
 selectForTest('guardian');const wrong=item('weapon','berserker');equipItem(wrong.id);check(!archive.gear.loadouts.guardian.weapon,'Reject foreign weapon');
 for(const slots of Object.values(archive.gear.loadouts))for(const key of Object.keys(slots))delete slots[key];fresh();
 const active=[item('weapon','guardian',0,'common'),item('helmet',null,0,'common'),item('armor',null,0,'common'),item('pants',null,0,'common'),item('ring',null,0,'common')];for(const i of active)equipItem(i.id);

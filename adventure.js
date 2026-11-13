@@ -14,7 +14,7 @@ function resolveLoot(equip=false){
   if(item.slot==='weapon'&&item.classId!==run.character)return;
   const old=(run.gearSnapshot||[]).find(i=>i.slot===item.slot);
   if(old)changeRunGear(old,-1);
-  run.gearSnapshot=(run.gearSnapshot||[]).filter(i=>i.slot!==item.slot);run.gearSnapshot.push({...item});changeRunGear(item,1);
+  run.gearSnapshot=(run.gearSnapshot||[]).filter(i=>i.slot!==item.slot);run.gearSnapshot.push({...item,statVersion:1});changeRunGear(item,1);
   ensureGearArchive().loadouts[run.character][item.slot]=item.id;
   const weapon=run.gearSnapshot.find(i=>i.slot==='weapon');run.gearEffects=weapon?{classId:weapon.classId,variant:weapon.variant,tier:gearTier(weapon)}:null;
   run.gearLocked=true;

@@ -28,7 +28,7 @@ function evolveBeforeCast(key,value,preview=false){
 }
 function evolveAfterCast(key,value){
  run.castCounts=run.castCounts||{};run.castCounts[key]=(run.castCounts[key]||0)+1;
- const heal=ratio=>run.hp=Math.min(run.max,run.hp+value*ratio/100),shield=ratio=>grantAttackShield(value*ratio/100);
+ const heal=ratio=>healFromDamage(value*ratio/100),shield=ratio=>grantAttackShield(value*ratio/100);
  if(key==='rend')heal(evolution('bloodEdge'));if(key==='whirlwind')shield(evolution('spinningWard'));
  if(key==='warcry'&&evolution('rallyCleanse')){run.bleed=0;run.hp=Math.min(run.max,run.hp+run.max*evolution('rallyCleanse')/100);}
  if(key==='execution'&&run.enemy.hp<run.enemy.max*(.35+.02*trait(2)))run.enemyTimer+=Math.min(3,evolution('hungryFinish')/10);

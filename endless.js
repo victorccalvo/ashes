@@ -56,13 +56,13 @@ startDuel=function(){
 const endlessVictory=victory;
 victory=function(){
  if(run.expedition==='endless'){
-  presentOutcome('victory',()=>{const depth=run.endlessDepth;run.earned+=endlessReward(depth);save.bestEndless=Math.max(save.bestEndless||0,depth);run.endlessPrevious={source:run.stage,max:run.enemy.max,damage:run.enemy.damage};run.endlessDepth++;run.endlessEncounter=null;prepareEndlessEncounter();run.enemy=null;run.minions=[];run.shield=0;run.hp=Math.min(run.max,run.hp+run.max*(.2+run.rest));run.points=2;mode='camp';offer();render();persist();});return;
+  presentOutcome('victory',()=>{const depth=run.endlessDepth;run.earned+=endlessReward(depth);save.bestEndless=Math.max(save.bestEndless||0,depth);run.endlessPrevious={source:run.stage,max:run.endlessEncounter?.max??((run.enemy.eliteStats?.max||run.enemy.max)/(run.enemy.partyScale||1)),damage:run.endlessEncounter?.damage??run.enemy.eliteStats?.damage??run.enemy.damage};run.endlessDepth++;run.endlessEncounter=null;prepareEndlessEncounter();run.enemy=null;run.minions=[];run.shield=0;run.hp=Math.min(run.max,run.hp+run.max*(.2+run.rest));run.points=2;mode='camp';offer();render();persist();});return;
  }
  if(run.stage===39){presentOutcome('final',()=>{run.earned+=100;save.best=40;run.awaitingCampaignDecision=true;run.points=0;run.minions=[];mode='camp';options=[];chosen=null;render();persist();});return;}
  endlessVictory();
 };
 function continueCampaignIntoEndless(){
- if(!run.awaitingCampaignDecision)return;const enemy={max:run.enemy.max,damage:run.enemy.damage};run.awaitingCampaignDecision=false;run.earned+=35;run.campaignBonusTransferred=true;cancelOutcome();initializeEndless('campaign',enemy);run.enemy=null;run.minions=[];run.shield=0;run.hp=Math.min(run.max,run.hp+run.max*.4);run.points=2;mode='camp';preferredExpedition='endless';offer();for(const o of options)if(o.type==='upgrade')o.rarity='legendary';$('campaign-end-dialog').close();render();persist();
+ if(!run.awaitingCampaignDecision)return;const enemy={max:(run.enemy.eliteStats?.max||run.enemy.max)/(run.enemy.partyScale||1),damage:run.enemy.eliteStats?.damage??run.enemy.damage};run.awaitingCampaignDecision=false;run.earned+=35;run.campaignBonusTransferred=true;cancelOutcome();initializeEndless('campaign',enemy);run.enemy=null;run.minions=[];run.shield=0;run.hp=Math.min(run.max,run.hp+run.max*.4);run.points=2;mode='camp';preferredExpedition='endless';offer();for(const o of options)if(o.type==='upgrade')o.rarity='legendary';$('campaign-end-dialog').close();render();persist();
 }
 const endlessSettleRun=settleRun;
 settleRun=function(won){
@@ -76,8 +76,8 @@ function endlessMechanic(){const source=run.stage,key=ENEMY_ART[source].ability|
 function endlessRuleText(){const key=endlessMechanic();if(['armor','shield','furnace','armorforge','herbarium'].includes(key))return 'Gera escudo de 5,5% da vida máxima (limite de 18%).';if(['heal','crucible','grave'].includes(key))return 'Recupera 2,5% da vida máxima.';if(['bleed','hound','duelist','centipede'].includes(key))return 'Golpe de 0,8× o Dano e sangramento por 4s.';if(['arcane','soot','orbit'].includes(key))return 'Golpe de 1,5× o Dano que ignora Defesa.';if(['chains','hands','prune'].includes(key))return 'Golpe de 0,65× o Dano e +0,7s nas recargas.';if(['engineer','seedqueen','moth','sunboss','eclipseboss'].includes(key))return 'Invoca um minion fraco e causa 0,5× o Dano.';if(['mixed','boss','anvil'].includes(key))return 'Golpe de 1,7× o Dano'+(key==='anvil'?'.':' e sangramento por 3s.');if(key==='cinder')return 'Queimadura de 14% do Dano por segundo durante 4s.';if(key==='act2')return 'Ritual da Catedral reescalado: sangramento, erosão, recarga, escudo ou dano arcano conforme a criatura.';return 'Golpe de 1,3× o Dano.';}
 function endlessRitual(){
  const e=run.enemy,key=endlessMechanic(),affix=run.endlessEncounter.affix;log('∞ '+ENEMY_ART[run.stage].move);animateCombat('enemy','cast');
- if(['armor','shield','furnace','armorforge','herbarium'].includes(key))e.shield=Math.min(e.max*.18,e.shield+e.max*.055);
- else if(['heal','crucible','grave'].includes(key))e.hp=Math.min(e.max,e.hp+e.max*.025);
+ if(['armor','shield','furnace','armorforge','herbarium'].includes(key))grantEnemyShield(e.max*.055,e,e.max*.18);
+ else if(['heal','crucible','grave'].includes(key))healEnemy(e.max*.025);
  else if(['bleed','hound','duelist','centipede'].includes(key)){hurtPlayer(e.damage*.8);run.bleed=4;}
  else if(['arcane','soot','orbit'].includes(key))hurtPlayer(e.damage*1.5,true);
  else if(['chains','hands','prune'].includes(key)){delaySkills(.7);hurtPlayer(e.damage*.65);}
@@ -86,8 +86,8 @@ function endlessRitual(){
  else if(key==='cinder')run.endlessBurn=4;
  else if(key==='act2'){switch(run.stage-10){case 0:run.bleed=4;break;case 1:erodePlayerShield(.2);break;case 2:delaySkills(.7);spawnMinion(1);break;case 4:e.shield+=e.max*.04;break;case 6:{const hp=run.hp;hurtPlayer(e.damage,true);e.hp=Math.min(e.max,e.hp+(hp-run.hp)*.5);break;}default:hurtPlayer(e.damage*1.35,true);}}
  else hurtPlayer(e.damage*1.3);
- if(affix===0)e.shield=Math.min(e.max*.2,e.shield+e.max*.025);
- if(affix===2)e.hp=Math.min(e.max,e.hp+e.max*.015);
+ if(affix===0)grantEnemyShield(e.max*.025,e,e.max*.2);
+ if(affix===2)healEnemy(e.max*.015);
  if(affix===3)spawnMinion(ENEMY_ART[run.stage].summon??Math.floor(run.stage/10)%4);
  if(affix===4)run.endlessBurn=4;
 }

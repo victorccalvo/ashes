@@ -1,4 +1,5 @@
 const fs=require('fs'),data=JSON.parse(fs.readFileSync('reports/balance-data.json','utf8'));
+if(data.balancePatch===1){require('./balance-compare.cjs');return;}
 for(const skill of data.skills){if(skill.key==='second')skill.type='heal';if(skill.key==='bastion')skill.type='shield';}
 fs.writeFileSync('reports/balance-data.json',JSON.stringify(data,null,2));
 const avg=xs=>xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:0,pct=n=>(n*100).toFixed(1)+'%';

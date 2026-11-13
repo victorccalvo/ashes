@@ -16,7 +16,7 @@ function updateMinions(dt){
  // A few earlier adversaries teach the mechanic before the later summoning elites.
  const model=run.stage===2||run.stage===7?3:run.stage===12?1:null;
  if(model!==null){run.summonTimer=(run.summonTimer||0)+dt;if(run.summonTimer>=12){run.summonTimer-=12;spawnMinion(model);}}
- for(const m of run.minions||[])if(m.hp>0){m.timer=Math.max(0,m.timer-dt);if(m.timer<=0){m.timer+=m.interval;const boss=run.enemy;run.enemy=m;try{hurtPlayer(m.damage);run.hits++;if(run.skills.includes('thorns')){triggerSkill('thorns');hurtEnemy((5+run.defense*.4)*(1+trait(3)*.08)*equipmentSkillMultiplier('thorns'),'Espinhos → '+m.name);}if(run.skills.includes('counter')&&run.hits%3===0){triggerSkill('counter');hurtEnemy((run.power*2.4+run.defense*1.2)*run.counter*equipmentSkillMultiplier('counter'),'Retaliação → '+m.name);}}finally{m.hp=Math.max(0,m.hp);run.enemy=boss;}m.lastAttack=run.time;animateCombat('player','hit');log('↯ '+m.name+' · ataque de '+m.damage+'.');}}
+ for(const m of run.minions||[])if(m.hp>0){m.timer=Math.max(0,m.timer-dt);if(m.timer<=0){m.timer+=m.interval;const boss=run.enemy;run.enemy=m;try{hurtPlayer(m.damage);run.hits++;if(run.skills.includes('thorns')){triggerSkill('thorns');hurtEnemy((5+run.defense*.4)*(1+trait(3)*.08)*equipmentSkillMultiplier('thorns'),'Espinhos → '+m.name);}if(run.skills.includes('counter')&&run.hits%3===0){triggerSkill('counter');hurtEnemy((run.power*3+run.defense*1.2)*run.counter*equipmentSkillMultiplier('counter'),'Retaliação → '+m.name);}}finally{m.hp=Math.max(0,m.hp);run.enemy=boss;}m.lastAttack=run.time;animateCombat('player','hit');log('↯ '+m.name+' · ataque de '+m.damage+'.');}}
  renderMinions();
 }
 const minionBaseStart=startDuel;
@@ -24,7 +24,7 @@ startDuel=function(){run.minions=[];run.campaignTimer=0;run.summonTimer=0;run.fo
 const minionBaseHurt=hurtEnemy;
 hurtEnemy=function(amount,label,basic=false,dot=false){
  const boss=run.enemy,target=basic&&(run.minions||[]).find(m=>m.hp>0);
- if(target){run.enemy=target;try{minionBaseHurt(amount*100/(100+target.defense*3),(label||'Ataque básico')+' → '+target.name,true,dot);}finally{target.hp=Math.max(0,target.hp);run.enemy=boss;}renderMinions();return;}
+ if(target){run.enemy=target;try{minionBaseHurt(amount,(label||'Ataque básico')+' → '+target.name,true,dot);}finally{target.hp=Math.max(0,target.hp);run.enemy=boss;}renderMinions();return;}
  if(boss.veil&&!dot){amount*=.6;boss.veil=false;}
  minionBaseHurt(amount,label,basic,dot);
  if(!basic&&!dot&&['whirlwind','quake','comet','volley','plague','ec_night','al_mix','ja_collective','wi_flock'].some(k=>skillData[k]?.[0]===run.damageSource)){
@@ -44,12 +44,13 @@ function atlasBackground(target,file,atlas){target.src='data:image/gif;base64,R0
 const minionFloatingDamage=floatingDamage;
 floatingDamage=function(...args){const layer=$('damage-numbers'),before=layer.lastChild;minionFloatingDamage(...args);if(run.enemy?.type!=='minion'||layer.lastChild===before)return;const card=Array.from($('minion-line').children).find(c=>c.minion===run.enemy);if(!card)return;const arena=$('arena').getBoundingClientRect(),rect=card.getBoundingClientRect();if(arena.width){layer.lastChild.style.left=(rect.left+rect.width/2-arena.left)/arena.width*100+'%';layer.lastChild.style.top=(rect.top-arena.top)+'px';}};
 function applyAtlas(target,file,atlas){
- if(!atlas){target.src='assets/'+file+'.png';return;}
+ const request=file+':'+(atlas?atlas.index:'full');target.spriteRequest=request;
+ if(!atlas){target.src='assets/'+file+'.png';target.style.backgroundImage='';return;}
  if(typeof Image==='undefined')return;
- const key=file+':'+atlas.index;if(spriteAtlasCache.has(key)){target.src=spriteAtlasCache.get(key);target.style.visibility='';return;}
+ const key=file+':'+atlas.index;if(spriteAtlasCache.has(key)){target.src=spriteAtlasCache.get(key);target.style.backgroundImage='';target.style.visibility='';return;}
  target.style.visibility='hidden';if(!spriteAtlasPending.has(key)){
  const image=new Image();const promise=new Promise(resolve=>{image.onload=()=>{try{const canvas=document.createElement('canvas'),w=image.naturalWidth/atlas.columns,h=image.naturalHeight/atlas.rows;canvas.width=Math.ceil(w);canvas.height=Math.ceil(h);const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.drawImage(image,(atlas.index%atlas.columns)*w,Math.floor(atlas.index/atlas.columns)*h,w,h,0,0,canvas.width,canvas.height);const url=canvas.toDataURL('image/png');spriteAtlasCache.set(key,url);resolve(url);}catch(e){resolve(null);}};image.onerror=()=>resolve(null);image.src='assets/'+file+'.png';});spriteAtlasPending.set(key,promise);}
- spriteAtlasPending.get(key).then(url=>{if(url){target.src=url;target.style.visibility='';}else atlasBackground(target,file,atlas);});
+ spriteAtlasPending.get(key).then(url=>{if(target.spriteRequest!==request)return;if(url){target.src=url;target.style.backgroundImage='';target.style.visibility='';}else atlasBackground(target,file,atlas);});
 }
 function renderAtlasSprites(){
  const info=ENEMY_ART[run.stage];if(info.atlas)applyAtlas($('enemy-icon'),info.file,info.atlas);else $('enemy-icon').style.backgroundImage='';

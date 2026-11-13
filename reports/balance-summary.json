@@ -4,9 +4,9 @@
     "name": "Guardião",
     "act1_meta0": {
       "runs": 168,
-      "winRate": 0.005952380952380952,
-      "averageCleared": 4.2023809523809526,
-      "hpOnWin": 48.72,
+      "winRate": 0.011904761904761904,
+      "averageCleared": 4.553571428571429,
+      "hpOnWin": 44.96,
       "timeouts": 0
     },
     "campaign_meta0": {
@@ -16,27 +16,27 @@
     },
     "act1_meta3": {
       "runs": 168,
-      "winRate": 0.27380952380952384,
-      "averageCleared": 8.833333333333334,
-      "hpOnWin": 62.90891304347826,
-      "timeouts": 2
+      "winRate": 0.30357142857142855,
+      "averageCleared": 9.023809523809524,
+      "hpOnWin": 65.4935294117647,
+      "timeouts": 0
     },
     "campaign_meta3": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 20.22222222222222
+      "averageCleared": 25.555555555555557
     },
     "act1_meta5": {
       "runs": 168,
-      "winRate": 0.7083333333333334,
-      "averageCleared": 9.636904761904763,
-      "hpOnWin": 73.61764705882355,
+      "winRate": 0.7916666666666666,
+      "averageCleared": 9.744047619047619,
+      "hpOnWin": 77.340977443609,
       "timeouts": 0
     },
     "campaign_meta5": {
       "runs": 9,
-      "winRate": 0,
-      "averageCleared": 27.666666666666668
+      "winRate": 0.3333333333333333,
+      "averageCleared": 33.22222222222222
     }
   },
   {
@@ -44,39 +44,39 @@
     "name": "Berserker",
     "act1_meta0": {
       "runs": 168,
-      "winRate": 0.09523809523809523,
+      "winRate": 0.08928571428571429,
       "averageCleared": 7.583333333333333,
-      "hpOnWin": 54.920625,
+      "hpOnWin": 54.97266666666667,
       "timeouts": 0
     },
     "campaign_meta0": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 10
+      "averageCleared": 10.222222222222221
     },
     "act1_meta3": {
       "runs": 168,
-      "winRate": 0.6071428571428571,
-      "averageCleared": 9.571428571428571,
-      "hpOnWin": 70.68235294117646,
+      "winRate": 0.5059523809523809,
+      "averageCleared": 9.375,
+      "hpOnWin": 67.54,
       "timeouts": 0
     },
     "campaign_meta3": {
       "runs": 9,
-      "winRate": 0.3333333333333333,
-      "averageCleared": 29.88888888888889
+      "winRate": 0,
+      "averageCleared": 25.77777777777778
     },
     "act1_meta5": {
       "runs": 168,
-      "winRate": 0.8630952380952381,
-      "averageCleared": 9.857142857142858,
-      "hpOnWin": 80.4735172413793,
+      "winRate": 0.7916666666666666,
+      "averageCleared": 9.785714285714286,
+      "hpOnWin": 75.45360902255642,
       "timeouts": 0
     },
     "campaign_meta5": {
       "runs": 9,
-      "winRate": 1,
-      "averageCleared": 40
+      "winRate": 0.3333333333333333,
+      "averageCleared": 34.666666666666664
     }
   },
   {
@@ -85,38 +85,38 @@
     "act1_meta0": {
       "runs": 168,
       "winRate": 0.005952380952380952,
-      "averageCleared": 5.5476190476190474,
-      "hpOnWin": 56.7,
+      "averageCleared": 6.053571428571429,
+      "hpOnWin": 71.16,
       "timeouts": 0
     },
     "campaign_meta0": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 8.666666666666666
+      "averageCleared": 9
     },
     "act1_meta3": {
       "runs": 168,
-      "winRate": 0.20238095238095238,
-      "averageCleared": 8.988095238095237,
-      "hpOnWin": 64.29852941176469,
+      "winRate": 0.5892857142857143,
+      "averageCleared": 9.56547619047619,
+      "hpOnWin": 70.21555555555558,
       "timeouts": 0
     },
     "campaign_meta3": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 13
+      "averageCleared": 17.11111111111111
     },
     "act1_meta5": {
       "runs": 168,
-      "winRate": 0.7083333333333334,
-      "averageCleared": 9.696428571428571,
-      "hpOnWin": 75.83336134453783,
+      "winRate": 0.9464285714285714,
+      "averageCleared": 9.946428571428571,
+      "hpOnWin": 89.7106289308176,
       "timeouts": 0
     },
     "campaign_meta5": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 19.666666666666668
+      "averageCleared": 22.22222222222222
     }
   },
   {
@@ -125,7 +125,7 @@
     "act1_meta0": {
       "runs": 168,
       "winRate": 0,
-      "averageCleared": 7.017857142857143,
+      "averageCleared": 7.125,
       "hpOnWin": 0,
       "timeouts": 0
     },
@@ -136,21 +136,21 @@
     },
     "act1_meta3": {
       "runs": 168,
-      "winRate": 0.35714285714285715,
-      "averageCleared": 9.321428571428571,
-      "hpOnWin": 56.98233333333334,
+      "winRate": 0.39285714285714285,
+      "averageCleared": 9.369047619047619,
+      "hpOnWin": 58.80575757575758,
       "timeouts": 0
     },
     "campaign_meta3": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 15.88888888888889
+      "averageCleared": 21.22222222222222
     },
     "act1_meta5": {
       "runs": 168,
-      "winRate": 0.9404761904761905,
-      "averageCleared": 9.94047619047619,
-      "hpOnWin": 77.95183544303791,
+      "winRate": 0.9464285714285714,
+      "averageCleared": 9.946428571428571,
+      "hpOnWin": 78.82471698113206,
       "timeouts": 0
     },
     "campaign_meta5": {
@@ -164,39 +164,39 @@
     "name": "Necromante",
     "act1_meta0": {
       "runs": 168,
-      "winRate": 0,
-      "averageCleared": 4.7976190476190474,
-      "hpOnWin": 0,
+      "winRate": 0.005952380952380952,
+      "averageCleared": 5.190476190476191,
+      "hpOnWin": 75.75,
       "timeouts": 0
     },
     "campaign_meta0": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 8.555555555555555
+      "averageCleared": 9.11111111111111
     },
     "act1_meta3": {
       "runs": 168,
-      "winRate": 0.27976190476190477,
-      "averageCleared": 9.035714285714286,
-      "hpOnWin": 61.80425531914895,
+      "winRate": 0.2976190476190476,
+      "averageCleared": 9.077380952380953,
+      "hpOnWin": 63.201,
       "timeouts": 0
     },
     "campaign_meta3": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 15.666666666666666
+      "averageCleared": 14
     },
     "act1_meta5": {
       "runs": 168,
-      "winRate": 0.6369047619047619,
-      "averageCleared": 9.630952380952381,
-      "hpOnWin": 76.30186915887855,
+      "winRate": 0.6547619047619048,
+      "averageCleared": 9.648809523809524,
+      "hpOnWin": 76.38463636363639,
       "timeouts": 0
     },
     "campaign_meta5": {
       "runs": 9,
-      "winRate": 0.3333333333333333,
-      "averageCleared": 28.333333333333332
+      "winRate": 0,
+      "averageCleared": 25.444444444444443
     }
   },
   {
@@ -205,38 +205,38 @@
     "act1_meta0": {
       "runs": 168,
       "winRate": 0,
-      "averageCleared": 2.4107142857142856,
+      "averageCleared": 4.321428571428571,
       "hpOnWin": 0,
       "timeouts": 0
     },
     "campaign_meta0": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 4.333333333333333
+      "averageCleared": 8.666666666666666
     },
     "act1_meta3": {
       "runs": 168,
-      "winRate": 0.005952380952380952,
-      "averageCleared": 5.279761904761905,
-      "hpOnWin": 46.62,
+      "winRate": 0.27976190476190477,
+      "averageCleared": 8.416666666666666,
+      "hpOnWin": 67.96127659574465,
       "timeouts": 0
     },
     "campaign_meta3": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 9
+      "averageCleared": 13.222222222222221
     },
     "act1_meta5": {
       "runs": 168,
-      "winRate": 0.07738095238095238,
-      "averageCleared": 7.625,
-      "hpOnWin": 62.14461538461538,
+      "winRate": 0.6666666666666666,
+      "averageCleared": 9.386904761904763,
+      "hpOnWin": 74.48544642857144,
       "timeouts": 0
     },
     "campaign_meta5": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 10
+      "averageCleared": 22.666666666666668
     }
   },
   {
@@ -244,39 +244,39 @@
     "name": "Alquimista da Peste",
     "act1_meta0": {
       "runs": 168,
-      "winRate": 0,
-      "averageCleared": 3.0476190476190474,
-      "hpOnWin": 0,
+      "winRate": 0.005952380952380952,
+      "averageCleared": 4.2023809523809526,
+      "hpOnWin": 63.07,
       "timeouts": 0
     },
     "campaign_meta0": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 7.222222222222222
+      "averageCleared": 9
     },
     "act1_meta3": {
       "runs": 168,
-      "winRate": 0.03571428571428571,
-      "averageCleared": 6.125,
-      "hpOnWin": 51.693333333333335,
+      "winRate": 0.30952380952380953,
+      "averageCleared": 7.767857142857143,
+      "hpOnWin": 71.09788461538461,
       "timeouts": 0
     },
     "campaign_meta3": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 10.222222222222221
+      "averageCleared": 22.444444444444443
     },
     "act1_meta5": {
       "runs": 168,
-      "winRate": 0.21428571428571427,
-      "averageCleared": 7.988095238095238,
-      "hpOnWin": 62.058611111111105,
+      "winRate": 0.6190476190476191,
+      "averageCleared": 9.136904761904763,
+      "hpOnWin": 79.30125,
       "timeouts": 0
     },
     "campaign_meta5": {
       "runs": 9,
-      "winRate": 0,
-      "averageCleared": 15.777777777777779
+      "winRate": 0.1111111111111111,
+      "averageCleared": 30
     }
   },
   {
@@ -285,38 +285,38 @@
     "act1_meta0": {
       "runs": 168,
       "winRate": 0,
-      "averageCleared": 1.7202380952380953,
+      "averageCleared": 3.0416666666666665,
       "hpOnWin": 0,
       "timeouts": 0
     },
     "campaign_meta0": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 3.888888888888889
+      "averageCleared": 8.777777777777779
     },
     "act1_meta3": {
       "runs": 168,
-      "winRate": 0.005952380952380952,
-      "averageCleared": 4.619047619047619,
-      "hpOnWin": 74.28,
+      "winRate": 0.19047619047619047,
+      "averageCleared": 6.970238095238095,
+      "hpOnWin": 71.81156250000001,
       "timeouts": 0
     },
     "campaign_meta3": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 9
+      "averageCleared": 22.333333333333332
     },
     "act1_meta5": {
       "runs": 168,
-      "winRate": 0.09523809523809523,
-      "averageCleared": 7.029761904761905,
-      "hpOnWin": 58.22000000000001,
+      "winRate": 0.5238095238095238,
+      "averageCleared": 8.81547619047619,
+      "hpOnWin": 76.94886363636364,
       "timeouts": 0
     },
     "campaign_meta5": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 14.444444444444445
+      "averageCleared": 27.22222222222222
     }
   },
   {
@@ -325,38 +325,38 @@
     "act1_meta0": {
       "runs": 168,
       "winRate": 0,
-      "averageCleared": 1.9523809523809523,
+      "averageCleared": 3.9642857142857144,
       "hpOnWin": 0,
       "timeouts": 0
     },
     "campaign_meta0": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 4
+      "averageCleared": 8.777777777777779
     },
     "act1_meta3": {
       "runs": 168,
-      "winRate": 0,
-      "averageCleared": 4.7976190476190474,
-      "hpOnWin": 0,
+      "winRate": 0.25,
+      "averageCleared": 8.136904761904763,
+      "hpOnWin": 77.16142857142856,
       "timeouts": 0
     },
     "campaign_meta3": {
       "runs": 9,
       "winRate": 0,
-      "averageCleared": 8.777777777777779
+      "averageCleared": 29.555555555555557
     },
     "act1_meta5": {
       "runs": 168,
-      "winRate": 0.03571428571428571,
-      "averageCleared": 7.470238095238095,
-      "hpOnWin": 53.53333333333334,
+      "winRate": 0.5952380952380952,
+      "averageCleared": 9.380952380952381,
+      "hpOnWin": 81.13690000000001,
       "timeouts": 0
     },
     "campaign_meta5": {
       "runs": 9,
-      "winRate": 0,
-      "averageCleared": 14.333333333333334
+      "winRate": 0.8888888888888888,
+      "averageCleared": 39.888888888888886
     }
   }
 ]

@@ -1,6 +1,7 @@
 'use strict';
 const fs=require('fs'),vm=require('vm'),path=require('path');
 const {context:c}=require('./game-harness.cjs')();
+c.reuseAudit=process.argv.includes('--arcanist')?JSON.parse(fs.readFileSync('reports/balance-data.json','utf8')):null;
 const data=vm.runInContext(`
 render=renderHealth=renderMinions=log=persist=playSkillEffect=animateCombat=floatingDamage=()=>{};
 presentOutcome=(kind,settle)=>settle();recordRanking=()=>{};
@@ -24,23 +25,26 @@ function auditCampaign(id,build,meta,seed,limit=10,gear=false){
  return {id,build:[...build],meta,seed,gear,cleared,hp:+lastHp.toFixed(2),seconds:+totalTime.toFixed(2),timeout,firstBossHp:+firstBossHp.toFixed(2)};
 }
 const result={generated:new Date().toISOString(),method:{step:.05,timeout:240,seeds:[11,29,73],meta:[0,3,5],gear:'sem itens na matriz de builds; set raro nas comparações dedicadas',policy:'uma habilidade por encontro nos três primeiros encontros, build alvo garantida; recompensas reais com preferência por sobrevivência/evolução/potência; +1 Vitalidade e +1 atributo primário no Ato I; depois alterna Defesa/Foco + primário; sem fogueiras e sem equipar drops',notes:'Cenários controlados; não medem chance de obter a build nem representam telemetria de jogadores.'},classes:[],skills:[],enemies:[],builds:[],campaigns:[],duels:[],parties:[],endless:[]};
+const auditIds=Object.keys(classes).filter(id=>!reuseAudit||id==='arcanist');
+if(reuseAudit){if(reuseAudit.balancePatch!==1)throw Error('Expected current baseline for partial audit');for(const field of ['classes','skills','builds','campaigns','duels','parties','endless'])result[field]=reuseAudit[field].filter(row=>field==='parties'?row.front!=='arcanist'&&row.rear!=='arcanist':row.id!=='arcanist');result.reusedUnchangedCohorts=true;}
 for(const [id,cls]of Object.entries(classes)){
+ if(!auditIds.includes(id))continue;
  auditFresh(id,0,11);result.classes.push({id,name:cls.name,base:cls.base,max:run.max,passive:cls.passive});
  for(const key of cls.skills){run.enemy=null;run.status={};const s=EXTRA_SKILLS[key],snap=skillSnapshot(key);result.skills.push({id,key,name:skillData[key][0],description:skillData[key][1],type:s?.type||'damage',base:s?.base??null,coefficients:s?Object.fromEntries(['power','defense','vitality','agility','focus'].filter(a=>s[a]).map(a=>[a,a==='power'?powerCoefficient(s[a],key):s[a]])):null,value:snap.value??null,cooldown:s?+(s.cd/skillRechargeRate(key)).toFixed(3):key==='slam'?7/cooldownRate():key==='bastion'?10/cooldownRate():null,preview:snap.lines});}
 }
 for(let i=0;i<40;i++)result.enemies.push({stage:i+1,act:Math.floor(i/10)+1,boss:i%10===9,name:elites[i][0],hp:elites[i][5],damage:+(elites[i][6]*1.18).toFixed(2),type:elites[i][7],move:ENEMY_ART[i].move,detail:ENEMY_ART[i].detail,summon:ENEMY_ART[i].summon??null});
-for(const id of Object.keys(classes)){
+for(const id of auditIds){
  const keys=classes[id].skills;
  for(let a=0;a<keys.length-2;a++)for(let b=a+1;b<keys.length-1;b++)for(let d=b+1;d<keys.length;d++)for(const meta of [0,3,5])for(const seed of [11,29,73])result.builds.push(auditCampaign(id,[keys[a],keys[b],keys[d]],meta,seed));
  console.log('Act I matrix complete: '+id+' ('+result.builds.length+' runs)');
 }
 function auditBest(id,meta){const groups=new Map();for(const r of result.builds.filter(r=>r.id===id&&r.meta===meta)){const key=r.build.join();const g=groups.get(key)||{build:r.build,cleared:0,hp:0,time:0};g.cleared+=r.cleared;g.hp+=r.hp;g.time+=r.seconds;groups.set(key,g);}return [...groups.values()].sort((a,b)=>b.cleared-a.cleared||b.hp-a.hp||a.time-b.time).slice(0,3).map(g=>g.build);}
-for(const id of Object.keys(classes))for(const meta of [0,3,5])for(const build of auditBest(id,meta))for(const seed of [11,29,73])result.campaigns.push(auditCampaign(id,build,meta,seed,40));
+for(const id of auditIds)for(const meta of [0,3,5])for(const build of auditBest(id,meta))for(const seed of [11,29,73])result.campaigns.push(auditCampaign(id,build,meta,seed,40));
 console.log('Full campaign matrix complete: '+result.campaigns.length);
 function auditBudget(id,build,stage){const main=auditMain(id,build),v=Math.floor(stage*.6),d=Math.floor(stage*.3),f=Math.floor(stage*.3);run.vitality+=v;run.max+=15*v;run.defense+=d;run.focus+=f;run[main]+=2*stage-v-d-f;if(main==='vitality')run.max+=15*(2*stage-v-d-f);run.hp=run.max;
  for(let n=3;n<=stage;n++){const key=n%3===0?'boost_'+build.find(k=>EXTRA_SKILLS[k]) :n%3===1?'vitality':'defense';applyOption({type:'upgrade',key:key==='boost_undefined'?'power':key,rarity:n%10===0?'legendary':n<10?'common':n<20?'uncommon':'rare'});}run.hp=run.max;
 }
-for(const id of Object.keys(classes))for(const meta of [0,3,5]){
+for(const id of auditIds)for(const meta of [0,3,5]){
  const build=auditBest(id,meta)[0];
  for(let stage=0;stage<40;stage++){
   auditFresh(id,meta,29);run.skills=[...build];run.stage=stage;auditBudget(id,build,stage);const won=auditFight();result.duels.push({id,meta,stage:stage+1,build,won,hp:+Math.max(0,run.hp/run.max*100).toFixed(2),seconds:+run.time.toFixed(2),timeout:mode==='fight'});
@@ -48,17 +52,18 @@ for(const id of Object.keys(classes))for(const meta of [0,3,5]){
  for(const seed of [11,29,73])result.campaigns.push(auditCampaign(id,build,meta,seed,40,true));
 }
 console.log('Forty-enemy isolated matrix complete: '+result.duels.length);
-for(const first of Object.keys(classes))for(const second of Object.keys(classes))if(first!==second)for(const meta of [0,3]){
+for(const first of Object.keys(classes))for(const second of Object.keys(classes))if(first!==second&&(!reuseAudit||first==='arcanist'||second==='arcanist'))for(const meta of [0,3]){
  auditFresh(first,meta,29);archive.characters[second].meta=Array(18).fill(meta);archive.characters[second].meta[17]=Math.min(3,meta);partyEnabled=true;partyCompanion=second;fresh();titleOpen=false;
  const builds=[auditBest(first,meta)[0],auditBest(second,meta)[0]];const team=run.party;for(let i=0;i<2;i++)team.members[i].skills=[...builds[i]];run.skills=[...builds[team.active]];run.points=0;
  const won=auditFight(120);partyCapture();result.parties.push({front:first,rear:second,meta,won,seconds:+run.time.toFixed(2),hp:team.members.map(m=>+Math.max(0,m.hp/m.max*100).toFixed(2))});
 }
 console.log('Party opening matrix complete: '+result.parties.length);
-for(const id of Object.keys(classes))for(const meta of [0,5])for(const depth of [1,10,25,50]){
+for(const id of auditIds)for(const meta of [0,5])for(const depth of [1,10,25,50]){
  auditFresh(id,meta,73);preferredExpedition='endless';fresh();titleOpen=false;const build=auditBest(id,meta)[0];run.skills=[...build];run.endlessDepth=depth;run.endlessEncounter=null;auditBudget(id,build,Math.min(39,depth-1));prepareEndlessEncounter();run.points=0;const won=auditFight(240);result.endless.push({id,meta,depth,source:run.stage+1,won,hp:+Math.max(0,run.hp/run.max*100).toFixed(2),seconds:+run.time.toFixed(2)});
 }
-result;
+result.classes.sort((a,b)=>Object.keys(classes).indexOf(a.id)-Object.keys(classes).indexOf(b.id));result;
 `,c,{timeout:1800000});
+data.balancePatch=1;
 for(const skill of data.skills){if(skill.key==='second')skill.type='heal';if(skill.key==='bastion')skill.type='shield';}
 fs.mkdirSync('reports',{recursive:true});fs.writeFileSync('reports/balance-data.json',JSON.stringify(data,null,2));
 const avg=xs=>xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:0,pct=n=>(n*100).toFixed(1)+'%';

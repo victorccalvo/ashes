@@ -5,7 +5,7 @@ Object.assign(iconPaths,{
 });
 const GEAR_SLOTS=['weapon','helmet','armor','pants','ring'];
 const GEAR_LABELS={weapon:'Arma / escudo',helmet:'Capacete',armor:'Armadura',pants:'Calças',ring:'Anel'};
-const GEAR_VALUES={common:[2,2],uncommon:[4,3],rare:[7,5],legendary:[12,8]};
+const GEAR_VALUES={common:[2,2],uncommon:[4,3],rare:[5,4],legendary:[8,6]};
 const GEAR_SKILL_POWER=[20,35,55,85];
 const GEAR_NAMES={pants:['Calças do Peregrino','Grevas de Sal'],armor:['Couraça do Mosteiro','Vestes da Brasa'],helmet:['Elmo do Juramento','Capuz das Cinzas'],ring:['Anel da Vigília','Anel do Caminhante']};
 const GEAR_WEAPONS={guardian:['Escudo do Sino Partido','Escudo do Abrigo'],berserker:['Machados da Ferida','Machados do Vendaval'],arcanist:['Cajado das Piras','Cajado do Inverno'],hunter:['Arco das Farpas','Arco da Matilha'],necromancer:['Varinha do Dízimo','Varinha do Ossário']};
@@ -40,7 +40,7 @@ function validateGearArchive(value){
 const equipmentValidate=validateArchive;
 validateArchive=function(data){const clean=equipmentValidate(data);clean.gear=validateGearArchive(data.gear);const r=clean.session?.run;if(r){if(['gearLocked','gearResolved'].some(k=>r[k]!==undefined&&typeof r[k]!=='boolean'))throw Error('Estado de equipamentos inválido.');if(r.gearSnapshot!==undefined&&(!Array.isArray(r.gearSnapshot)||r.gearSnapshot.length>5||!r.gearSnapshot.every(validGearItem)||new Set(r.gearSnapshot.map(i=>i.slot)).size!==r.gearSnapshot.length||r.gearSnapshot.some(i=>i.slot==='weapon'&&i.classId!==r.character)))throw Error('Carga de equipamentos inválida.');if(!r.gearResolved&&r.gearSnapshot?.some(i=>!clean.gear.items.some(g=>g.id===i.id&&g.slot===i.slot&&g.rarity===i.rarity&&g.classId===i.classId&&g.variant===i.variant)))throw Error('Item equipado ausente.');if(r.rerollsRemaining!==undefined&&(!Number.isInteger(r.rerollsRemaining)||r.rerollsRemaining<0||r.rerollsRemaining>3||!Number.isInteger(r.rerollCapacity)||r.rerollCapacity<r.rerollsRemaining||r.rerollCapacity>3))throw Error('Rerolls inválidos.');if(r.bossLootClaimed!==undefined&&(!Array.isArray(r.bossLootClaimed)||r.bossLootClaimed.length>4||new Set(r.bossLootClaimed).size!==r.bossLootClaimed.length||!r.bossLootClaimed.every(n=>[9,19,29,39].includes(n))))throw Error('Espólios inválidos.');}return clean;};
 function applyPreparedEquipment(){
- const gear=ensureGearArchive(),ids=Object.values(gear.loadouts[run.character]);run.gearSnapshot=gear.items.filter(i=>ids.includes(i.id)).map(i=>({...i}));run.gearLocked=false;run.gearResolved=false;run.gearEffects=null;
+ const gear=ensureGearArchive(),ids=Object.values(gear.loadouts[run.character]);run.gearSnapshot=gear.items.filter(i=>ids.includes(i.id)).map(i=>({...i,statVersion:1}));run.gearLocked=false;run.gearResolved=false;run.gearEffects=null;
  for(const item of run.gearSnapshot){for(const [key,n]of Object.entries(gearStats(item))){run[key]+=n;if(key==='vitality'){run.max+=15*n;run.hp+=15*n;}}
  if(item.slot==='weapon'){const t=gearTier(item),skill=GEAR_TARGETS[item.classId][item.variant];run.gearEffects={classId:item.classId,variant:item.variant,tier:t};if(item.classId==='guardian'){if(item.variant===0)run.slamBonus+=GEAR_SKILL_POWER[t];else run.barrier+=[12,24,42,70][t];}else{run.skillBoost=run.skillBoost||{};run.skillBoost[skill]=(run.skillBoost[skill]||0)+GEAR_SKILL_POWER[t];}}}
 }
@@ -63,7 +63,7 @@ expansionSkillRate=function(key){const e=run.gearEffects;return equipmentExpansi
 const equipmentTrigger=triggerSkill;
 triggerSkill=function(key){equipmentTrigger(key);const e=run.gearEffects;if(e?.classId==='guardian'&&e.variant===0&&key==='slam')run.hp=Math.min(run.max,run.hp+run.max*[.01,.02,.03,.04][e.tier]);};
 const equipmentExpansionAfter=expansionAfter;
-expansionAfter=function(key,value){equipmentExpansionAfter(key,value);const e=run.gearEffects;if(!e)return;const t=e.tier,heal=n=>run.hp=Math.min(run.max,run.hp+n),shield=n=>grantAttackShield(n);
+expansionAfter=function(key,value){equipmentExpansionAfter(key,value);const e=run.gearEffects;if(!e)return;const t=e.tier,heal=n=>healFromDamage(n),shield=n=>grantAttackShield(n);
  if(e.classId==='berserker'){if(e.variant===0&&key==='rend')heal(value*[.08,.12,.18,.25][t]);if(e.variant===1&&key==='whirlwind')shield(value*[.10,.16,.22,.30][t]);}
  if(e.classId==='arcanist'){if(e.variant===0&&key==='fireball')run.status.fire+=[1,1,2,3][t];if(e.variant===1&&key==='frost')run.enemyTimer+=[.3,.5,.8,1.2][t]*(1-enemyResistance('ice'));}
  if(e.classId==='hunter'){if(e.variant===0&&key==='venom')run.status.poison+=[1,2,3,4][t];if(e.variant===1&&key==='dog'){run.marked=Math.max(run.marked,[3,4,5,6][t]);heal(run.max*[.005,.01,.015,.025][t]);}}

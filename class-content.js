@@ -1,5 +1,18 @@
 'use strict';
 function classDisplayName(id){return CLASS_DEFS[id].name;}
+function magicShieldDefenseRatio(){return .5;}
+function fireLegacyMultiplier(key){return run.character==='arcanist'?1+.02*trait(4):1;}
+function healFromDamage(amount){if(run.character==='berserker'&&typeof balancedDamageHealing==='function')return balancedDamageHealing(amount);const healed=Math.max(0,Math.min(amount,run.max-run.hp));run.hp+=healed;return healed;}
+function healEnemy(amount,enemy=run.enemy){
+ if(!enemy||enemy.hp<=0||amount<=0)return 0;
+ const healed=Math.max(0,Math.min(amount,enemy.max-enemy.hp,enemy.max*.3-(enemy.healingUsed||0)));
+ enemy.hp+=healed;enemy.healingUsed=(enemy.healingUsed||0)+healed;return healed;
+}
+function grantEnemyShield(amount,enemy=run.enemy,capacity=Infinity){
+ if(!enemy||enemy.hp<=0||amount<=0)return 0;
+ const used=enemy.shieldGenerated??Math.max(0,enemy.shield||0),granted=Math.max(0,Math.min(amount,capacity-(enemy.shield||0),enemy.max*.4-used));
+ enemy.shield=(enemy.shield||0)+granted;enemy.shieldGenerated=used+granted;return granted;
+}
 const CLASS_DEFS={
  guardian:{name:'Guardião',icon:'shield',flavor:'Aço, resistência e retaliação.',passive:'Tenacidade · Abaixo de 40% de vida, recebe 15% menos dano físico.',base:{vitality:10,power:10,defense:10,agility:4,focus:6},skills:['thorns','slam','bastion','counter','second']},
  berserker:{name:'Berserker',icon:'axe',flavor:'Fúria, feridas e sobrevivência.',passive:'Fúria ancestral · Abaixo de 50% de vida, causa 20% mais dano.',base:{vitality:11,power:13,defense:5,agility:7,focus:4},skills:['rend','whirlwind','warcry','bloodthirst','execution']},
@@ -57,7 +70,7 @@ function updateExtraSkills(dt){
  const st=run.status;for(const kind of ['poison','bleed','fire'])if(st[kind]>0){const active=Math.min(st[kind],dt);st[kind]=Math.max(0,st[kind]-dt);effectDamage(kind,st[kind+'Dps']*active);}st.weak=Math.max(0,st.weak-dt);
  for(const key of run.skills){const s=EXTRA_SKILLS[key];if(!s)continue;run.skillTimers[key]=Math.max(0,(run.skillTimers[key]??(run.character==='arcanist'?1/(1+.2*trait(2)):1))-dt*skillRechargeRate(key));if(run.skillTimers[key]>0)continue;run.skillTimers[key]=s.cd;triggerSkill(key);run.damageSource=s.name;run.damageSkill=key;run.shieldBeforeCast=run.shield;let value=expansionBefore(key,evolveBeforeCast(key,classSkillValue(key)));
  if(s.type==='utility'){}else if(s.type==='heal')run.hp=Math.min(run.max,run.hp+value);else if(s.type==='shield'){if(key==='ward'){run.shield=Math.max(0,run.shield-(run.wardShield||0));const grant=Math.min(run.max*.23,value+run.barrier*1.15);run.wardShield=Math.min(grant,Math.max(0,shieldLimit()-run.shield));run.shield+=run.wardShield;run.wardExpiry=5+.15*trait(8);}else run.shield=Math.min(shieldLimit(),run.shield+value+run.barrier);}else{if(s.effect==='execute'&&run.enemy.hp<run.enemy.max*(.35+.02*trait(2)))value*=2;if(key==='volley'){for(let shot=0;shot<3;shot++)hurtEnemy(value/3,s.name);}else hurtEnemy(value,s.name);}
- if(['bleed','fire','poison'].includes(s.effect)){const kind=s.effect;st[kind]=kind==='fire'?4+(key==='fireball'?trait(0):0):6+(key==='venom'?trait(1):0);st[kind+'Dps']=value*(kind==='poison'?.25:.2)*(kind==='fire'&&run.character==='arcanist'?1+.02*trait(4):1)*(key==='rend'?1+.1*trait(1):1);}
+ if(['bleed','fire','poison'].includes(s.effect)){const kind=s.effect;st[kind]=kind==='fire'?4+(key==='fireball'?trait(0):0):6+(key==='venom'?trait(1):0);st[kind+'Dps']=value*(kind==='poison'?.25:.2)*(kind==='fire'?fireLegacyMultiplier(key):1)*(key==='rend'?1+.1*trait(1):1);}
  if(key==='dog')run.hp=Math.min(run.max,run.hp+run.max*.003*trait(0));if(key==='skeleton')grantAttackShield(2*trait(3));
  if(s.effect==='drain')run.hp=Math.min(run.max,run.hp+value*(.35+.05*trait(1)));
  if(s.effect==='curse')st.weak=5+trait(2);

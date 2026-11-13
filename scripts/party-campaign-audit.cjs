@@ -1,6 +1,8 @@
 const fs=require('fs'),vm=require('vm'),{context:c}=require('./game-harness.cjs')();
-const baseline=JSON.parse(fs.readFileSync('reports/balance-data.json','utf8'));
+const baseline=JSON.parse(fs.readFileSync(fs.existsSync('reports/balance-before/balance-data.json')?'reports/balance-before/balance-data.json':'reports/balance-data.json','utf8'));
 c.auditBaseline=baseline;
+c.partyFilter=process.argv.includes('--arcanist')?'arcanist':null;
+c.priorParty=c.partyFilter?JSON.parse(fs.readFileSync('reports/party-campaign-data.json','utf8')).filter(r=>r.front!==c.partyFilter&&r.rear!==c.partyFilter):[];
 c.auditCheckpoint=rows=>fs.writeFileSync('reports/party-campaign-data.json',JSON.stringify(rows,null,2));
 const results=vm.runInContext(`
 render=renderHealth=renderMinions=log=persist=playSkillEffect=animateCombat=floatingDamage=()=>{};presentOutcome=(kind,settle)=>settle();recordRanking=()=>{};
@@ -8,8 +10,9 @@ let auditPartySeed=29;Math.random=()=>{auditPartySeed=(Math.imul(auditPartySeed,
 const partyBuildCache=new Map();
 function partyAuditBuild(id,meta){const cacheKey=id+meta;if(partyBuildCache.has(cacheKey))return partyBuildCache.get(cacheKey);const groups=new Map();for(const r of auditBaseline.builds.filter(r=>r.id===id&&r.meta===meta)){const key=r.build.join();const g=groups.get(key)||{build:r.build,cleared:0,hp:0,time:0};g.cleared+=r.cleared;g.hp+=r.hp;g.time+=r.seconds;groups.set(key,g);}const build=[...groups.values()].sort((a,b)=>b.cleared-a.cleared||b.hp-a.hp||a.time-b.time)[0].build;partyBuildCache.set(cacheKey,build);return build;}
 function partyAuditChoice(){if(run.skills.length<3){const target=partyAuditBuild(run.character,auditMeta).find(k=>!run.skills.includes(k));options=[{type:'skill',key:target}];return 0;}const scored=options.map((o,i)=>({i,score:o.key==='vitality'?(run.hp/run.max<.6?12:5):o.key.startsWith('evo_')?10:o.key.startsWith('boost_')?9:o.key==='defense'?8:o.key==='power'||o.key==='agility'?7:o.key==='crit'?6:3})).sort((a,b)=>b.score-a.score);return scored[0].i;}
-let auditMeta=0;const rows=[];
+let auditMeta=0;const rows=[...priorParty];
 for(const [front,rear]of [['guardian','berserker'],['berserker','witch'],['arcanist','guardian'],['hunter','alchemist'],['necromancer','jailer'],['eclipse','hunter'],['alchemist','necromancer'],['jailer','arcanist'],['witch','eclipse']])for(const meta of [0,3,5]){
+ if(partyFilter&&front!==partyFilter&&rear!==partyFilter)continue;
  auditMeta=meta;auditPartySeed=29;mode='prep';titleOpen=true;partyEnabled=true;partyCompanion=rear;preferredExpedition='campaign';archive=blankArchive();archive.feats={version:1,unlocked:Object.keys(SECRET_CLASSES),rearKills:0,cleanBoss:false,tripleBoss:false,eclipseDepth:0,jailerBest:0};archive.selected=front;save=archive.characters[front];for(const id of [front,rear]){archive.characters[id].meta=Array(18).fill(meta);archive.characters[id].meta[17]=Math.min(3,meta);}fresh();titleOpen=false;
  while(mode==='prep'){chosen=partyAuditChoice();$('advance').onclick();}
  let clears=0,falls=0,returns=0,timeout=false,totalTime=0,seenDead=new Set();

@@ -1,0 +1,164 @@
+[
+  {
+    "id": "guardian",
+    "build": [
+      "bastion",
+      "slam",
+      "oath"
+    ],
+    "meta": 0,
+    "seed": 73,
+    "gear": false,
+    "cleared": 10,
+    "hp": 55.41,
+    "seconds": 251.65,
+    "timeout": false,
+    "firstBossHp": 55.41,
+    "policy": "defenceFocus",
+    "enemyRemaining": 0
+  },
+  {
+    "id": "berserker",
+    "build": [
+      "rend",
+      "warcry",
+      "bloodthirst"
+    ],
+    "meta": 0,
+    "seed": 11,
+    "gear": false,
+    "cleared": 10,
+    "hp": 58.85,
+    "seconds": 185.25,
+    "timeout": false,
+    "firstBossHp": 58.85,
+    "policy": "standard",
+    "enemyRemaining": 0
+  },
+  {
+    "id": "hunter",
+    "build": [
+      "venom",
+      "trap",
+      "pact"
+    ],
+    "meta": 0,
+    "seed": 73,
+    "gear": false,
+    "cleared": 10,
+    "hp": 50.39,
+    "seconds": 146.1,
+    "timeout": false,
+    "firstBossHp": 50.39,
+    "policy": "earlyVitality",
+    "enemyRemaining": 0
+  },
+  {
+    "id": "necromancer",
+    "build": [
+      "drain",
+      "bone",
+      "prison"
+    ],
+    "meta": 0,
+    "seed": 29,
+    "gear": false,
+    "cleared": 10,
+    "hp": 75.75,
+    "seconds": 349.1,
+    "timeout": false,
+    "firstBossHp": 75.75,
+    "policy": "standard",
+    "enemyRemaining": 0
+  },
+  {
+    "id": "eclipse",
+    "build": [
+      "ec_sun",
+      "ec_harvest",
+      "ec_blade"
+    ],
+    "meta": 0,
+    "seed": 29,
+    "gear": false,
+    "cleared": 10,
+    "hp": 42.8,
+    "seconds": 86.15,
+    "timeout": false,
+    "firstBossHp": 42.8,
+    "policy": "standard",
+    "enemyRemaining": 0
+  },
+  {
+    "id": "alchemist",
+    "build": [
+      "al_antidote",
+      "al_corrosion",
+      "al_oil"
+    ],
+    "meta": 0,
+    "seed": 29,
+    "gear": false,
+    "cleared": 10,
+    "hp": 64.28,
+    "seconds": 102,
+    "timeout": false,
+    "firstBossHp": 64.28,
+    "policy": "standard",
+    "enemyRemaining": 0
+  },
+  {
+    "id": "jailer",
+    "build": [
+      "ja_hook",
+      "ja_silence",
+      "ja_sentence"
+    ],
+    "meta": 0,
+    "seed": 29,
+    "gear": false,
+    "cleared": 10,
+    "hp": 67.06,
+    "seconds": 186.95,
+    "timeout": false,
+    "firstBossHp": 67.06,
+    "policy": "offenceFocus",
+    "enemyRemaining": 0
+  },
+  {
+    "id": "witch",
+    "build": [
+      "wi_peck",
+      "wi_feast",
+      "wi_eye"
+    ],
+    "meta": 0,
+    "seed": 11,
+    "gear": false,
+    "cleared": 10,
+    "hp": 49.64,
+    "seconds": 82.75,
+    "timeout": false,
+    "firstBossHp": 49.64,
+    "policy": "fullOffence",
+    "enemyRemaining": 0
+  },
+  {
+    "id": "arcanist",
+    "build": [
+      "frost",
+      "fireball",
+      "prism"
+    ],
+    "meta": 0,
+    "seed": 29,
+    "gear": false,
+    "cleared": 10,
+    "hp": 44.76,
+    "seconds": 115.65,
+    "timeout": false,
+    "firstBossHp": 44.76,
+    "policy": "standard",
+    "enemyRemaining": 0
+  }
+]
