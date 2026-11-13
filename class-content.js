@@ -1,4 +1,5 @@
 'use strict';
+function classDisplayName(id){return CLASS_DEFS[id].name;}
 const CLASS_DEFS={
  guardian:{name:'Guardião',icon:'shield',flavor:'Aço, resistência e retaliação.',passive:'Tenacidade · Abaixo de 40% de vida, recebe 15% menos dano físico.',base:{vitality:10,power:10,defense:10,agility:4,focus:6},skills:['thorns','slam','bastion','counter','second']},
  berserker:{name:'Berserker',icon:'axe',flavor:'Fúria, feridas e sobrevivência.',passive:'Fúria ancestral · Abaixo de 50% de vida, causa 20% mais dano.',base:{vitality:11,power:13,defense:5,agility:7,focus:4},skills:['rend','whirlwind','warcry','bloodthirst','execution']},
@@ -34,6 +35,7 @@ for(const [key,s] of Object.entries(EXTRA_SKILLS))skillIcons[key]=s.icon;
 function isMagicSkill(key){return CLASS_DEFS.arcanist.skills.includes(key)||CLASS_DEFS.necromancer.skills.includes(key);}
 function powerCoefficient(value,key){return Number((value*(isMagicSkill(key)?1:1.25)).toFixed(4));}
 function skillRechargeRate(key){const rate=cooldownRate()*expansionSkillRate(key),s=EXTRA_SKILLS[key],floor=isMagicSkill(key)&&s?.type==='shield'?6:key==='frost'?4:0;return floor?Math.min(rate,s.cd/floor):rate;}
+function equipmentSkillMultiplier(key){return 1;}
 function classSkillValue(key){const s=EXTRA_SKILLS[key];return (s.base+['vitality','power','defense','agility','focus'].reduce((sum,a)=>sum+(a==='power'?powerCoefficient(s[a]||0,key):(s[a]||0))*run[a],0))*(1+(run.skillBoost?.[key]||0)/100)*(key==='precise'?1+.1*trait(2):key==='skeleton'?1+.08*trait(0):key==='ward'?1.15:1);}
 function cooldownRate(){return (1+run.focus*.04)*(run.character==='arcanist'?1.15:1);}
 function extraScaling(key){const s=EXTRA_SKILLS[key],labels={vitality:'Vitalidade',power:'Poder',defense:'Defesa',agility:'Agilidade',focus:'Foco'};let shown=classSkillValue(key);if(!s.type)shown*=1-enemyResistance(skillElement(key));if(s.type==='shield')shown=key==='ward'?Math.min(run.max*.23,shown+run.barrier*1.15):Math.min(shieldLimit(),shown+run.barrier);return 'Escala: '+[s.base,...Object.keys(labels).filter(a=>s[a]).map(a=>(a==='power'?powerCoefficient(s[a],key):s[a])+' × '+labels[a])].join(' + ')+'. '+({shield:'Escudo',heal:'Cura',utility:'Potência'}[s.type]||'Dano')+' atual: '+Math.round(shown)+'. Recarga: '+(s.cd/skillRechargeRate(key)).toFixed(1)+'s.';}

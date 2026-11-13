@@ -16,7 +16,7 @@ function updateMinions(dt){
  // A few earlier adversaries teach the mechanic before the later summoning elites.
  const model=run.stage===2||run.stage===7?3:run.stage===12?1:null;
  if(model!==null){run.summonTimer=(run.summonTimer||0)+dt;if(run.summonTimer>=12){run.summonTimer-=12;spawnMinion(model);}}
- for(const m of run.minions||[])if(m.hp>0){m.timer=Math.max(0,m.timer-dt);if(m.timer<=0){m.timer+=m.interval;const boss=run.enemy;run.enemy=m;try{hurtPlayer(m.damage);run.hits++;if(run.skills.includes('thorns')){triggerSkill('thorns');hurtEnemy((5+run.defense*.4)*(1+trait(3)*.08),'Espinhos → '+m.name);}if(run.skills.includes('counter')&&run.hits%3===0){triggerSkill('counter');hurtEnemy((run.power*2.4+run.defense*1.2)*run.counter,'Retaliação → '+m.name);}}finally{m.hp=Math.max(0,m.hp);run.enemy=boss;}m.lastAttack=run.time;animateCombat('player','hit');log('↯ '+m.name+' · ataque de '+m.damage+'.');}}
+ for(const m of run.minions||[])if(m.hp>0){m.timer=Math.max(0,m.timer-dt);if(m.timer<=0){m.timer+=m.interval;const boss=run.enemy;run.enemy=m;try{hurtPlayer(m.damage);run.hits++;if(run.skills.includes('thorns')){triggerSkill('thorns');hurtEnemy((5+run.defense*.4)*(1+trait(3)*.08)*equipmentSkillMultiplier('thorns'),'Espinhos → '+m.name);}if(run.skills.includes('counter')&&run.hits%3===0){triggerSkill('counter');hurtEnemy((run.power*2.4+run.defense*1.2)*run.counter*equipmentSkillMultiplier('counter'),'Retaliação → '+m.name);}}finally{m.hp=Math.max(0,m.hp);run.enemy=boss;}m.lastAttack=run.time;animateCombat('player','hit');log('↯ '+m.name+' · ataque de '+m.damage+'.');}}
  renderMinions();
 }
 const minionBaseStart=startDuel;

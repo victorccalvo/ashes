@@ -1,0 +1,407 @@
+[
+  {
+    "front": "guardian",
+    "rear": "berserker",
+    "meta": 0,
+    "seed": 29,
+    "cleared": 10,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 255.45,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "guardian",
+    "rear": "berserker",
+    "meta": 3,
+    "seed": 29,
+    "cleared": 24,
+    "falls": 0,
+    "returns": 0,
+    "timeout": true,
+    "seconds": 1345.75,
+    "hp": [
+      96.18,
+      100
+    ]
+  },
+  {
+    "front": "guardian",
+    "rear": "berserker",
+    "meta": 5,
+    "seed": 29,
+    "cleared": 20,
+    "falls": 0,
+    "returns": 0,
+    "timeout": true,
+    "seconds": 917.4,
+    "hp": [
+      100,
+      100
+    ]
+  },
+  {
+    "front": "berserker",
+    "rear": "witch",
+    "meta": 0,
+    "seed": 29,
+    "cleared": 5,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 84.1,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "berserker",
+    "rear": "witch",
+    "meta": 3,
+    "seed": 29,
+    "cleared": 8,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 135.85,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "berserker",
+    "rear": "witch",
+    "meta": 5,
+    "seed": 29,
+    "cleared": 19,
+    "falls": 6,
+    "returns": 5,
+    "timeout": true,
+    "seconds": 952.8,
+    "hp": [
+      100,
+      0
+    ]
+  },
+  {
+    "front": "arcanist",
+    "rear": "guardian",
+    "meta": 0,
+    "seed": 29,
+    "cleared": 9,
+    "falls": 3,
+    "returns": 1,
+    "timeout": false,
+    "seconds": 361.15,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "arcanist",
+    "rear": "guardian",
+    "meta": 3,
+    "seed": 29,
+    "cleared": 9,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 231.7,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "arcanist",
+    "rear": "guardian",
+    "meta": 5,
+    "seed": 29,
+    "cleared": 20,
+    "falls": 1,
+    "returns": 0,
+    "timeout": true,
+    "seconds": 638.7,
+    "hp": [
+      0,
+      100
+    ]
+  },
+  {
+    "front": "hunter",
+    "rear": "alchemist",
+    "meta": 0,
+    "seed": 29,
+    "cleared": 9,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 133.5,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "hunter",
+    "rear": "alchemist",
+    "meta": 3,
+    "seed": 29,
+    "cleared": 10,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 144.25,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "hunter",
+    "rear": "alchemist",
+    "meta": 5,
+    "seed": 29,
+    "cleared": 11,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 171.15,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "necromancer",
+    "rear": "jailer",
+    "meta": 0,
+    "seed": 29,
+    "cleared": 5,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 110.2,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "necromancer",
+    "rear": "jailer",
+    "meta": 3,
+    "seed": 29,
+    "cleared": 8,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 205.7,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "necromancer",
+    "rear": "jailer",
+    "meta": 5,
+    "seed": 29,
+    "cleared": 22,
+    "falls": 8,
+    "returns": 6,
+    "timeout": false,
+    "seconds": 743.5,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "eclipse",
+    "rear": "hunter",
+    "meta": 0,
+    "seed": 29,
+    "cleared": 4,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 63.45,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "eclipse",
+    "rear": "hunter",
+    "meta": 3,
+    "seed": 29,
+    "cleared": 10,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 136,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "eclipse",
+    "rear": "hunter",
+    "meta": 5,
+    "seed": 29,
+    "cleared": 21,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 440.15,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "alchemist",
+    "rear": "necromancer",
+    "meta": 0,
+    "seed": 29,
+    "cleared": 4,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 84.45,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "alchemist",
+    "rear": "necromancer",
+    "meta": 3,
+    "seed": 29,
+    "cleared": 9,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 170.65,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "alchemist",
+    "rear": "necromancer",
+    "meta": 5,
+    "seed": 29,
+    "cleared": 9,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 116.4,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "jailer",
+    "rear": "arcanist",
+    "meta": 0,
+    "seed": 29,
+    "cleared": 4,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 83.65,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "jailer",
+    "rear": "arcanist",
+    "meta": 3,
+    "seed": 29,
+    "cleared": 9,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 154.2,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "jailer",
+    "rear": "arcanist",
+    "meta": 5,
+    "seed": 29,
+    "cleared": 10,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 160.8,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "witch",
+    "rear": "eclipse",
+    "meta": 0,
+    "seed": 29,
+    "cleared": 4,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 64.1,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "witch",
+    "rear": "eclipse",
+    "meta": 3,
+    "seed": 29,
+    "cleared": 8,
+    "falls": 3,
+    "returns": 1,
+    "timeout": false,
+    "seconds": 105.35,
+    "hp": [
+      0,
+      0
+    ]
+  },
+  {
+    "front": "witch",
+    "rear": "eclipse",
+    "meta": 5,
+    "seed": 29,
+    "cleared": 10,
+    "falls": 2,
+    "returns": 0,
+    "timeout": false,
+    "seconds": 123.9,
+    "hp": [
+      0,
+      0
+    ]
+  }
+]

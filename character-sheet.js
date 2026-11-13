@@ -18,8 +18,8 @@ function skillSnapshot(key){
  lines.push('Recarga efetiva: '+sheetNumber(s.cd/skillRechargeRate(key))+'s.');
  }else{
  if(key==='second')lines.push('Cura: '+sheetNumber(healAmount())+' · uma vez por combate, abaixo de 60% de vida.');
- if(key==='bastion')lines.push('Escudo: '+sheetNumber(12+run.defense*2+run.focus*.5+run.barrier)+' · limite '+sheetNumber(shieldLimit())+' · recarga '+sheetNumber(10/(cooldownRate()*expansionSkillRate(key)))+'s.');
- if(['slam','counter','thorns'].includes(key)){value=key==='slam'?(12+run.power*2.5+run.defense)*(1+run.slamBonus/100):key==='counter'?(run.power*3+run.defense*1.2)*run.counter:(5+run.defense*.4)*(1+trait(3)*.08);lines.push('Dano: '+sheetNumber(sheetDamage(value))+' · crítico: '+sheetNumber(sheetDamage(value)*run.critDamage)+'.');}
+ if(key==='bastion')lines.push('Escudo: '+sheetNumber((12+run.defense*2+run.focus*.5+run.barrier)*equipmentSkillMultiplier('bastion'))+' · limite '+sheetNumber(shieldLimit())+' · recarga '+sheetNumber(10/(cooldownRate()*expansionSkillRate(key)))+'s.');
+ if(['slam','counter','thorns'].includes(key)){value=key==='slam'?(12+run.power*2.5+run.defense)*(1+run.slamBonus/100)*equipmentSkillMultiplier('slam'):key==='counter'?(run.power*3+run.defense*1.2)*run.counter*equipmentSkillMultiplier('counter'):(5+run.defense*.4)*(1+trait(3)*.08)*equipmentSkillMultiplier('thorns');lines.push('Dano: '+sheetNumber(sheetDamage(value))+' · crítico: '+sheetNumber(sheetDamage(value)*run.critDamage)+'.');}
  if(key==='slam'){lines.push('Recarga: '+sheetNumber(7/cooldownRate())+'s.');if(run.fire)lines.push('Fogo: '+sheetNumber(sheetDamage(run.fire,true)*(1-enemyResistance('fire')))+'/s por 4s.');}
  if(key==='counter'&&run.bleedDamage)lines.push('Sangramento: '+sheetNumber(sheetDamage(run.bleedDamage,true)*(1-enemyResistance('bleed')))+'/s por 6s.');
  }

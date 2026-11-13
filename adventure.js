@@ -29,7 +29,7 @@ function renderLoot(compare=false){
  if(compare&&old){const card=itemCard(old);const note=document.createElement('p');note.textContent='Equipado atualmente';card.prepend(note);$('loot-items').append(card);}
  const card=itemCard(item),note=document.createElement('p');note.textContent=compare?'Novo espólio':'Você encontrou um equipamento';card.prepend(note);$('loot-items').append(card);
  $('loot-description').textContent=compare?'A peça escolhida será equipada agora. A outra ficará segura no baú.':'Equipe agora para fortalecer esta run ou guarde no baú. Ao morrer, todos os equipamentos em uso serão perdidos.';
- $('loot-equip').disabled=!compatible;$('loot-equip').textContent=!compatible?'Exclusivo: '+classes[item.classId].name:compare?'Equipar novo · guardar atual':'Equipar agora';
+ $('loot-equip').disabled=!compatible;$('loot-equip').textContent=!compatible?'Exclusivo: '+classDisplayName(item.classId):compare?'Equipar novo · guardar atual':'Equipar agora';
  $('loot-store').textContent=compare?'Manter atual · guardar novo':'Enviar para o baú';
  $('loot-equip').onclick=()=>{if(old&&!compare){renderLoot(true);return;}resolveLoot(true);};$('loot-store').onclick=()=>resolveLoot(false);
 }
