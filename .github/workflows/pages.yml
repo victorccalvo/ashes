@@ -31,6 +31,7 @@ jobs:
           node equipment-test.cjs
           node attribute-test.cjs
           node adventure-test.cjs
+          node feedback-test.cjs
       - name: Prepare static site
         run: node scripts/build-site.cjs
       - uses: actions/configure-pages@v5

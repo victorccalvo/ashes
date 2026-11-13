@@ -9,7 +9,7 @@ for(let defense=0;defense<=100;defense++){
  run.hp=1000;hurtPlayer(100,true);check(run.hp===900,'Pure ignores defense');
 }
 fresh();run.skills=['slam'];applyOption({type:'upgrade',key:'slamBonus',rarity:'rare'});check(run.upgradeHistory.length===1&&run.upgradeHistory[0].amount===36,'Upgrade history');
-const raw=12+run.power*2+run.defense;check(Math.abs(skillSnapshot('slam').value-raw*1.36)<1e-8,'Upgraded slam preview');
+const raw=12+run.power*2.5+run.defense;check(Math.abs(skillSnapshot('slam').value-raw*1.36)<1e-8,'Upgraded slam preview');
 offer();validateArchive(JSON.parse(JSON.stringify(snapshot())));
 const old=JSON.parse(JSON.stringify(snapshot()));delete old.session.run.upgradeHistory;delete old.session.run.legacyCore;validateArchive(old);restoreSession(old.session);check(run.legacyCore.length===5,'Old run core migration');
 for(const id of Object.keys(classes)){

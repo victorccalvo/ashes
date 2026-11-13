@@ -170,3 +170,9 @@ O menu mantém Legado junto de cada personagem, sem o botão global adicional. C
 - Fluxo: animação de vitória → loot do chefe, se houver → fogueira, se sorteada → recompensa normal / decisão final da campanha. As decisões e os benefícios persistem no save.
 - Arcanista e Necromante usam Poder para dano e Defesa para barreiras. A Marca da Presa do Caçador usa Agilidade. Todas as habilidades dessas três classes deixam de escalar sua potência com Foco, incluindo Quarta Palavra; Foco continua afetando recarga.
 - A fogueira usa `assets/bonfire.png`, sprite original gerada para o projeto com fundo transparente.
+
+### Efeitos negativos, crítico e Poder
+- A arena mostra sangramento, queimadura, veneno, gelo, fraqueza, marca e vulnerabilidade com ícone, cor e contagem regressiva. Passe o mouse ou use o foco do teclado para consultar o efeito. As fontes antigas e novas de dano contínuo são reunidas no mesmo indicador; efeitos expirados desaparecem. Gelo representa a janela de interação glacial, não uma paralisação permanente.
+- Precisão Mortal informa a chance de crítico atual e a chance após escolher a oferta, considerando a raridade e o limite de 65%.
+- Poder contribui 25% mais nas habilidades que já escalam com ele, incluindo Golpe de Escudo, Retaliação e Quarta Palavra. Exemplos: Bola de Fogo passa de 3 para 3,75 por ponto; Golpe de Escudo de 2 para 2,5; Retaliação de 2,4 para 3. Prévia, ficha e simulação usam os mesmos valores. Ataques básicos mantêm +2 por ponto.
+- Esse buff torna as builds ofensivas de referência do Ato I mais seguras. O teste verifica que, sem legado e sem fogueiras/equipamentos, ainda terminam com no máximo metade da vida e que legado aumenta a sobrevivência. O teste da campanha completa continua exigindo que as builds sem legado não concluam os quatro atos.

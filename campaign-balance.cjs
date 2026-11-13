@@ -17,4 +17,5 @@ if(mode!=='camp')break;
 rows.push({id,meta,won:mode==='won',stage:run.stage+1,hp:Math.round(run.hp/run.max*100),time:Math.round(run.time)});
 }rows;
 `,c);console.table(results);
-for(const r of results){assert(r.won,'Key build must clear Act I: '+r.id);if(r.meta===0)assert(r.hp>0&&r.hp<=15,'Zero-legacy victory should be narrow: '+r.id);}
+// The Power buff intentionally makes these reference builds safer. Keep Act I costly and legacy advantageous.
+for(const r of results){assert(r.won,'Key build must clear Act I: '+r.id);if(r.meta===0){assert(r.hp>0&&r.hp<=50,'Zero-legacy victory must still cost at least half the health: '+r.id);assert(results.find(x=>x.id===r.id&&x.meta===5).hp>r.hp,'Legacy must retain a survival advantage: '+r.id);}}
