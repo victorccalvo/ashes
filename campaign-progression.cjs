@@ -1,7 +1,7 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');const harness=fs.readFileSync('smoke-test.cjs','utf8').split('const c=boot();')[0];const c=new Function('require',harness+'\nreturn boot();')(require);vm.runInContext(['act-two.js','character-sheet.js','campaign.js','minions.js'].map(f=>fs.readFileSync(f,'utf8')).join('\n'),c);
 const results=vm.runInContext(`
 render=renderHealth=renderMinions=log=persist=playSkillEffect=animateCombat=floatingDamage=()=>{};Math.random=()=>.999999;
-const builds={guardian:['slam','bastion','oath'],berserker:['rend','warcry','bloodthirst'],arcanist:['frost','ward','lightning'],hunter:['venom','dog','pact'],necromancer:['plague','bone','prison']};
+const builds={guardian:['slam','bastion','oath'],berserker:['rend','warcry','bloodthirst'],arcanist:['lightning','ward','prism'],hunter:['venom','dog','pact'],necromancer:['plague','bone','prison']};
 victory=()=>{if(run.stage===39)mode='won';else if(run.stage%10===9){run.stage++;run.enemy=null;run.hp=Math.min(run.max,run.hp+run.max*.4);mode='camp';}else settleVictory();};finish=()=>mode='dead';const rows=[];
 for(const id of Object.keys(builds))for(const meta of [0,5]){
 archive.selected=id;save=archive.characters[id];save.meta=Array(17).fill(meta);fresh();let firstHp=0;

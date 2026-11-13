@@ -37,7 +37,7 @@ Cada um dos nove elites e o chefe tem uma arte própria e um cartão com tipo, n
 
 - Vitória e derrota têm uma transição de 1,45s antes do popup (0,45s sem movimento quando movimento reduzido está ativo). O resultado é salvo imediatamente para evitar recompensas duplicadas ao recarregar. Na derrota há um botão **Voltar ao menu**.
 - Cartões de escolhas compartilham as linhas de raridade, título e descrição com CSS subgrid, mantendo alinhamento mesmo com textos de tamanhos diferentes.
-- Barreira Arcana: base 8 + 1,2 × Foco + 0,6 × Defesa; recarga base 14s; duração 5s; no máximo 20% da vida máxima por aplicação; substitui a própria barreira anterior. Outras fontes de proteção continuam sujeitas ao limite total de escudos.
+- Barreira Arcana: base 12 + 3,5 × Defesa, com bônus de potência de 15%; recarga base 14s, mínima 6s; duração 5s e limite de 23% da vida máxima por aplicação. Substitui a própria barreira anterior; o conjunto dos escudos do Arcanista tem teto de 35% da vida máxima.
 - Dezesseis modificadores comportamentais para as quatro classes além do Guardião: limpeza de sangramento, conversão de dano em proteção, detonação de queimaduras, conjuração tripla, sinergia cão/veneno, vulnerabilidade, contra-ataque evasivo e proteção pelo servo. Cada modificador aparece apenas para uma habilidade aprendida e pode ser escolhido uma vez na run. Bônus de potência comuns continuam disponíveis.
 
 - Cada classe oferece nove upgrades permanentes: cinco básicos preservados de versões anteriores e quatro exclusivos do seu estilo. Os novos níveis são inicializados em zero ao carregar saves antigos. Os efeitos de estilo são copiados para a próxima run, mantendo uma run já em andamento intacta.
@@ -166,7 +166,7 @@ O menu mantém Legado junto de cada personagem, sem o botão global adicional. C
 
 ### Espólios e fogueiras
 - Após a transição de vitória de um chefe da campanha, uma tela de loot permite equipar o item agora ou enviá-lo ao baú. Um espaço ocupado abre a comparação dos dois itens; a peça substituída fica no baú. Armas de outra classe só podem ser guardadas. Equipamentos usados durante a run, inclusive novos drops equipados, são perdidos na morte.
-- Cada encontro da campanha, do quinto ao décimo de cada ato, tem 30% de chance de revelar uma fogueira após a vitória. O sorteio é salvo e não se repete ao recarregar. A fogueira restaura toda a vida e oferece um ponto de atributo e uma escolha entre três aprimoramentos compatíveis. Essa recompensa é adicional à do combate. Não aparece no modo infinito.
+- Cada encontro da campanha, do quinto ao décimo de cada ato, tem 20% de chance de revelar uma fogueira após a vitória, até aparecer a única fogueira permitida naquele ato. O sorteio é salvo e não se repete ao recarregar. A fogueira restaura toda a vida e oferece um ponto de atributo e uma escolha entre três aprimoramentos compatíveis. Essa recompensa é adicional à do combate. Não aparece no modo infinito.
 - Fluxo: animação de vitória → loot do chefe, se houver → fogueira, se sorteada → recompensa normal / decisão final da campanha. As decisões e os benefícios persistem no save.
 - Arcanista e Necromante usam Poder para dano e Defesa para barreiras. A Marca da Presa do Caçador usa Agilidade. Todas as habilidades dessas três classes deixam de escalar sua potência com Foco, incluindo Quarta Palavra; Foco continua afetando recarga.
 - A fogueira usa `assets/bonfire.png`, sprite original gerada para o projeto com fundo transparente.
@@ -174,5 +174,15 @@ O menu mantém Legado junto de cada personagem, sem o botão global adicional. C
 ### Efeitos negativos, crítico e Poder
 - A arena mostra sangramento, queimadura, veneno, gelo, fraqueza, marca e vulnerabilidade com ícone, cor e contagem regressiva. Passe o mouse ou use o foco do teclado para consultar o efeito. As fontes antigas e novas de dano contínuo são reunidas no mesmo indicador; efeitos expirados desaparecem. Gelo representa a janela de interação glacial, não uma paralisação permanente.
 - Precisão Mortal informa a chance de crítico atual e a chance após escolher a oferta, considerando a raridade e o limite de 65%.
-- Poder contribui 25% mais nas habilidades que já escalam com ele, incluindo Golpe de Escudo, Retaliação e Quarta Palavra. Exemplos: Bola de Fogo passa de 3 para 3,75 por ponto; Golpe de Escudo de 2 para 2,5; Retaliação de 2,4 para 3. Prévia, ficha e simulação usam os mesmos valores. Ataques básicos mantêm +2 por ponto.
+- Poder mantém o bônus de 25% nas habilidades marciais. Nas habilidades do Arcanista e do Necromante, a contribuição de Poder foi reduzida em 20% em relação à versão anterior. Exemplos: Bola de Fogo passa de 3,75 para 3 por ponto; Golpe de Escudo mantém 2,5; Retaliação mantém 3; Quarta Palavra volta a 15% do Poder por nível. Prévia, ficha e simulação usam os mesmos valores. Ataques básicos mantêm +2 por ponto.
 - Esse buff torna as builds ofensivas de referência do Ato I mais seguras. O teste verifica que, sem legado e sem fogueiras/equipamentos, ainda terminam com no máximo metade da vida e que legado aumenta a sobrevivência. O teste da campanha completa continua exigindo que as builds sem legado não concluam os quatro atos.
+
+### Limites das barreiras mágicas
+
+- Arcanista e Necromante: limite conjunto de escudos de 35% da vida máxima. Defesa oferece metade de sua redução física aos escudos dessas classes; a vida mantém a redução completa. Guardião, Berserker e Caçador mantêm a fórmula anterior. Dano puro continua ignorando Defesa.
+- Barreira Arcana, Prisma Glacial, Armadura de Ossos e Prisão de Ossos têm recarga efetiva mínima de 6s, mesmo com Foco e Legado. As primeiras conjurações continuam rápidas. HUD, ficha e ofertas mostram a recarga efetiva.
+- Escudos gerados por ataques (passivas, evoluções e varinha) compartilham uma janela de geração a cada 3s nas classes mágicas. Bônus simultâneos de um mesmo instante se combinam; ataques rápidos seguintes não renovam a barreira sem parar.
+- Lança de Gelo tem recarga mínima de 4s; Inverno Profundo adiciona 0,08s de atraso por nível (até 1,8s, antes do efeito do cajado).
+- Fogueiras: uma por ato, no máximo; 20% por encontro elegível. A marca de ato visitado é salva assim que a fogueira aparece, antes do descanso. Saves anteriores inferem o ato visitado pela última fogueira registrada.
+- Testes de referência passam a usar distribuições de atributos e habilidades compatíveis com essas restrições. Testes não garantem vitória para toda combinação de habilidades, itens e upgrades.
+- `node magic-balance-test.cjs` mede dano absorvido, preservação da mitigação de vida, intervalos reais de recarga, efeitos com Foco alto, limites de escudos por ataques e restauração de saves. No cenário de 60s com 30 ataques de dano 100 contra Defesa 50 e Foco 80, duas barreiras por classe deixaram 10 janelas de quebra e 300 pontos de dano à vida.

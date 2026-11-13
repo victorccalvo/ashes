@@ -57,7 +57,7 @@ function hudSkillState(key){
  if(mode!=='fight')return {label:'Próximo duelo',progress:1,active:false};
  const active=run.skillFx?.[key]!==undefined&&run.time-run.skillFx[key]<.7;let timer=0,total=1,label='Pronta',progress=1;
  if(EXTRA_SKILLS[key]){timer=run.skillTimers?.[key]??1;total=EXTRA_SKILLS[key].cd;}else if(key==='slam'||key==='bastion'){timer=run[key]??0;total=key==='slam'?7:10;}
- if(EXTRA_SKILLS[key]||key==='slam'||key==='bastion'){progress=1-timer/total;label=timer>0?(timer/(cooldownRate()*expansionSkillRate(key))).toFixed(1)+'s':'Pronta';}
+ if(EXTRA_SKILLS[key]||key==='slam'||key==='bastion'){progress=1-timer/total;label=timer>0?(timer/skillRechargeRate(key)).toFixed(1)+'s':'Pronta';}
  else if(key==='counter'){progress=(run.hits%3)/3;label=(run.hits%3)+'/3 impactos';}
  else if(key==='second'){progress=run.second?0:1;label=run.second?'Consumida':'Vida < 60%';}
  else label='Reativa';

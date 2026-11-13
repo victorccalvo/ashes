@@ -45,9 +45,10 @@ function restAtBonfire(){
  run.awaitingCampaignDecision=false;run.hp=run.max;run.points=1;run.pendingAttributes=[];chosen=null;options=bonfireOptions(event.stage);modalDismissed=false;
  $('bonfire-dialog').close();log('Fogueira encontrada: vida totalmente restaurada. Escolha um atributo e um aprimoramento adicional.');persist();render();
 }
+function bonfireVisitedActs(){const acts=new Set(run.bonfireActs||[]);if(run.bonfire)acts.add(Math.floor(run.bonfire.stage/10));return [...acts];}
 const adventureVictory=victory;
 victory=function(){
- if(run.expedition!=='endless'&&run.stage%10>=4){run.bonfireRolls=run.bonfireRolls||[];if(!run.bonfireRolls.includes(run.stage)){run.bonfireRolls.push(run.stage);if(Math.random()<.3)run.bonfire={stage:run.stage,status:'found'};}}
+ if(run.expedition!=='endless'&&run.stage%10>=4&&!bonfireVisitedActs().includes(Math.floor(run.stage/10))){run.bonfireRolls=run.bonfireRolls||[];if(!run.bonfireRolls.includes(run.stage)){run.bonfireRolls.push(run.stage);if(Math.random()<.2){run.bonfireActs=bonfireVisitedActs();run.bonfireActs.push(Math.floor(run.stage/10));run.bonfire={stage:run.stage,status:'found'};}}}
  adventureVictory();
 };
 const adventureSync=syncRewardModal;
@@ -76,6 +77,7 @@ function bindAdventureUI(){
 }
 const adventureValidate=validateArchive;
 validateArchive=function(data){const clean=adventureValidate(data),r=clean.session?.run;if(!r)return clean;
+ if(r.bonfireActs!==undefined&&(!Array.isArray(r.bonfireActs)||r.bonfireActs.length>4||new Set(r.bonfireActs).size!==r.bonfireActs.length||!r.bonfireActs.every(n=>Number.isInteger(n)&&n>=0&&n<4)))throw Error('Atos de descanso inválidos.');
  if(r.bonfireRolls!==undefined&&(!Array.isArray(r.bonfireRolls)||r.bonfireRolls.length>24||new Set(r.bonfireRolls).size!==r.bonfireRolls.length||!r.bonfireRolls.every(n=>Number.isInteger(n)&&n>=0&&n<40&&n%10>=4)))throw Error('Fogueiras inválidas.');
  if(r.bonfire!==undefined){const e=r.bonfire;if(!e||!Number.isInteger(e.stage)||e.stage<4||e.stage>39||e.stage%10<4||!['found','bonus','done'].includes(e.status)||r.expedition==='endless'&&e.status!=='done'||['found','bonus'].includes(e.status)&&clean.session.mode!=='camp')throw Error('Descanso inválido.');
   if(e.status==='bonus'){const s=e.saved;if(!s||!Array.isArray(s.options)||![0,3].includes(s.options.length)||!s.options.every(validOption)||![0,2].includes(s.points)||typeof s.awaiting!=='boolean'||r.points>1||(r.pendingAttributes||[]).length+r.points>1||clean.session.options.some(o=>o.type!=='upgrade'))throw Error('Recompensa da fogueira inválida.');}

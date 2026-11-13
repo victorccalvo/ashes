@@ -9,8 +9,8 @@ const rows=[];victory=()=>{if(run.stage===9)mode='won';else settleVictory();};fi
 for(const id of Object.keys(builds))for(const meta of [0,5]){
 archive.selected=id;save=archive.characters[id];save.meta=Array(17).fill(meta);fresh();Math.random=()=>.999999;
 for(let stage=0;stage<10;stage++){
-if(stage<3)run.skills.push(builds[id][stage]);else applyOption({type:'upgrade',key:stage%2?(['guardian','necromancer'].includes(id)?'defense':'power'):'vitality',rarity:'common'});
-if(stage>0){run[['guardian','arcanist'].includes(id)?'defense':id==='necromancer'?'power':'agility']++;run.vitality++;run.max+=15;run.hp=Math.min(run.max,run.hp+15);}run.points=0;startDuel();
+if(stage<3)run.skills.push(builds[id][stage]);else applyOption({type:'upgrade',key:stage%2?(id==='guardian'?'defense':id==='necromancer'?'focus':'power'):'vitality',rarity:'common'});
+if(stage>0){run[id==='guardian'?'defense':['arcanist','necromancer'].includes(id)?'power':'agility']++;run.vitality++;run.max+=15;run.hp=Math.min(run.max,run.hp+15);}run.points=0;startDuel();
 for(let n=0;n<5000&&mode==='fight';n++)tick(.05);
 if(mode!=='camp')break;
 }

@@ -32,6 +32,7 @@ jobs:
           node attribute-test.cjs
           node adventure-test.cjs
           node feedback-test.cjs
+          node magic-balance-test.cjs
       - name: Prepare static site
         run: node scripts/build-site.cjs
       - uses: actions/configure-pages@v5
