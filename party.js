@@ -6,13 +6,57 @@ const partyClone=value=>JSON.parse(JSON.stringify(value,(key,v)=>key==='party'?u
 function partyCapture(){if(run.party)run.party.members[run.party.active]=partyClone(run);}
 function partyUse(team,index){run=partyClone(team.members[index]);run.party=team;team.active=index;archive.selected=run.character;save=archive.characters[run.character];}
 function partyLiving(team){return team.members.map((m,i)=>m.hp>0?i:-1).filter(i=>i>=0);}
+function partyCanReorder(){return !!run.party&&mode==='camp'&&!titleOpen&&!outcomeActive&&!pendingLoot()&&!run.awaitingCampaignDecision&&!['found','bonus'].includes(run.bonfire?.status);}
+function movePartyMember(index,direction){
+ if(!partyCanReorder()||!Number.isInteger(index)||![-1,1].includes(direction))return;
+ partyCapture();const team=run.party,living=partyLiving(team),position=living.indexOf(index),other=living[position+direction];
+ if(position<0||other===undefined)return;
+ const remap=i=>i===index?other:i===other?index:i;
+ [team.members[index],team.members[other]]=[team.members[other],team.members[index]];
+ team.active=remap(team.active);team.drafts=team.drafts.map(remap);
+ // Queue ownership stays with the same character when the formation changes.
+ if(team.restQueue)team.restQueue=team.restQueue.map(remap);
+ if(team.restAnchor!==undefined)team.restAnchor=remap(team.restAnchor);
+ render();persist();
+}
+function renderPartyOrder(){
+ const panel=$('party-order');panel.hidden=!partyCanReorder();if(panel.hidden)return;
+ const team=run.party,living=partyLiving(team),list=$('party-order-members');list.innerHTML='';
+ for(const i of [...living].reverse()){
+  const m=team.members[i],position=living.indexOf(i),card=document.createElement('div'),name=document.createElement('strong'),rank=document.createElement('small'),controls=document.createElement('div');
+  card.className='party-order-member';name.textContent=classes[m.character].name;rank.textContent=position===0?'FRENTE · DIREITA':'RETAGUARDA · ESQUERDA';
+  for(const [direction,label]of [[1,'← Recuar'],[-1,'Avançar →']]){const button=document.createElement('button');button.type='button';button.className='quiet';button.textContent=label;button.disabled=position+direction<0||position+direction>=living.length;button.setAttribute('aria-label',(direction===1?'Recuar ':'Avançar ')+classes[m.character].name);button.onclick=()=>movePartyMember(i,direction);controls.append(button);}
+  card.append(rank,name,controls);list.append(card);
+ }
+}
+function confirmPartyRest(){
+ const team=run.party;if(!team?.restQueue?.length||run.bonfire?.status!=='bonus'||mode!=='camp'||chosen===null||run.points||outcomeActive)return;
+ applyOption(options[chosen]);run.bonfire.status='done';delete run.bonfire.saved;partyCapture();team.restQueue.shift();
+ if(team.restQueue.length){
+  const shared=partyClone(run);partyUse(team,team.restQueue[0]);partySyncShared(shared,run);
+  run.bonfire={stage:team.restStage,status:'bonus',saved:{options:[],points:0,awaiting:false}};
+  run.awaitingCampaignDecision=false;run.points=1;run.pendingAttributes=[];options=bonfireOptions(team.restStage);chosen=null;
+ }else{
+  partyUse(team,team.restAnchor);run.pendingAttributes=team.restPendingAttributes||[];run.points=team.restSaved.points;
+  options=restoreCombatOffers(team.restSaved.options);chosen=null;run.awaitingCampaignDecision=team.restSaved.awaiting;
+  delete team.restQueue;delete team.restSaved;delete team.restPendingAttributes;delete team.restAnchor;delete team.restStage;
+ }
+ render();persist();
+}
 function partyQuiet(fn){const old={render,persist,log,renderHealth};render=persist=log=renderHealth=()=>{};try{return fn();}finally{({render,persist,log,renderHealth}=old);}}
 const partyBaseFresh=fresh;
 fresh=function(){if(partyBusy){partyBaseFresh();return;}partyBaseFresh();if(!partyEnabled)return;const first=partyClone(run),leader=run.character,ids=[leader,partyCompanion===leader?Object.keys(classes).find(id=>id!==leader):partyCompanion],members=[first];partyCompanion=ids[1];partyBusy=true;try{for(const id of ids.slice(1)){archive.selected=id;save=archive.characters[id];partyQuiet(()=>partyBaseFresh());members.push(partyClone(run));}}finally{partyBusy=false;}const team={version:1,members,active:0,drafts:members.map((_,i)=>i),clock:0,moveClock:0,settled:false};partyUse(team,0);mode='prep';offer();render();persist();};
 const partySnapshot=snapshot;
 snapshot=function(){partyCapture();return partySnapshot();};
 const partyRestore=restoreSession;
-restoreSession=function(s){partyEnabled=!!s.run.party;partyRestore(s);if(run.party){partyCapture();partyCompanion=run.party.members.find(m=>m.character!==run.character)?.character||'arcanist';}render();};
+restoreSession=function(s){
+ partyEnabled=!!s.run.party;partyRestore(s);
+ if(run.party){
+  if(run.bonfire?.status==='bonus'&&run.party.restQueue?.length){run.awaitingCampaignDecision=false;run.party.restCount=run.party.restCount||partyLiving(run.party).length;}
+  partyCapture();partyCompanion=run.party.members.find(m=>m.character!==run.character)?.character||'arcanist';
+ }
+ render();
+};
 const partyStart=startDuel;
 startDuel=function(){if(!run.party||partyBusy){partyStart();return;}partyCapture();const team=run.party,active=team.active,shared=partyClone(run);partyBusy=true;let enemy;try{for(const i of partyLiving(team)){partyUse(team,i);partySyncShared(shared,run);partyQuiet(()=>partyStart());if(!enemy){enemy=run.enemy;const scale=1+.7*(team.members.length-1);enemy.hp=enemy.max=Math.ceil(enemy.max*scale);}run.enemy=enemy;partyCapture();}}finally{partyBusy=false;}partyUse(team,partyLiving(team)[0]??active);run.enemy=enemy;run.minions=[];spawnMinion(run.stage%4);const back=run.minions[0];back.hp=back.max=Math.ceil(enemy.max*.32);back.damage=enemy.damage*.42;back.interval=3.2;back.name='Retaguarda · '+MINION_MODELS[back.model].name;team.clock=0;team.moveClock=0;team.drafts=[];partyCapture();render();persist();};
 const partyVictory=victory,partyFinish=finish;
@@ -36,16 +80,35 @@ tick=function(dt){if(!run.party||partyBusy){partyTick(dt);return;}if(mode!=='fig
 const partySettle=settleRun;
 settleRun=function(won){if(!run.party){partySettle(won);return;}partyCapture();const team=run.party;if(team.settled)return;team.settled=true;const reward=run.earned+(won?35:3),active=run.character;partyQuiet(()=>partySettle(won));for(const m of team.members){if(m.character!==active){archive.characters[m.character].essence+=reward;archive.characters[m.character].best=Math.max(archive.characters[m.character].best,won?40:run.stage);}if(m.hp<=0)partyLoseGear(m);}render();persist();};
 const partyRender=render,partyHealth=renderHealth;
-function renderParty(){const team=run.party;$('party-formation').hidden=!team;document.body.classList.toggle('party-run',!!team);$('party-rule').hidden=!team;if(!team)return;const box=$('party-formation');box.innerHTML='';partyCapture();team.members.forEach((m,i)=>{const card=document.createElement('button');card.className='party-member'+(m.hp<=0?' fallen':'');card.style.order=m.hp<=0?team.members.length+1:i;card.innerHTML='<small>'+(m.hp<=0?'CAÍDO':i===partyLiving(team)[0]?'FRENTE':'RETAGUARDA')+'</small><img src="assets/class-'+m.character+'.png" alt="'+classes[m.character].name+'"><strong>'+classes[m.character].name+'</strong><span>'+Math.ceil(m.hp)+' / '+m.max+(m.shield?' · ◈ '+Math.ceil(m.shield):'')+'</span>';const health=document.createElement('div'),fill=document.createElement('i');health.className='party-life-track';fill.style.width=Math.max(0,m.hp/m.max*100)+'%';health.append(fill);card.append(health);const skills=document.createElement('div');skills.className='party-mini-skills';for(const key of m.skills){const previous=run;let state;try{run=m;state=hudSkillState(key);}finally{run=previous;}const badge=document.createElement('span');badge.className='party-mini-skill';badge.title=skillData[key][0]+' · '+state.label;badge.innerHTML=pixelIcon(skillIcons[key])+'<small>'+state.label+'</small>';skills.append(badge);}card.append(skills);card.title='Consultar ficha de '+classes[m.character].name;card.onclick=()=>{partyCapture();const current=team.active;partyUse(team,i);renderCharacterSheet();$('character-sheet').showModal();if(mode==='fight')paused=true;partyUse(team,current);};box.append(card);});$('decision-title').textContent=(['prep','camp'].includes(mode)?classes[run.character].name+' · ':'')+$('decision-title').textContent;$('party-rule').hidden=false;if(run.party)$('minion-targeting').textContent='Retaguarda inimiga: personagens de trás priorizam estes alvos; a frente enfrenta o elite.';$('party-rule').textContent='Frente à direita, retaguarda à esquerda · frente recebe +25% de dano corpo a corpo · retaguarda prioriza inimigos de trás. Especiais inimigos atingem todos ou aplicam dano contínuo.';}
+function renderParty(){const team=run.party;$('party-formation').hidden=!team;document.body.classList.toggle('party-run',!!team);$('party-rule').hidden=!team;renderPartyOrder();if(!team)return;if(run.bonfire?.status==='bonus'&&team.restQueue?.length){$('decision-desc').textContent=classes[run.character].name+' · descanso '+(team.restCount-team.restQueue.length+1)+' de '+team.restCount+'. Todos os sobreviventes foram curados. Distribua um ponto e escolha um aprimoramento para este personagem.';}const box=$('party-formation');box.innerHTML='';partyCapture();team.members.forEach((m,i)=>{const card=document.createElement('button');card.className='party-member'+(m.hp<=0?' fallen':'');card.style.order=m.hp<=0?team.members.length+1:i;card.innerHTML='<small>'+(m.hp<=0?'CAÍDO':i===partyLiving(team)[0]?'FRENTE':'RETAGUARDA')+'</small><img src="assets/class-'+m.character+'.png" alt="'+classes[m.character].name+'"><strong>'+classes[m.character].name+'</strong><span>'+Math.ceil(m.hp)+' / '+m.max+(m.shield?' · ◈ '+Math.ceil(m.shield):'')+'</span>';const health=document.createElement('div'),fill=document.createElement('i');health.className='party-life-track';fill.style.width=Math.max(0,m.hp/m.max*100)+'%';health.append(fill);card.append(health);const skills=document.createElement('div');skills.className='party-mini-skills';for(const key of m.skills){const previous=run;let state;try{run=m;state=hudSkillState(key);}finally{run=previous;}const badge=document.createElement('span');badge.className='party-mini-skill';badge.title=skillData[key][0]+' · '+state.label;badge.innerHTML=pixelIcon(skillIcons[key])+'<small>'+state.label+'</small>';skills.append(badge);}card.append(skills);card.title='Consultar ficha de '+classes[m.character].name;card.onclick=()=>{partyCapture();const current=team.active;partyUse(team,i);renderCharacterSheet();$('character-sheet').showModal();if(mode==='fight')paused=true;partyUse(team,current);};box.append(card);});$('decision-title').textContent=(['prep','camp'].includes(mode)?classes[run.character].name+' · ':'')+$('decision-title').textContent;$('party-rule').hidden=false;if(run.party)$('minion-targeting').textContent='Retaguarda inimiga: personagens de trás priorizam estes alvos; a frente enfrenta o elite.';$('party-rule').textContent='Frente à direita, retaguarda à esquerda · frente recebe +25% de dano corpo a corpo · retaguarda prioriza inimigos de trás. Especiais inimigos atingem todos ou aplicam dano contínuo.';}
 render=function(){partyRender();if(!partyBusy)renderParty();};
 renderHealth=function(){partyHealth();if(!partyBusy)renderParty();};
-function bindPartyUI(){const start=$('title-start').onclick;$('title-start').onclick=()=>{if(partyEnabled&&!run.party&&!['fight','camp'].includes(mode))fresh();start();};const advance=$('advance').onclick;$('advance').onclick=()=>{if(run.party&&run.bonfire?.status==='bonus'&&run.party.restQueue?.length){if(chosen===null||run.points||outcomeActive)return;const team=run.party;applyOption(options[chosen]);run.bonfire.status='done';delete run.bonfire.saved;partyCapture();team.restQueue.shift();if(team.restQueue.length){partyUse(team,team.restQueue[0]);run.bonfire={stage:team.restStage,status:'bonus',saved:{options:[],points:0,awaiting:false}};run.points=1;run.pendingAttributes=[];options=bonfireOptions(team.restStage);chosen=null;}else{partyUse(team,team.restAnchor);run.pendingAttributes=[];run.points=team.restSaved.points;options=restoreCombatOffers(team.restSaved.options);chosen=null;run.awaitingCampaignDecision=team.restSaved.awaiting;delete team.restQueue;delete team.restSaved;}render();persist();return;}if(run.party&&['prep','camp'].includes(mode)&&run.party.drafts.length>1&&!pendingLoot()&&run.bonfire?.status!=='found'&&run.bonfire?.status!=='bonus'){if(chosen===null||run.points||outcomeActive)return;applyOption(options[chosen]);partyCapture();const team=run.party;team.drafts.shift();const shared=partyClone(run);partyUse(team,team.drafts[0]);partySyncShared(shared,run);run.points=mode==='camp'?2:0;offer();render();persist();return;}advance();};
+function bindPartyUI(){const start=$('title-start').onclick;$('title-start').onclick=()=>{if(partyEnabled&&!run.party&&!['fight','camp'].includes(mode))fresh();start();};const advance=$('advance').onclick;$('advance').onclick=()=>{if(run.party&&run.bonfire?.status==='bonus'&&run.party.restQueue?.length){confirmPartyRest();return;}if(run.party&&['prep','camp'].includes(mode)&&run.party.drafts.length>1&&!pendingLoot()&&run.bonfire?.status!=='found'&&run.bonfire?.status!=='bonus'){if(chosen===null||run.points||outcomeActive)return;applyOption(options[chosen]);partyCapture();const team=run.party;team.drafts.shift();const shared=partyClone(run);partyUse(team,team.drafts[0]);partySyncShared(shared,run);run.points=mode==='camp'?2:0;offer();render();persist();return;}advance();};
  $('party-solo').onclick=()=>{if(['fight','camp'].includes(mode))return;partyEnabled=false;fresh();};$('party-team').onclick=()=>{if(['fight','camp'].includes(mode))return;partyEnabled=true;fresh();};$('party-companion').onchange=e=>{if(['fight','camp'].includes(mode))return;partyCompanion=e.target.value;partyEnabled=true;fresh();};}
 const partyTitle=renderTitleScreen;
 renderTitleScreen=function(){partyTitle();const locked=['fight','camp'].includes(mode);$('party-solo').disabled=$('party-team').disabled=$('party-companion').disabled=locked;$('party-solo').setAttribute('aria-pressed',String(!partyEnabled));$('party-team').setAttribute('aria-pressed',String(partyEnabled));$('party-settings').hidden=!partyEnabled;$('party-companion').innerHTML='';for(const [id,c]of Object.entries(classes))if(id!==run.character){const option=document.createElement('option');option.value=id;option.textContent=c.name;$('party-companion').append(option);}$('party-companion').value=partyCompanion;$('party-lineup').textContent=run.party?[...run.party.members].reverse().map(m=>classes[m.character].name).join(' → ')+' · frente à direita':'';};
 const partyRest=restAtBonfire;
-restAtBonfire=function(){if(!run.party){partyRest();return;}const team=run.party;partyRest();if(run.bonfire?.status!=='bonus')return;partyCapture();team.restAnchor=team.active;team.restSaved=partyClone(run.bonfire.saved);team.restStage=run.bonfire.stage;team.restQueue=[team.active,...partyLiving(team).filter(i=>i!==team.active)];for(const i of partyLiving(team))team.members[i].hp=team.members[i].max;run.hp=run.max;persist();};
-const partyValidate=validateArchive;
+restAtBonfire=function(){
+ if(!run.party){partyRest();return;}
+ if(run.bonfire?.status!=='found'||outcomeActive||pendingLoot())return;
+ partyCapture();const team=run.party,anchor=team.active,pending=partyClone(run.pendingAttributes||[]);
+ // Initialize the entire rest before rendering or saving any member's reward.
+ partyQuiet(()=>partyRest());if(run.bonfire?.status!=='bonus')return;
+ partyCapture();team.restAnchor=anchor;team.restSaved=partyClone(run.bonfire.saved);team.restPendingAttributes=pending;team.restStage=run.bonfire.stage;
+ team.restQueue=[anchor,...partyLiving(team).filter(i=>i!==anchor)].filter(i=>team.members[i].hp>0);team.restCount=team.restQueue.length;
+ for(const i of partyLiving(team))team.members[i].hp=team.members[i].max;
+ run.hp=run.max;render();persist();
+};
+const partyValidateBase=validateArchive;
+function partyValidate(data){
+ // Older final-boss rests copied the campaign decision onto the next member.
+ // Normalize it before the campaign validator, so an interrupted rest can load.
+ const r=data?.session?.run;
+ if(r?.bonfire?.status==='bonus'&&r.party?.restQueue?.length&&r.awaitingCampaignDecision){
+  data=JSON.parse(JSON.stringify(data));data.session.run.awaitingCampaignDecision=false;
+ }
+ return partyValidateBase(data);
+}
 validateArchive=function(data){const clean=partyValidate(data),team=clean.session?.run.party;if(!team)return clean;if(team.version!==1||!Array.isArray(team.members)||team.members.length<2||team.members.length>PARTY_MAX||new Set(team.members.map(m=>m.character)).size!==team.members.length||!Number.isInteger(team.active)||team.active<0||team.active>=team.members.length||!Array.isArray(team.drafts)||new Set(team.drafts).size!==team.drafts.length||team.members[team.active]?.character!==clean.session.run.character||!team.drafts.every(i=>Number.isInteger(i)&&i>=0&&i<team.members.length)||!finite(team.clock,0,1e100)||!finite(team.moveClock,0,9)||typeof team.settled!=='boolean')throw Error('Party inválida.');if(team.restQueue!==undefined&&(!Array.isArray(team.restQueue)||!team.restQueue.every(i=>Number.isInteger(i)&&i>=0&&i<team.members.length)||!Number.isInteger(team.restAnchor)||!team.restSaved||!Array.isArray(team.restSaved.options)||!team.restSaved.options.every(validOption)))throw Error('Descanso da party inválido.');for(const m of team.members){if(m.partyDot&&(!finite(m.partyDot.remaining,0,5)||!finite(m.partyDot.dps,0,1e100)))throw Error('Efeito da party inválido.');if(m.party||!classes[m.character]||!['hp','max','power','defense','focus','vitality','agility','shield'].every(k=>finite(m[k],0,1e100))||m.max<=0||m.hp>m.max||!Array.isArray(m.skills)||m.skills.length>3||!m.skills.every(k=>classes[m.character].skills.includes(k)))throw Error('Membro inválido.');}return clean;};
 
 const partyAnimate=animateCombat;

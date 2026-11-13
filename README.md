@@ -213,6 +213,10 @@ Os desbloqueios são permanentes no perfil e entram no backup. Cada classe come�
 
 ### Party (2 integrantes, estrutura até 3)
 
+- Na seleção de atributos após o combate, **Formação para o próximo combate** permite avançar ou recuar os sobreviventes. A frente continua à direita. A troca é salva e preserva a escolha em andamento, os pontos reversíveis e a ordem das recompensas por personagem. Não é possível trocar durante a luta ou um descanso ainda pendente.
+- A fogueira cura todos os integrantes vivos e oferece, em sequência, um ponto de atributo e um aprimoramento para cada um. A tela identifica o personagem e o progresso do descanso. Aliados caídos não revivem. Ao terminar, a recompensa original do combate retorna, inclusive a decisão após o último chefe. O fluxo pode ser retomado após recarregar.
+- `node party-rest-test.cjs` usa os scripts separados na ordem do HTML e os callbacks dos botões de produção. Cobre as nove classes, descanso no chefe final, dois e três integrantes, aliados caídos, restauração, formação, preservação das escolhas e dano corpo a corpo na nova frente.
+
 - O menu oferece Solo ou Party. Selecione o personagem da frente nos cartões e o companheiro no seletor de retaguarda. A frente fica à direita do grupo, próxima aos inimigos; a retaguarda fica à esquerda. Não há classes duplicadas na mesma formação.
 - Cada integrante mantém atributos, passiva, três habilidades, recargas, equipamento e Legado próprios. As escolhas iniciais e recompensas normais são feitas para cada sobrevivente, em sequência. A ficha de cada personagem pode ser aberta pelo seu cartão na arena.
 - Ataques corpo a corpo focam o primeiro sobrevivente da fila, que recebe +25% de dano físico desses ataques. Inimigos de perfil à distância e a retaguarda inimiga priorizam o último sobrevivente. Personagens atrás priorizam a retaguarda inimiga; após eliminá-la, atacam o elite.

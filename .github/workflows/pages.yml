@@ -35,6 +35,7 @@ jobs:
           node magic-balance-test.cjs
           node enemy-defense-test.cjs
           node party-test.cjs
+          node party-rest-test.cjs
           node party-balance-test.cjs
           node secret-test.cjs
           node secret-balance-test.cjs
