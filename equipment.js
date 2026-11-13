@@ -65,7 +65,7 @@ triggerSkill=function(key){equipmentTrigger(key);const e=run.gearEffects;if(e?.c
 const equipmentExpansionAfter=expansionAfter;
 expansionAfter=function(key,value){equipmentExpansionAfter(key,value);const e=run.gearEffects;if(!e)return;const t=e.tier,heal=n=>run.hp=Math.min(run.max,run.hp+n),shield=n=>grantAttackShield(n);
  if(e.classId==='berserker'){if(e.variant===0&&key==='rend')heal(value*[.08,.12,.18,.25][t]);if(e.variant===1&&key==='whirlwind')shield(value*[.10,.16,.22,.30][t]);}
- if(e.classId==='arcanist'){if(e.variant===0&&key==='fireball')run.status.fire+=[1,1,2,3][t];if(e.variant===1&&key==='frost')run.enemyTimer+=[.3,.5,.8,1.2][t];}
+ if(e.classId==='arcanist'){if(e.variant===0&&key==='fireball')run.status.fire+=[1,1,2,3][t];if(e.variant===1&&key==='frost')run.enemyTimer+=[.3,.5,.8,1.2][t]*(1-enemyResistance('ice'));}
  if(e.classId==='hunter'){if(e.variant===0&&key==='venom')run.status.poison+=[1,2,3,4][t];if(e.variant===1&&key==='dog'){run.marked=Math.max(run.marked,[3,4,5,6][t]);heal(run.max*[.005,.01,.015,.025][t]);}}
  if(e.classId==='necromancer'){if(e.variant===0&&key==='drain')heal(value*[.1,.15,.2,.3][t]);if(e.variant===1&&key==='skeleton')shield(value*[.10,.16,.22,.30][t]);}
 };

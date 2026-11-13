@@ -21,7 +21,7 @@ function evolution(key){return run.evolutions?.[key]||0;}
 function evolutionSummary(skill){return Object.entries(EVOLUTIONS).filter(([key,e])=>e.skill===skill&&evolution(key)).map(([key,e])=>e.name+': '+e.desc(evolution(key))).join(' ');}
 function evolveBeforeCast(key,value,preview=false){
  if(key==='dog'&&run.status.poison>0)value*=1+evolution('packHunt')/100;
- if(!preview&&key==='frost'&&evolution('frostShatter')&&run.status.fire>0){hurtEnemy(run.status.fireDps*run.status.fire*evolution('frostShatter')/100,'Choque Térmico',false,true);run.status.fire=0;}
+ if(!preview&&key==='frost'&&evolution('frostShatter')&&run.status.fire>0){effectDamage('fire',run.status.fireDps*run.status.fire*evolution('frostShatter')/100,'Choque Térmico');run.status.fire=0;}
  if(!preview&&key==='fireball'&&evolution('burningWard')&&run.status.fire>0)grantAttackShield(value*evolution('burningWard')/100);
  if(!preview&&key==='plague'&&run.status.weak>0)grantAttackShield(value*evolution('plagueRitual')/100);
  return value;

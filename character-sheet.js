@@ -6,8 +6,8 @@ function skillSnapshot(key){
  if(s){value=expansionBefore(key,evolveBeforeCast(key,classSkillValue(key),true),true);if(s.effect==='execute'&&run.enemy&&run.enemy.hp<run.enemy.max*(.35+.02*trait(2)))value*=2;
  if(s.type==='shield')lines.push('Escudo por uso: '+sheetNumber(Math.min(shieldLimit(),key==='ward'?Math.min(run.max*.23,value+run.barrier*1.15):value+run.barrier))+' · limite total '+sheetNumber(shieldLimit())+'.');
  else if(s.type==='heal')lines.push('Cura por uso: '+sheetNumber(value+(key==='oath'?run.max*trait(9)*.01:0))+'.');
- else {let direct=sheetDamage(value);if(key==='bloodrush'&&run.hp>=run.max*furyThreshold()&&Math.max(1,run.hp-run.hp*.04*(1-trait(5)*.03))<run.max*furyThreshold())direct*=1.2;lines.push('Dano direto: '+sheetNumber(direct)+' · crítico: '+sheetNumber(direct*run.critDamage)+'.'+(key==='volley'?' Total dos três projéteis.':''));}
- if(['poison','bleed','fire'].includes(s.effect)){const kind=s.effect;let duration=kind==='fire'?4+(key==='fireball'?trait(0):0):6+(key==='venom'?trait(1):0);if(key==='comet')duration=6+trait(6)*.3;if(key==='plague')duration+=trait(8)*.5;duration+=typeof equipmentDurationBonus==='function'?equipmentDurationBonus(key):0;const dps=sheetDamage(value*(kind==='poison'?.25:.2)*(kind==='fire'&&run.character==='arcanist'?1+.02*trait(4):1)*(key==='rend'?1+.1*trait(1):1),true);lines.push('Dano contínuo: '+sheetNumber(dps)+'/s por '+sheetNumber(duration)+'s · total '+sheetNumber(dps*duration)+'.');}
+ else {let direct=sheetDamage(value)*(1-enemyResistance(skillElement(key)));if(key==='bloodrush'&&run.hp>=run.max*furyThreshold()&&Math.max(1,run.hp-run.hp*.04*(1-trait(5)*.03))<run.max*furyThreshold())direct*=1.2;lines.push('Dano direto: '+sheetNumber(direct)+' · crítico: '+sheetNumber(direct*run.critDamage)+'.'+(key==='volley'?' Total dos três projéteis.':''));}
+ if(['poison','bleed','fire'].includes(s.effect)){const kind=s.effect;let duration=kind==='fire'?4+(key==='fireball'?trait(0):0):6+(key==='venom'?trait(1):0);if(key==='comet')duration=6+trait(6)*.3;if(key==='plague')duration+=trait(8)*.5;duration+=typeof equipmentDurationBonus==='function'?equipmentDurationBonus(key):0;if(enemyResistance(kind)===1)duration=0;const dps=(1-enemyResistance(kind))*sheetDamage(value*(kind==='poison'?.25:.2)*(kind==='fire'&&run.character==='arcanist'?1+.02*trait(4):1)*(key==='rend'?1+.1*trait(1):1),true);lines.push('Dano contínuo: '+sheetNumber(dps)+'/s por '+sheetNumber(duration)+'s · total '+sheetNumber(dps*duration)+'.');}
  if(s.effect==='drain')lines.push('Cura: '+sheetNumber(value*(.35+.05*trait(1)))+'.');
  if(key==='dog')lines.push('Cura: '+sheetNumber(run.max*(.01+.003*trait(0)))+'; escudo contra marcado: '+sheetNumber(value*(.15+.03*trait(11)))+'.');
  if(key==='pact')lines.push('Escudo: '+sheetNumber(run.agility*.8)+'.');
@@ -20,8 +20,8 @@ function skillSnapshot(key){
  if(key==='second')lines.push('Cura: '+sheetNumber(healAmount())+' · uma vez por combate, abaixo de 60% de vida.');
  if(key==='bastion')lines.push('Escudo: '+sheetNumber(12+run.defense*2+run.focus*.5+run.barrier)+' · limite '+sheetNumber(shieldLimit())+' · recarga '+sheetNumber(10/(cooldownRate()*expansionSkillRate(key)))+'s.');
  if(['slam','counter','thorns'].includes(key)){value=key==='slam'?(12+run.power*2.5+run.defense)*(1+run.slamBonus/100):key==='counter'?(run.power*3+run.defense*1.2)*run.counter:(5+run.defense*.4)*(1+trait(3)*.08);lines.push('Dano: '+sheetNumber(sheetDamage(value))+' · crítico: '+sheetNumber(sheetDamage(value)*run.critDamage)+'.');}
- if(key==='slam'){lines.push('Recarga: '+sheetNumber(7/cooldownRate())+'s.');if(run.fire)lines.push('Fogo: '+sheetNumber(sheetDamage(run.fire,true))+'/s por 4s.');}
- if(key==='counter'&&run.bleedDamage)lines.push('Sangramento: '+sheetNumber(sheetDamage(run.bleedDamage,true))+'/s por 6s.');
+ if(key==='slam'){lines.push('Recarga: '+sheetNumber(7/cooldownRate())+'s.');if(run.fire)lines.push('Fogo: '+sheetNumber(sheetDamage(run.fire,true)*(1-enemyResistance('fire')))+'/s por 4s.');}
+ if(key==='counter'&&run.bleedDamage)lines.push('Sangramento: '+sheetNumber(sheetDamage(run.bleedDamage,true)*(1-enemyResistance('bleed')))+'/s por 6s.');
  }
  if(s){
   const bonus=(name,n,kind='Dano adicional')=>{if(n>0)lines.push(name+' · '+kind+': '+sheetNumber(n)+'.');};

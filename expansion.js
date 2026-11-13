@@ -42,23 +42,23 @@ function expansionBefore(key,value,preview=false){
  return value;
 }
 function expansionAfter(key,value){
- if(['frost','prism'].includes(key))run.chilled=4;
- if(key==='prism'&&run.status.fire>0)run.enemyTimer+=1;
+ if(['frost','prism'].includes(key))run.chilled=4*(1-enemyResistance('ice'));
+ if(key==='prism'&&run.status.fire>0)run.enemyTimer+=1-enemyResistance('ice');
  if(['quake','mark'].includes(key)){run.vulnerable=key==='mark'?6:4;run.vulnerability=key==='quake'?.15:.18;if(key==='mark')run.marked=8;}
  if(key==='oath'){run.hp=Math.min(run.max,run.hp+run.max*trait(9)*.01);if(run.shield>0)run.bleed=0;}
  if(key==='aegis')hurtEnemy((run.shieldBeforeCast||0)*.25,'Égide vingativa');
- if(key==='rupture'&&run.status.bleed>0){hurtEnemy(run.status.bleedDps*run.status.bleed*(.75+trait(6)*.04),'Reabrir feridas',false,true);run.status.bleed=0;}
+ if(key==='rupture'&&run.status.bleed>0){effectDamage('bleed',run.status.bleedDps*run.status.bleed*(.75+trait(6)*.04),'Reabrir feridas');run.status.bleed=0;}
  if(key==='ancestors')run.leech=5+trait(11)*.4;
  if(key==='comet')run.status.fire=6+trait(6)*.3;
  if(key==='pact'){run.packReady=true;run.bleed=0;run.shield=Math.min(shieldLimit(),run.shield+run.agility*.8);}
  if(key==='evade'){run.bleed=0;run.enemyTimer+=.6;}
  if(key==='warcry')run.status.weak=Math.max(run.status.weak,4);
- if(key==='venom')run.status.weak=Math.max(run.status.weak,3);
+ if(key==='venom'&&enemyResistance('poison')<1)run.status.weak=Math.max(run.status.weak,3);
  if(key==='trap')run.marked=Math.max(run.marked,6);
  if(key==='dog'){run.hp=Math.min(run.max,run.hp+run.max*.01);if(run.marked>0)run.shield=Math.min(shieldLimit(),run.shield+value*.15);}
  if(key==='trap')run.enemyTimer+=trait(8)*.1;
  if(key==='dog'&&run.marked>0)run.shield=Math.min(shieldLimit(),run.shield+value*.03*trait(11));
- if(key==='harvest'&&run.status.poison>0){const stored=run.status.poisonDps*run.status.poison;hurtEnemy(stored*(.6+trait(4)*.03),'Colheita fúnebre',false,true);run.hp=Math.min(run.max,run.hp+stored*.1);run.status.poison=0;}
+ if(key==='harvest'&&run.status.poison>0){const stored=run.status.poisonDps*run.status.poison;effectDamage('poison',stored*(.6+trait(4)*.03),'Colheita fúnebre');run.hp=Math.min(run.max,run.hp+stored*.1);run.status.poison=0;}
  if(key==='prison'){run.windup=0;run.enemyTimer+=1;}
  if(key==='plague')run.status.poison+=trait(8)*.5;
  if(run.character==='arcanist'&&trait(11)){run.arcaneCasts=(run.arcaneCasts||0)+1;if(run.arcaneCasts%4===0)hurtEnemy(run.power*powerCoefficient(.15,'echo')*trait(11),'Quarta palavra');}

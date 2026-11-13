@@ -3,7 +3,7 @@
 function enemyEffects(){
  if(mode!=='fight'||!run.enemy||run.enemy.hp<=0)return [];
  const st=run.status||{},effects=[];
- const dot=(key,label,icon,timer,dps,otherTimer=0,otherDps=0)=>{const duration=Math.max(timer||0,otherTimer||0);if(duration>0){const damage=(timer>0?dps||0:0)+(otherTimer>0?otherDps||0:0);effects.push({key,label,icon,duration,detail:label+': '+sheetNumber(sheetDamage(damage,true))+' de dano/s. Restante: '+sheetNumber(duration)+'s.'});}};
+ const dot=(key,label,icon,timer,dps,otherTimer=0,otherDps=0)=>{const duration=Math.max(timer||0,otherTimer||0);if(duration>0){const damage=(timer>0?dps||0:0)+(otherTimer>0?otherDps||0:0);effects.push({key,label,icon,duration,detail:label+': '+sheetNumber(sheetDamage(damage,true)*(1-enemyResistance(key)))+' de dano/s. Restante: '+sheetNumber(duration)+'s.'});}};
  dot('bleed','Sangramento','blood',st.bleed,st.bleedDps,run.foeBleed,run.bleedDamage);
  dot('fire','Queimadura','flame',st.fire,st.fireDps,run.foeBurn,run.fire);
  dot('poison','Veneno','poison',st.poison,st.poisonDps);
