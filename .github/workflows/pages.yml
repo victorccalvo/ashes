@@ -34,6 +34,8 @@ jobs:
           node feedback-test.cjs
           node magic-balance-test.cjs
           node enemy-defense-test.cjs
+          node party-test.cjs
+          node party-balance-test.cjs
       - name: Prepare static site
         run: node scripts/build-site.cjs
       - uses: actions/configure-pages@v5
