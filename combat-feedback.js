@@ -16,7 +16,7 @@ function enemyEffects(){
 function renderEnemyEffects(){
  const target=$('enemy-effects'),effects=enemyEffects(),signature=effects.map(e=>e.key).join('|');target.hidden=!effects.length;
  if(target.effectsSignature!==signature){target.innerHTML='';target.effectsSignature=signature;target.effectBadges={};for(const e of effects){const badge=document.createElement('span'),name=document.createElement('span'),time=document.createElement('b'),tip=document.createElement('span');badge.className='enemy-effect effect-'+e.key;badge.setAttribute('tabindex','0');name.className='effect-name';name.innerHTML=pixelIcon(e.icon)+e.label;tip.className='effect-tip';badge.append(name,time,tip);target.effectBadges[e.key]={badge,time,tip};target.append(badge);}}
- for(const e of effects){const {badge,time,tip}=target.effectBadges[e.key];time.textContent=e.duration.toFixed(1)+'s';tip.textContent=e.detail;badge.setAttribute('aria-label',e.label+', '+e.duration.toFixed(1)+' segundos. '+e.detail);}
+ for(const e of effects){const {badge,time,tip}=target.effectBadges[e.key];time.textContent=e.stacks?'×'+e.stacks:e.duration.toFixed(1)+'s';tip.textContent=e.detail;badge.setAttribute('aria-label',e.stacks?e.label+', '+e.stacks+' acúmulos. '+e.detail:e.label+', '+e.duration.toFixed(1)+' segundos. '+e.detail);}
 }
 const feedbackHealth=renderHealth;
 renderHealth=function(){feedbackHealth();renderEnemyEffects();};

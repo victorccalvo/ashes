@@ -198,6 +198,19 @@ O menu mantém Legado junto de cada personagem, sem o botão global adicional. C
 - `node enemy-defense-test.cjs` valida +18% antes da mitigação, imunidades reais, gelo e efeito do cajado, dano físico do machado, dano em área independente nas invocações, distribuição em 10 mil seeds, prévia e persistência, saves antigos e modo infinito. Também simula as 40 escolhas iniciais com a camada final de dificuldade: todas vencem o primeiro encontro sem Legado no cenário sem críticos; menor vida restante medida: 37,93%.
 - Os testes antigos de balanceamento continuam cobrindo as camadas centrais de combate sem esse multiplicador final. Essas medições não garantem vitória para toda build, sorteio de inimigo ou combinação de upgrades.
 
+### Classes secretas e Feitos
+
+Quatro classes desbloqueáveis completam a seleção de nove personagens. Cada uma tem arte original, passiva, oito habilidades, aprimoramentos, equipamento exclusivo e 18 opções de Legado próprias. O botão **Feitos** mostra requisitos e progresso; classes bloqueadas permitem consultar o catálogo, mas não iniciar uma run.
+
+- **Cavaleiro do Eclipse — O sol também morre:** vencer dez encontros do infinito após concluir a campanha na mesma run. Alterna Aurora e Penumbra a cada três habilidades, combinando marcas, execução e sacrifício de vida.
+- **Alquimista da Peste — Uma receita inconveniente:** derrotar um chefe que tenha recebido três efeitos negativos diferentes simultaneamente. Mistura veneno, fogo e sangramento; usa Catalisador para fortalecer reações, cura e destilação. Solvente reduz resistências sem remover imunidades.
+- **Carcereiro — Ninguém fica para trás:** concluir um ato em Party sem baixas, com três vitórias nesse ato em que ao menos um sobrevivente termine abaixo de 25% da vida. Grilhões reduzem dano inimigo e podem ser consumidos para controle e execução; também protege aliados e alcança a retaguarda.
+- **Bruxa dos Corvos — Mau presságio:** eliminar quinze inimigos de retaguarda ou invocações e derrotar um chefe cuja retaguarda tenha sido eliminada. Maldições geram Presságios com ataques aliados; três Presságios provocam uma bicada adicional. Possui revoadas, proteção e cura.
+
+Os desbloqueios são permanentes no perfil e entram no backup. Cada classe começa com seu próprio Legado zerado. Saves antigos mantêm progresso, equipamentos e runs; os Feitos passam a ser acompanhados a partir desta atualização, sem reconstrução de eventos históricos. Entrar diretamente no infinito não satisfaz o Feito do Eclipse.
+
+`node secret-test.cjs` cobre bloqueios, migração, recursos, habilidades, alvos e condições positivas e negativas dos quatro Feitos, incluindo Party. `node secret-balance-test.cjs` verifica as 32 habilidades iniciais contra o primeiro encontro sem Legado, com a camada final de dificuldade. Essa abertura não garante vitória com toda build na campanha inteira.
+
 ### Party (2 integrantes, estrutura até 3)
 
 - O menu oferece Solo ou Party. Selecione o personagem da frente nos cartões e o companheiro no seletor de retaguarda. A frente fica à direita do grupo, próxima aos inimigos; a retaguarda fica à esquerda. Não há classes duplicadas na mesma formação.

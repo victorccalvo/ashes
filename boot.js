@@ -1,3 +1,4 @@
+if(typeof registerSecretUI==='function')registerSecretUI();
 loadProgress();
 bindClassControls();bindTitleScreen();bindCombatUI();bindProgressionUI();bindEncounterFlow();if(typeof bindCharacterSheet==='function')bindCharacterSheet();if(typeof bindPageLayout==='function')bindPageLayout();
 if(typeof bindEndlessUI==='function')bindEndlessUI();

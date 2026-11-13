@@ -14,7 +14,7 @@ function metaCap(index){return index===17?3:5;}
 function metaCost(index,level){return (index<9?12:30)*2**level;}
 function metaDefinitions(id){return [...CORE_META,...CLASS_META[id]].map(([name,desc,icon],index)=>({name,desc,icon,category:index<5?'Atributos':'Estilo de jogo'}));}
 function trait(index){return run.traits?.[index]||0;}
-function shieldLimit(){return run.max*(['arcanist','necromancer'].includes(run.character)?.35:.45+(run.character==='guardian'?trait(2)*.03:0));}
+function shieldLimit(){return run.max*(['arcanist','necromancer','alchemist','witch'].includes(run.character)?.35:.45+(run.character==='guardian'?trait(2)*.03:0));}
 function furyThreshold(){return .5+(run.character==='berserker'?trait(3)*.02:0);}
 function interruptBenefit(){if(run.character==='guardian')run.hp=Math.min(run.max,run.hp+run.max*.01*trait(1));}
 function renderMetaUpgrades(){

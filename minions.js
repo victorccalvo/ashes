@@ -27,7 +27,7 @@ hurtEnemy=function(amount,label,basic=false,dot=false){
  if(target){run.enemy=target;try{minionBaseHurt(amount*100/(100+target.defense*3),(label||'Ataque básico')+' → '+target.name,true,dot);}finally{target.hp=Math.max(0,target.hp);run.enemy=boss;}renderMinions();return;}
  if(boss.veil&&!dot){amount*=.6;boss.veil=false;}
  minionBaseHurt(amount,label,basic,dot);
- if(!basic&&!dot&&['whirlwind','quake','comet','volley','plague'].some(k=>skillData[k][0]===run.damageSource)){
+ if(!basic&&!dot&&['whirlwind','quake','comet','volley','plague','ec_night','al_mix','ja_collective','wi_flock'].some(k=>skillData[k]?.[0]===run.damageSource)){
   for(const m of run.minions||[])if(m.hp>0){const damage=sheetDamage(amount)*.35,blocked=Math.min(m.shield,damage),removed=Math.min(m.hp,damage-blocked);m.shield-=blocked;m.hp=Math.max(0,m.hp-damage+blocked);run.enemy=m;try{floatingDamage(removed,blocked,'Área',false,false);}finally{run.enemy=boss;}}
  }
 };
