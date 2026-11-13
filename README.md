@@ -200,7 +200,7 @@ O menu mantém Legado junto de cada personagem, sem o botão global adicional. C
 
 ### Party (2 integrantes, estrutura até 3)
 
-- O menu oferece Solo ou Party. Selecione o personagem da frente nos cartões e o companheiro no seletor de retaguarda. A ordem visual é da esquerda para a direita. Não há classes duplicadas na mesma formação.
+- O menu oferece Solo ou Party. Selecione o personagem da frente nos cartões e o companheiro no seletor de retaguarda. A frente fica à direita do grupo, próxima aos inimigos; a retaguarda fica à esquerda. Não há classes duplicadas na mesma formação.
 - Cada integrante mantém atributos, passiva, três habilidades, recargas, equipamento e Legado próprios. As escolhas iniciais e recompensas normais são feitas para cada sobrevivente, em sequência. A ficha de cada personagem pode ser aberta pelo seu cartão na arena.
 - Ataques corpo a corpo focam o primeiro sobrevivente da fila, que recebe +25% de dano físico desses ataques. Inimigos de perfil à distância e a retaguarda inimiga priorizam o último sobrevivente. Personagens atrás priorizam a retaguarda inimiga; após eliminá-la, atacam o elite.
 - A formação inimiga mantém o elite da área e recebe um apoio de retaguarda com vida independente (32% da vida ajustada do elite e 42% do dano base). Vida do elite escala por 1 + 0,7 × (integrantes − 1). Invocações adicionais continuam limitadas pelo sistema existente.

@@ -2,3 +2,26 @@
 @media(max-width:380px){.party-member{width:70px}.party-member img{width:70px;height:120px}.party-run .enemy{width:95px}.party-run .enemy .combat-sprite{width:100px;height:145px}.party-run .fighters{gap:4px}.party-member strong{font-size:10px}}
 .party-mini-skills{display:flex;gap:5px;justify-content:center;margin-top:8px;max-width:100%}.party-mini-skill{display:flex;align-items:center;flex-direction:column;gap:3px;min-width:0;font-size:8px!important;letter-spacing:0!important}.party-mini-skill .pixel-icon{width:13px;height:13px;margin:0}.party-mini-skill small{font-size:8px;letter-spacing:0;overflow-wrap:anywhere}
 .party-life-track{height:5px;width:90%;background:#050a0c;border:1px solid #4c5643;margin-top:7px}.party-life-track i{display:block;height:100%;background:#a7b581}.party-member>strong{min-height:28px;display:flex;align-items:center;text-align:center}.party-member>span{min-height:26px;line-height:13px}.party-mini-skills{height:35px}.party-mini-skill small{min-height:20px;line-height:10px}
+/* Unframed characters share the arena floor; roster index zero is the rightmost ally. */
+.party-run .arena{min-height:610px}
+.party-run .fighters{align-items:flex-start;gap:36px;padding:35px 28px 18px;justify-content:center}
+.party-formation{flex-direction:row-reverse;align-items:flex-start;gap:20px}
+.party-member,.party-member:hover:enabled,.party-member:active{position:relative;width:180px;flex:0 1 180px;padding:0;background:transparent;border:0;box-shadow:none;color:var(--gold)}
+.party-member:focus-visible{outline:1px solid #b8a875;outline-offset:5px}
+.party-member>small{position:absolute;top:-22px;left:0;right:0;font-size:9px;letter-spacing:1.5px}
+.party-member img{display:block;width:190px;max-width:none;height:260px;object-fit:contain;filter:drop-shadow(0 9px 8px #0008)}
+.party-member>strong{margin-top:13px;min-height:22px;font-size:17px}
+.party-member>span{margin-top:7px;min-height:22px;font-size:12px;line-height:18px}
+.party-life-track{width:90%;height:7px;margin-top:5px}
+.party-mini-skills{margin-top:10px;height:34px;gap:12px}
+.party-mini-skill .pixel-icon{width:16px;height:16px}
+.party-mini-skill small{font-size:9px}
+.party-run .enemy{width:190px}
+.party-run .enemy .figure{height:260px}
+.party-run .enemy .combat-sprite{width:220px;height:260px;max-width:none}
+.party-run .versus{align-self:flex-start;margin-top:130px}
+.party-run .arena-action{top:105px}
+@media(min-width:1200px){.party-run .layout{grid-template-columns:190px minmax(0,1fr)}.party-run .fighters{gap:25px}.party-run .arena{min-height:640px}}
+@media(max-width:1050px){.party-run .fighters{gap:18px;padding-left:12px;padding-right:12px}.party-formation{gap:8px}.party-member{width:145px;flex-basis:145px}.party-member img{width:165px;height:235px}.party-run .enemy{width:160px}.party-run .enemy .figure{height:235px}.party-run .enemy .combat-sprite{width:185px;height:235px}}
+@media(max-width:650px){.party-run .arena{min-height:555px}.party-run .fighters{gap:12px;padding:36px 8px 16px}.party-formation{gap:6px}.party-member{width:100px;flex-basis:100px}.party-member img{width:115px;height:195px}.party-run .enemy{width:115px}.party-run .enemy .figure{height:195px}.party-run .enemy .combat-sprite{width:130px;height:195px}.party-member>strong{font-size:13px;min-height:28px}.party-member>span{font-size:10px;min-height:28px}.party-mini-skills{gap:7px}.party-member>small{font-size:8px}.party-run .versus{display:none}}
+@media(max-width:380px){.party-run .fighters{gap:7px;padding-left:4px;padding-right:4px}.party-member{width:83px;flex-basis:83px}.party-member img{width:95px;height:175px}.party-run .enemy{width:95px}.party-run .enemy .figure{height:175px}.party-run .enemy .combat-sprite{width:110px;height:175px}.party-member>strong{font-size:12px}}
