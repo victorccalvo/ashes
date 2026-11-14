@@ -34,6 +34,7 @@ jobs:
           node feedback-test.cjs
           node magic-balance-test.cjs
           node enemy-defense-test.cjs
+          node party-selection-test.cjs
           node party-test.cjs
           node party-rest-test.cjs
           node run-systems-test.cjs

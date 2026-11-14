@@ -35,3 +35,23 @@
 @media(max-width:1050px){.party-run .fighters{gap:18px;padding-left:12px;padding-right:12px}.party-formation{gap:8px}.party-member{width:145px;flex-basis:145px}.party-member img{width:165px;height:235px}.party-run .enemy{width:160px}.party-run .enemy .figure{height:235px}.party-run .enemy .combat-sprite{width:185px;height:235px}}
 @media(max-width:650px){.party-run .arena{min-height:555px}.party-run .fighters{gap:12px;padding:36px 8px 16px}.party-formation{gap:6px}.party-member{width:100px;flex-basis:100px}.party-member img{width:115px;height:195px}.party-run .enemy{width:115px}.party-run .enemy .figure{height:195px}.party-run .enemy .combat-sprite{width:130px;height:195px}.party-member>strong{font-size:13px;min-height:28px}.party-member>span{font-size:10px;min-height:28px}.party-mini-skills{gap:7px}.party-member>small{font-size:8px}.party-run .versus{display:none}}
 @media(max-width:380px){.party-run .fighters{gap:7px;padding-left:4px;padding-right:4px}.party-member{width:83px;flex-basis:83px}.party-member img{width:95px;height:175px}.party-run .enemy{width:95px}.party-run .enemy .figure{height:175px}.party-run .enemy .combat-sprite{width:110px;height:175px}.party-member>strong{font-size:12px}}
+.party-mode{margin:24px auto}.party-settings{max-width:600px;padding:22px;border-top:1px solid #645536;border-bottom:1px solid #645536;background:#0c1113}
+#party-selection{width:min(900px,calc(100vw - 28px));max-height:90vh;overflow:auto;border:1px solid #766441;background:#101719;color:#d8cfb8}
+#party-selection .decision{padding:28px;max-width:none;position:relative}
+#party-selection::backdrop{background:#020607da;backdrop-filter:blur(4px)}
+.party-selection-characters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.party-select-character{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px;border:1px solid #494b40;background:#0a1012;color:#d8cfb8;min-width:0;text-align:center}
+.party-select-character img{height:125px;width:100%;object-fit:contain;image-rendering:pixelated}
+.party-select-character strong{font:18px Georgia,serif}.party-select-character small{font-size:11px;line-height:1.5;min-height:34px;color:#a8aaa0}
+.party-select-character span{font-size:11px;color:#cbb781;margin-top:auto}.party-select-character.selected{border-color:#e1c47c;background:#302a1c;box-shadow:inset 0 0 0 1px #a38b50}
+.party-select-character:disabled{opacity:.35}.party-select-character:focus-visible{outline:2px solid #ead599;outline-offset:3px}
+.party-selection-lineup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:20px auto}
+.party-position-card{display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px 10px;background:linear-gradient(#1d2423,#0b1113);border-bottom:2px solid #8d794d;min-width:0}
+.party-position-card small{font-size:10px;letter-spacing:1px;color:#cfb77b;text-align:center}.party-position-card img{height:200px;width:100%;object-fit:contain;image-rendering:pixelated}.party-position-card strong{font:21px Georgia,serif;text-align:center}
+.party-settings .party-position-card img{height:140px}.party-settings .party-position-card strong{font-size:18px}
+.party-selection-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:22px;padding-top:18px;border-top:1px solid #494b40}
+#party-selection-count{font-size:12px;color:#d6bd83;margin:16px 0}#party-selection-position{text-align:center}
+@media(max-width:600px){#party-selection .decision{padding:24px 16px}.party-selection-characters{grid-template-columns:repeat(2,minmax(0,1fr))}.party-select-character img{height:95px}.party-position-card img{height:160px}.party-position-card small{font-size:8px}.party-selection-actions{flex-direction:column-reverse}.party-selection-actions button{width:100%}}
+#party-selection [hidden],#title-classes[hidden],#party-settings[hidden]{display:none!important}
+.party-profile-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.party-profile-actions button{font-size:11px;padding:8px 10px}
+.party-position-card img{height:180px}
