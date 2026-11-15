@@ -73,21 +73,28 @@ validateArchive=function(data){
 };
 function rankingProgress(e){return e.mode==='endless'?'Infinito · '+e.depth+' vitórias'+(e.origin==='campaign'?' · campanha concluída':''):'Campanha · '+e.cleared+'/40';}
 const RANKING_RESULTS={victory:'Concluída',defeat:'Derrota',retired:'Encerrada',abandoned:'Abandonada'};
-function renderRanking(){
- const list=$('ranking-list'),filter=$('ranking-mode').value||'campaign';list.innerHTML='';
- const entries=ensureRanking().entries.filter(e=>e.mode===filter).sort((a,b)=>(filter==='endless'?b.depth-a.depth:b.cleared-a.cleared)||Number(b.result==='victory')-Number(a.result==='victory')||b.group-a.group);
- if(!entries.length){list.textContent='Nenhuma expedição registrada neste modo. As novas runs aparecerão aqui quando terminarem.';return;}
- entries.forEach((e,i)=>{const row=document.createElement('button'),position=document.createElement('b'),name=document.createElement('strong'),progress=document.createElement('span'),result=document.createElement('small');row.className='ranking-row quiet';position.textContent=String(i+1).padStart(2,'0');name.textContent=secretUnlocked(e.character)?classes[e.character].name:'Juramento desconhecido';progress.textContent=rankingProgress(e);result.textContent=(e.formation.length>1?'Party · '+e.formation.length:'Solo')+' · '+RANKING_RESULTS[e.result];row.append(position,name,progress,result);row.onclick=()=>openRankingEntry(e.id);list.append(row);});
+function rankingGroups(filter){
+ const groups=new Map();for(const entry of ensureRanking().entries)if(entry.mode===filter){if(!groups.has(entry.group))groups.set(entry.group,[]);groups.get(entry.group).push(entry);}
+ return [...groups.values()].sort((a,b)=>(filter==='endless'?b[0].depth-a[0].depth:b[0].cleared-a[0].cleared)||Number(b[0].result==='victory')-Number(a[0].result==='victory')||b[0].group-a[0].group);
 }
-function openRankingEntry(id){
- const e=ensureRanking().entries.find(x=>x.id===id);if(!e)return;
+function renderRanking(){
+ const list=$('ranking-list'),filter=$('ranking-mode').value||'campaign';list.innerHTML='';const groups=rankingGroups(filter);
+ if(!groups.length){list.textContent='Nenhuma expedição registrada neste modo. As novas runs aparecerão aqui quando terminarem.';return;}
+ groups.forEach((members,i)=>{const e=members[0],row=document.createElement('button'),position=document.createElement('b'),name=document.createElement('strong'),progress=document.createElement('span'),result=document.createElement('small');row.className='ranking-row quiet';position.textContent=String(i+1).padStart(2,'0');name.textContent=e.formation.map(classDisplayName).join(' + ');progress.textContent=rankingProgress(e);result.textContent=(e.formation.length>1?'Party · '+e.formation.length:'Solo')+' · '+RANKING_RESULTS[e.result];row.append(position,name,progress,result);row.onclick=()=>openRankingEntry(e.id);list.append(row);});
+}
+function openRankingEntry(id,character){
+ const anchor=ensureRanking().entries.find(x=>x.id===id);if(!anchor)return;
+ const members=ensureRanking().entries.filter(x=>x.group===anchor.group&&x.mode===anchor.mode),e=character?members.find(x=>x.character===character):anchor;if(!e)return;
  if(!secretUnlocked(e.character)){renderSecretFeats();$('feats-dialog').showModal();return;}
- $('ranking-detail-title').textContent=classes[e.character].name;$('ranking-detail-summary').textContent=rankingProgress(e)+' · '+RANKING_RESULTS[e.result]+' · '+new Date(e.date).toLocaleString('pt-BR')+' · '+(e.formation.length>1?'Party: '+e.formation.map(classDisplayName).join(' / '):'Solo');
+ $('ranking-detail-title').textContent=e.formation.map(classDisplayName).join(' + ');
+ const tabs=$('ranking-member-tabs');tabs.innerHTML='';tabs.hidden=e.formation.length<2;
+ for(const member of members){const button=document.createElement('button');button.className='quiet';button.setAttribute('role','tab');button.setAttribute('aria-selected',String(member.character===e.character));button.textContent=classDisplayName(member.character);button.onclick=()=>openRankingEntry(anchor.id,member.character);tabs.append(button);}
+ $('ranking-member-title').textContent='Build de '+classes[e.character].name;$('ranking-detail-summary').textContent=rankingProgress(e)+' · '+RANKING_RESULTS[e.result]+' · '+new Date(e.date).toLocaleString('pt-BR')+' · '+(e.formation.length>1?'Party: '+e.formation.map(classDisplayName).join(' / '):'Solo');
  $('ranking-detail-stats').textContent='VIT '+e.stats.vitality+' · POD '+e.stats.power+' · DEF '+e.stats.defense+' · AGI '+e.stats.agility+' · FOC '+e.stats.focus+' · Vida máxima '+e.stats.max;
  const skills=$('ranking-detail-skills'),gear=$('ranking-detail-gear');skills.innerHTML='';gear.innerHTML='';
  for(const key of e.skills){const card=document.createElement('article'),heading=document.createElement('strong'),text=document.createElement('p');heading.innerHTML=pixelIcon(skillIcons[key])+skillData[key][0];text.textContent=skillData[key][1];card.append(heading,text);for(const h of e.upgrades.filter(h=>h.type==='upgrade'&&upgradeData[h.key]?.skill===key)){const bonus=document.createElement('p');bonus.textContent=upgradeData[h.key].name+': '+upgradeData[h.key].desc(h.amount);card.append(bonus);}skills.append(card);}
  for(const [items,lost]of [[e.items,false],[e.lostItems,true]])for(const item of items){const card=document.createElement('article'),heading=document.createElement('h4'),text=document.createElement('p');card.className='gear-card '+item.rarity;heading.textContent=gearName(item)+(lost?' · perdido ao cair':'');text.textContent=gearStatText(item)+' · '+(relicDescription(item,e.character)||gearWeaponText(item));card.append(heading,text);gear.append(card);}
- $('ranking-detail-empty').textContent=e.items.length+e.lostItems.length?'':'Nenhum equipamento usado nesta run.';$('ranking-detail').showModal();
+ $('ranking-detail-empty').textContent=e.items.length+e.lostItems.length?'':'Nenhum equipamento usado nesta run.';if(!$('ranking-detail').open)$('ranking-detail').showModal();
 }
 function bindRunSystemsUI(){
  $('open-ranking').onclick=()=>{renderRanking();$('ranking-dialog').showModal();};$('close-ranking').onclick=()=>$('ranking-dialog').close();$('close-ranking-detail').onclick=()=>$('ranking-detail').close();$('ranking-mode').onchange=renderRanking;
