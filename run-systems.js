@@ -52,7 +52,7 @@ function recordRanking(result,members=rankingCapture()){
 const rankedSettle=settleRun;
 settleRun=function(won){
  if(['dead','won'].includes(mode)||run.party?.settled){rankedSettle(won);return;}
- const members=rankingCapture(),alive=run.party?partyLiving(run.party).length>0:run.hp>0;rankedSettle(won);
+ const members=rankingCapture(),alive=run.party?partyLiving(run.party).length>0:characterAlive(run);rankedSettle(won);
  if(['dead','won'].includes(mode)){recordRanking(won?'victory':alive?'retired':'defeat',members);persist();}
 };
 const rankedFresh=fresh;

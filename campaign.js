@@ -73,7 +73,7 @@ function erodePlayerShield(ratio){run.shield*=1-ratio;run.wardShield=Math.min(ru
 function delaySkills(seconds){for(const key of run.skills)if(EXTRA_SKILLS[key])run.skillTimers[key]=Math.min(30,(run.skillTimers[key]||0)+seconds);run.slam+=seconds;run.bastion+=seconds;}
 const campaignPreviousUpdate=updateExtraSkills;
 updateExtraSkills=function(dt){
- campaignPreviousUpdate(dt);if(run.hp<=0||run.enemy.hp<=0)return;
+ campaignPreviousUpdate(dt);if(!characterAlive(run)||run.enemy.hp<=0)return;
  updateMinions(dt);
  if(run.stage>=20){run.campaignTimer=(run.campaignTimer||0)+dt;const period=run.stage>=30?6:7;if(run.foeBurnPressure>0){run.foeBurnPressure=Math.max(0,run.foeBurnPressure-dt);hurtPlayer(run.max*.012*dt,true);}
  if(run.time>180)hurtPlayer(run.max*.003*dt*(1+(run.time-180)/60),true,true);

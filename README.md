@@ -262,3 +262,8 @@ A seleção de Party ocorre em duas etapas, sem dropdown de companheiro. Classes
 - Aliados caídos recebem uma escolha lendária exclusiva após cada chefe de ato, sem pontos de atributo nem reviver. Nos primeiros três chefes, os vivos recebem a recompensa normal lendária; o último chefe oferece a escolha a todos antes da decisão de campanha. Elites e chefes procedurais do infinito não concedem recompensa aos caídos.
 - Bruxa: habilidades ofensivas Bicada, Olho, Revoada e Último Grasnado ganham 8% de potência bruta. Bicada amaldiçoa por 9s; Revoada aplica maldição por 4s na formação. Corvo faminto usa 10 + 1,5 × Poder; Ninho recarrega em 11s e protege em até 18%.
 - Testes: combat-rewards-test.cjs e witch-tuning-test.cjs. Comparação reproduzível da Bruxa: node scripts/witch-comparison.cjs; dados em reports/witch-tuning.json. Essa comparação usa três builds fixas, três seeds e ofertas garantidas, sem itens, fogueiras ou poções; não prevê toda run aleatória.
+
+
+### Códigos de teste
+
+A caixa Códigos fica fixa no canto inferior direito. Envie com Enter ou com o botão ao lado. `miatheranalaphoebi` desbloqueia todas as classes secretas permanentemente no perfil. `testetesteteste` ativa imortalidade: a vida pode chegar a zero, mas personagens continuam atacando, recebendo recompensas e mantendo equipamentos em Solo e Party. O botão Desativar imortalidade restaura as regras normais. O estado fica salvo e entra no backup; desativar não bloqueia novamente as classes liberadas. `node cheats-test.cjs` verifica formulário, desbloqueios, nove classes a zero de vida, Party, retomada e desativação.

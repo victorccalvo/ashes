@@ -34,6 +34,7 @@ jobs:
           node feedback-test.cjs
           node magic-balance-test.cjs
           node enemy-defense-test.cjs
+          node cheats-test.cjs
           node combat-rewards-test.cjs
           node witch-tuning-test.cjs
           node party-selection-test.cjs

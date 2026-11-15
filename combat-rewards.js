@@ -19,7 +19,7 @@ function pendingBossGift(){return mode==='camp'&&run.party?.bossGifts?.queue?.[0
 function potionMembers(){if(run.party){partyCapture();return run.party.members;}return [run];}
 function useDroppedPotion(index){
  const drop=pendingPotion();if(!drop||outcomeActive)return;
- const members=potionMembers(),member=members[index];if(!member||member.hp<=0)return;
+ const members=potionMembers(),member=members[index];if(!member||!characterAlive(member))return;
  if(drop.type==='life')member.hp=Math.min(member.max,member.hp+member.max*.45);
  else{member.potionBuffs=member.potionBuffs||{};member.potionBuffs[drop.type]=4;}
  if(run.party&&index===run.party.active){run.hp=member.hp;run.potionBuffs=partyClone(member.potionBuffs||{});}
@@ -30,7 +30,7 @@ function renderPotionDrop(){
  $('potion-title').textContent=item.name;$('potion-description').textContent=item.description;
  $('potion-symbol').innerHTML=pixelIcon(item.icon);$('potion-symbol').style.color=item.color;
  const target=$('potion-targets');target.innerHTML='';
- potionMembers().forEach((m,i)=>{if(m.hp<=0)return;const button=document.createElement('button');button.className='potion-target quiet';
+ potionMembers().forEach((m,i)=>{if(!characterAlive(m))return;const button=document.createElement('button');button.className='potion-target quiet';
   const art=document.createElement('img'),name=document.createElement('strong'),life=document.createElement('small');art.src='assets/class-'+m.character+'.png';art.alt='';name.textContent='Usar em '+classes[m.character].name;
   life.textContent=drop.type==='life'?Math.ceil(m.hp)+' → '+Math.ceil(Math.min(m.max,m.hp+m.max*.45))+' / '+m.max+' de vida':drop.type==='critical'?Math.round(Math.min(.8,m.crit+.15)*100)+'% de crítico · 4 combates':'Recargas 20% menores · 4 combates';button.append(art,name,life);button.onclick=()=>useDroppedPotion(i);target.append(button);
  });
@@ -40,7 +40,7 @@ function bossGiftOptions(member){
 }
 function grantBossGift(index){
  const gift=pendingBossGift();if(!gift||outcomeActive||pendingPotion()||!Number.isInteger(index)||!gift.options[index])return;
- partyCapture();const actor=run,team=run.party,member=team.members[gift.member],wasDead=member.hp<=0;
+ partyCapture();const actor=run,team=run.party,member=team.members[gift.member],wasDead=!characterAlive(member);
  try{run=member;applyOption(gift.options[index]);if(wasDead){run.hp=0;run.shield=0;}}
  finally{run=actor;}
  member.upgradeHistory[member.upgradeHistory.length-1].stage=team.bossGifts.stage;
@@ -50,9 +50,9 @@ function grantBossGift(index){
 function renderBossGift(){
  const gift=pendingBossGift();if(!gift)return;const team=run.party,member=team.members[gift.member];
  $('boss-gift-title').textContent=classes[member.character].name+' · recompensa lendária';
- $('boss-gift-description').textContent=member.hp<=0?'Mesmo caído, este aliado conquistou o aprimoramento do chefe. Ele continua em recuperação; a recompensa não o revive.':'O último soberano caiu. Escolha o aprimoramento antes de decidir o destino da expedição.';
+ $('boss-gift-description').textContent=!characterAlive(member)?'Mesmo caído, este aliado conquistou o aprimoramento do chefe. Ele continua em recuperação; a recompensa não o revive.':'O último soberano caiu. Escolha o aprimoramento antes de decidir o destino da expedição.';
  const box=$('boss-gift-choices');box.innerHTML='';const actor=run;
- try{run=member;for(const [i,option]of gift.options.entries()){const button=document.createElement('button'),tag=document.createElement('small'),name=document.createElement('strong'),detail=document.createElement('span');button.className='choice legendary';tag.className='rarity';tag.textContent='LENDÁRIO';const description=describe(option);name.textContent=description[0];detail.textContent=member.hp<=0&&option.key==='vitality'?'+'+Math.round(upgradeData.vitality.base*rarities.legendary.mult)+' de Vitalidade. Aumenta a vida máxima, mas este aliado continua caído.':description[1];button.append(tag,name,detail);button.onclick=()=>grantBossGift(i);box.append(button);}}
+ try{run=member;for(const [i,option]of gift.options.entries()){const button=document.createElement('button'),tag=document.createElement('small'),name=document.createElement('strong'),detail=document.createElement('span');button.className='choice legendary';tag.className='rarity';tag.textContent='LENDÁRIO';const description=describe(option);name.textContent=description[0];detail.textContent=!characterAlive(member)&&option.key==='vitality'?'+'+Math.round(upgradeData.vitality.base*rarities.legendary.mult)+' de Vitalidade. Aumenta a vida máxima, mas este aliado continua caído.':description[1];button.append(tag,name,detail);button.onclick=()=>grantBossGift(i);box.append(button);}}
  finally{run=actor;}
 }
 function settleCombatExtras(stage,expedition,depth){
@@ -63,7 +63,7 @@ function settleCombatExtras(stage,expedition,depth){
  run.consumableLastRoll=token;delete run.consumableDrop;
  if(Math.random()<.15)run.consumableDrop={token,type:Object.keys(POTIONS)[Math.floor(Math.random()*3)],used:false};
  if(run.party&&expedition!=='endless'&&stage%10===9){
-  const queue=members.map((m,i)=>stage===39||m.hp<=0?{member:i,options:bossGiftOptions(m)}:null).filter(Boolean);
+  const queue=members.map((m,i)=>stage===39||!characterAlive(m)?{member:i,options:bossGiftOptions(m)}:null).filter(Boolean);
   run.party.bossGifts={stage,queue};
   run.party.bossRewardStage=stage;
  }

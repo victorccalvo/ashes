@@ -42,7 +42,7 @@ const balancedDamageBonus=expansionDamageBonus;
 expansionDamageBonus=function(){return balancedDamageBonus()+(run.character==='guardian'&&run.shield>0?.1:0)+(run.character==='arcanist'?.02*trait(2)+(run.chilled>0?.02*trait(5):0):0);};
 const balancedAllyHeal=secretAllyHeal;
 secretAllyHeal=function(amount,protect){return balancedAllyHeal(amount*(1+.06*trait(1))/(1+.03*trait(1)),protect);};
-function balancedSelfHeal(member,ratio){if(member?.hp>0)member.hp=Math.min(member.max,member.hp+member.max*ratio);}
+function balancedSelfHeal(member,ratio){if(characterAlive(member))member.hp=Math.min(member.max,member.hp+member.max*ratio);}
 const balancedAfter=expansionAfter;
 expansionAfter=function(key,value){
  const previousCasts=secretState().casts,target=secretEnemy(key),enemyState=secretEnemyState(target),storedMark=enemyState.markUntil>run.time?enemyState.markDamage||0:0,canConsume=secretState().phase===1||key==='ec_converge',sentence=key==='ja_sentence'&&enemyState.shackles>=3;
@@ -56,7 +56,7 @@ expansionAfter=function(key,value){
 const balancedIncoming=secretIncomingDamage;
 secretIncomingDamage=function(amount,pure){amount=balancedIncoming(amount,pure);if(run.character==='eclipse'&&secretState().phase===1)amount*=.85;if(run.enemy?.secret?.curseUntil>run.time)amount*=.88;return amount;};
 const balancedHurtEnemy=hurtEnemy;
-hurtEnemy=function(amount,label,basic=false,dot=false){balancedHurtEnemy(amount,label,basic,dot);if(label==='Corvo faminto'){const witch=run.character==='witch'?run:run.party?.members.find(m=>m.character==='witch'&&m.hp>0);if(witch)balancedSelfHeal(witch,.04+.006*(witch.traits?.[1]||0));}};
+hurtEnemy=function(amount,label,basic=false,dot=false){balancedHurtEnemy(amount,label,basic,dot);if(label==='Corvo faminto'){const witch=run.character==='witch'?run:run.party?.members.find(m=>m.character==='witch'&&characterAlive(m));if(witch)balancedSelfHeal(witch,.04+.006*(witch.traits?.[1]||0));}};
 function balancedLifeSteal(removed){
  const fraction=(run.leech>0?.035:0)+(run.character==='berserker'?.006*trait(0):0);if(!fraction||removed<=0)return;
  balancedDamageHealing(removed*fraction);

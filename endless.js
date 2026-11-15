@@ -94,7 +94,7 @@ function endlessRitual(){
 const endlessUpdateExtra=updateExtraSkills;
 updateExtraSkills=function(dt){
  if(run.expedition!=='endless'){endlessUpdateExtra(dt);return;}
- baseUpdate(dt);if(run.hp<=0||run.enemy.hp<=0)return;updateMinions(dt);run.endlessTimer=(run.endlessTimer||0)+dt;run.special=Math.max(0,8-run.endlessTimer);
+ baseUpdate(dt);if(!characterAlive(run)||run.enemy.hp<=0)return;updateMinions(dt);run.endlessTimer=(run.endlessTimer||0)+dt;run.special=Math.max(0,8-run.endlessTimer);
  if(run.endlessBurn>0){const active=Math.min(dt,run.endlessBurn);run.endlessBurn-=active;hurtPlayer(run.enemy.damage*.14*active,true);}
  const e=run.enemy;if(!run.phase&&e.hp<e.max*.5&&['frenzy','boss','sunboss','eclipseboss'].includes(endlessMechanic())){run.phase=true;e.interval*=.8;}
  if(run.endlessTimer>=8){run.endlessTimer-=8;endlessRitual();}
