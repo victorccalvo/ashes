@@ -272,3 +272,8 @@ A caixa Códigos fica fixa no canto inferior direito. Envie com Enter ou com o b
 ### Apresentação da Party e ranking agrupado
 
 Transições de vitória, fim de ato e derrota mostram todos os integrantes da Party, mantendo a frente à direita. Aliados caídos também aparecem, com aparência de derrota. O ranking agrupa automaticamente os registros históricos da mesma expedição, sem apagar dados; cada linha identifica a dupla e abre detalhes individuais em abas. Solo continua com um retrato e uma linha. `node party-presentation-test.cjs` cobre transições, formação de três membros, agrupamento de registros antigos e consulta das duas builds.
+
+
+### Continuidade da Party e leitura do combate
+
+A morte da frontline transfere os temporizadores do inimigo ao próximo sobrevivente. O controlador do frame permanece estável durante os ataques, e a interface reconstrói as informações da classe ativa ao trocar de líder. Saves antigos com o temporizador sentinela de 9999s são reparados na retomada. O HUD acima da arena possui três espaços de habilidade por integrante, com recargas, animação de uso, indicação de caído e detalhes vinculados ao dono da habilidade. Ícones de efeitos ficam também ao lado do elite e dos lacaios, com duração e dica ao passar o mouse; a lista inferior permanece para consulta. `node party-handoff-test.cjs` cobre quedas por quatro causas, DOM ausente, troca de controle, saves travados e efeitos por alvo.

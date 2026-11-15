@@ -40,6 +40,7 @@ jobs:
           node party-selection-test.cjs
           node party-test.cjs
           node party-rest-test.cjs
+          node party-handoff-test.cjs
           node party-presentation-test.cjs
           node run-systems-test.cjs
           node balance-update-test.cjs
