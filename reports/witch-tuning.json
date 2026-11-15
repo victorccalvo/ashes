@@ -1,0 +1,967 @@
+{
+  "method": "Three fixed builds, three seeds, Act I, no items or bonfires; fixed attribute policy; guaranteed target skills. Identical new party/consumable systems in both cohorts; outcome intermissions bypassed, so potions excluded.",
+  "summary": [
+    {
+      "version": "before",
+      "meta": 0,
+      "runs": 9,
+      "wins": 0,
+      "averageCleared": 4.11
+    },
+    {
+      "version": "before",
+      "meta": 3,
+      "runs": 9,
+      "wins": 3,
+      "averageCleared": 8.33
+    },
+    {
+      "version": "before",
+      "meta": 5,
+      "runs": 9,
+      "wins": 3,
+      "averageCleared": 9.33
+    },
+    {
+      "version": "after",
+      "meta": 0,
+      "runs": 9,
+      "wins": 1,
+      "averageCleared": 5.78
+    },
+    {
+      "version": "after",
+      "meta": 3,
+      "runs": 9,
+      "wins": 3,
+      "averageCleared": 9.11
+    },
+    {
+      "version": "after",
+      "meta": 5,
+      "runs": 9,
+      "wins": 7,
+      "averageCleared": 9.78
+    }
+  ],
+  "rows": [
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 0,
+      "seed": 11,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 98.7,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 0,
+      "seed": 29,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 101.6,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 0,
+      "seed": 73,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 109,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 3,
+      "seed": 11,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 75.9,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 3,
+      "seed": 29,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 75.5,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 3,
+      "seed": 73,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 79.05,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 5,
+      "seed": 11,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 65.75,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 5,
+      "seed": 29,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 59.2,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 5,
+      "seed": 73,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 63.05,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 0,
+      "seed": 11,
+      "gear": false,
+      "cleared": 2,
+      "hp": 0,
+      "seconds": 33.5,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 0,
+      "seed": 29,
+      "gear": false,
+      "cleared": 2,
+      "hp": 0,
+      "seconds": 32.25,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 0,
+      "seed": 73,
+      "gear": false,
+      "cleared": 1,
+      "hp": 0,
+      "seconds": 23,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 3,
+      "seed": 11,
+      "gear": false,
+      "cleared": 8,
+      "hp": 0,
+      "seconds": 102.2,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 3,
+      "seed": 29,
+      "gear": false,
+      "cleared": 6,
+      "hp": 0,
+      "seconds": 71.9,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 3,
+      "seed": 73,
+      "gear": false,
+      "cleared": 8,
+      "hp": 0,
+      "seconds": 99.4,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 5,
+      "seed": 11,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 103.65,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 5,
+      "seed": 29,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 94.55,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 5,
+      "seed": 73,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 105.95,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 0,
+      "seed": 11,
+      "gear": false,
+      "cleared": 2,
+      "hp": 0,
+      "seconds": 31.5,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 0,
+      "seed": 29,
+      "gear": false,
+      "cleared": 2,
+      "hp": 0,
+      "seconds": 32.25,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 0,
+      "seed": 73,
+      "gear": false,
+      "cleared": 1,
+      "hp": 0,
+      "seconds": 22.55,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 3,
+      "seed": 11,
+      "gear": false,
+      "cleared": 8,
+      "hp": 0,
+      "seconds": 108.45,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 3,
+      "seed": 29,
+      "gear": false,
+      "cleared": 8,
+      "hp": 0,
+      "seconds": 113.45,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 3,
+      "seed": 73,
+      "gear": false,
+      "cleared": 7,
+      "hp": 0,
+      "seconds": 98.6,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 5,
+      "seed": 11,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 109.7,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 5,
+      "seed": 29,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 126.45,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "before",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 5,
+      "seed": 73,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 110,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 0,
+      "seed": 11,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 96.2,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 0,
+      "seed": 29,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 104.25,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 0,
+      "seed": 73,
+      "gear": false,
+      "cleared": 10,
+      "hp": 63.56,
+      "seconds": 101.5,
+      "timeout": false,
+      "firstBossHp": 63.56
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 3,
+      "seed": 11,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 73.05,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 3,
+      "seed": 29,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 72.4,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 3,
+      "seed": 73,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 73.15,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 5,
+      "seed": 11,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 62.5,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 5,
+      "seed": 29,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 57.9,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_peck",
+        "wi_eye",
+        "wi_feast"
+      ],
+      "meta": 5,
+      "seed": 73,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 65.8,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 0,
+      "seed": 11,
+      "gear": false,
+      "cleared": 4,
+      "hp": 0,
+      "seconds": 51.1,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 0,
+      "seed": 29,
+      "gear": false,
+      "cleared": 4,
+      "hp": 0,
+      "seconds": 57.1,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 0,
+      "seed": 73,
+      "gear": false,
+      "cleared": 5,
+      "hp": 0,
+      "seconds": 69.8,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 3,
+      "seed": 11,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 110.75,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 3,
+      "seed": 29,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 106,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 3,
+      "seed": 73,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 102.2,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 5,
+      "seed": 11,
+      "gear": false,
+      "cleared": 10,
+      "hp": 100,
+      "seconds": 93.6,
+      "timeout": false,
+      "firstBossHp": 100
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 5,
+      "seed": 29,
+      "gear": false,
+      "cleared": 10,
+      "hp": 76.53,
+      "seconds": 80.85,
+      "timeout": false,
+      "firstBossHp": 76.53
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_nest",
+        "wi_feast"
+      ],
+      "meta": 5,
+      "seed": 73,
+      "gear": false,
+      "cleared": 10,
+      "hp": 94.61,
+      "seconds": 95.15,
+      "timeout": false,
+      "firstBossHp": 94.61
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 0,
+      "seed": 11,
+      "gear": false,
+      "cleared": 4,
+      "hp": 0,
+      "seconds": 57.1,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 0,
+      "seed": 29,
+      "gear": false,
+      "cleared": 4,
+      "hp": 0,
+      "seconds": 51.1,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 0,
+      "seed": 73,
+      "gear": false,
+      "cleared": 3,
+      "hp": 0,
+      "seconds": 42.75,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 3,
+      "seed": 11,
+      "gear": false,
+      "cleared": 8,
+      "hp": 0,
+      "seconds": 100.9,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 3,
+      "seed": 29,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 131,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 3,
+      "seed": 73,
+      "gear": false,
+      "cleared": 8,
+      "hp": 0,
+      "seconds": 109.25,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 5,
+      "seed": 11,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 110.6,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 5,
+      "seed": 29,
+      "gear": false,
+      "cleared": 9,
+      "hp": 0,
+      "seconds": 111.2,
+      "timeout": false,
+      "firstBossHp": 0
+    },
+    {
+      "version": "after",
+      "id": "witch",
+      "build": [
+        "wi_flock",
+        "wi_feathers",
+        "wi_wander"
+      ],
+      "meta": 5,
+      "seed": 73,
+      "gear": false,
+      "cleared": 10,
+      "hp": 64.81,
+      "seconds": 104.1,
+      "timeout": false,
+      "firstBossHp": 64.81
+    }
+  ]
+}

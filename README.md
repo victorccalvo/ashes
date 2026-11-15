@@ -251,3 +251,14 @@ Reprodução: node scripts/balance-audit.cjs; node scripts/party-campaign-audit.
 
 
 A seleção de Party ocorre em duas etapas, sem dropdown de companheiro. Classes bloqueadas não entram nas ofertas. É possível desmarcar uma escolha, voltar aos personagens e cancelar sem perder a formação anterior. O menu mostra ambos os integrantes e permite consultar habilidades e Legado de cada um. A formação confirmada persiste no save; runs em combate mantêm a edição bloqueada. `node party-selection-test.cjs` verifica esse fluxo e a retomada.
+
+
+### Poções, alternância de alvos e recompensa dos caídos
+
+- Cada inimigo da Party mantém seu próprio ciclo de ataques individuais: dois golpes na posição preferida e um na outra. Melee prefere a frente, ranged a retaguarda. Com três aliados, os golpes alternativos passam pelos demais sobreviventes. Pressão regional, dano contínuo e ataques de área mantêm suas regras e não gastam o ciclo.
+- Após qualquer vitória, inclusive no infinito, existe 15% de chance de uma poção. Os três tipos têm a mesma probabilidade. O popup obrigatório aparece depois da transição e antes das demais escolhas; na Party, escolha um aliado vivo. Poções não vão para o baú.
+- Vida recupera 45% da vida máxima. Crítico concede +15 pontos percentuais durante os próximos quatro combates, permitindo até 80% temporariamente sem alterar o limite permanente de 65%. Aceleração reduz em 20% as recargas durante quatro combates; os valores do HUD e da ficha incluem o efeito. Repetir um tipo renova a duração, sem empilhar. Combates em que o aliado esteve ausente não consomem duração.
+- Escolha, consumo, duração e ciclos de ataque persistem no save. Recarregar não repete o sorteio nem renova a poção. O combate em que a poção caiu não conta para sua duração.
+- Aliados caídos recebem uma escolha lendária exclusiva após cada chefe de ato, sem pontos de atributo nem reviver. Nos primeiros três chefes, os vivos recebem a recompensa normal lendária; o último chefe oferece a escolha a todos antes da decisão de campanha. Elites e chefes procedurais do infinito não concedem recompensa aos caídos.
+- Bruxa: habilidades ofensivas Bicada, Olho, Revoada e Último Grasnado ganham 8% de potência bruta. Bicada amaldiçoa por 9s; Revoada aplica maldição por 4s na formação. Corvo faminto usa 10 + 1,5 × Poder; Ninho recarrega em 11s e protege em até 18%.
+- Testes: combat-rewards-test.cjs e witch-tuning-test.cjs. Comparação reproduzível da Bruxa: node scripts/witch-comparison.cjs; dados em reports/witch-tuning.json. Essa comparação usa três builds fixas, três seeds e ofertas garantidas, sem itens, fogueiras ou poções; não prevê toda run aleatória.

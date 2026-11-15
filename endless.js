@@ -78,14 +78,14 @@ function endlessRitual(){
  const e=run.enemy,key=endlessMechanic(),affix=run.endlessEncounter.affix;log('∞ '+ENEMY_ART[run.stage].move);animateCombat('enemy','cast');
  if(['armor','shield','furnace','armorforge','herbarium'].includes(key))grantEnemyShield(e.max*.055,e,e.max*.18);
  else if(['heal','crucible','grave'].includes(key))healEnemy(e.max*.025);
- else if(['bleed','hound','duelist','centipede'].includes(key)){hurtPlayer(e.damage*.8);run.bleed=4;}
- else if(['arcane','soot','orbit'].includes(key))hurtPlayer(e.damage*1.5,true);
- else if(['chains','hands','prune'].includes(key)){delaySkills(.7);hurtPlayer(e.damage*.65);}
- else if(['engineer','seedqueen','moth','sunboss','eclipseboss'].includes(key)){spawnMinion(ENEMY_ART[run.stage].summon??1);hurtPlayer(e.damage*.5);}
- else if(['mixed','boss','anvil'].includes(key)){hurtPlayer(e.damage*1.7);if(key!=='anvil')run.bleed=3;}
+ else if(['bleed','hound','duelist','centipede'].includes(key)){enemyHit(e.damage*.8);run.bleed=4;}
+ else if(['arcane','soot','orbit'].includes(key))enemyHit(e.damage*1.5,true);
+ else if(['chains','hands','prune'].includes(key)){delaySkills(.7);enemyHit(e.damage*.65);}
+ else if(['engineer','seedqueen','moth','sunboss','eclipseboss'].includes(key)){spawnMinion(ENEMY_ART[run.stage].summon??1);enemyHit(e.damage*.5);}
+ else if(['mixed','boss','anvil'].includes(key)){enemyHit(e.damage*1.7);if(key!=='anvil')run.bleed=3;}
  else if(key==='cinder')run.endlessBurn=4;
- else if(key==='act2'){switch(run.stage-10){case 0:run.bleed=4;break;case 1:erodePlayerShield(.2);break;case 2:delaySkills(.7);spawnMinion(1);break;case 4:e.shield+=e.max*.04;break;case 6:{const hp=run.hp;hurtPlayer(e.damage,true);e.hp=Math.min(e.max,e.hp+(hp-run.hp)*.5);break;}default:hurtPlayer(e.damage*1.35,true);}}
- else hurtPlayer(e.damage*1.3);
+ else if(key==='act2'){switch(run.stage-10){case 0:run.bleed=4;break;case 1:erodePlayerShield(.2);break;case 2:delaySkills(.7);spawnMinion(1);break;case 4:e.shield+=e.max*.04;break;case 6:{const hp=run.hp;enemyHit(e.damage,true);e.hp=Math.min(e.max,e.hp+(hp-run.hp)*.5);break;}default:enemyHit(e.damage*1.35,true);}}
+ else enemyHit(e.damage*1.3);
  if(affix===0)grantEnemyShield(e.max*.025,e,e.max*.2);
  if(affix===2)healEnemy(e.max*.015);
  if(affix===3)spawnMinion(ENEMY_ART[run.stage].summon??Math.floor(run.stage/10)%4);

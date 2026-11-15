@@ -1,0 +1,10 @@
+#potion-dialog,#boss-gift-dialog{width:min(840px,94vw);background:#101719;border-color:#8c7851}
+#potion-dialog .decision{text-align:center;background:radial-gradient(ellipse at 50% 15%,#4f50462b,transparent 60%),#101719}
+.potion-symbol{width:86px;height:100px;margin:26px auto 18px;display:grid;place-items:center;background:currentColor;clip-path:polygon(32% 0,68% 0,68% 8%,62% 8%,62% 28%,84% 40%,90% 52%,90% 90%,80% 100%,20% 100%,10% 90%,10% 52%,16% 40%,38% 28%,38% 8%,32% 8%);filter:drop-shadow(0 0 14px currentColor)}
+.potion-symbol .pixel-icon{width:30px;height:30px;margin:24px 0 0;color:#111719}
+.potion-targets{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin:24px 0 0}
+.potion-target{display:flex;align-items:center;flex-direction:column;gap:12px;padding:20px;background:#0b1113;border-color:#716341;min-width:0}
+.potion-target img{width:100%;height:135px;object-fit:contain;image-rendering:pixelated}.potion-target strong{font:19px Georgia,serif}.potion-target small{font-size:11px;line-height:1.6;color:#b9c09c}
+.potion-effects{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.potion-effects span{padding:7px 10px;background:#142221;border:1px solid #52685f;color:#b9d0c4;font-size:10px;line-height:1.5}
+.potion-effects[hidden]{display:none}#boss-gift-choices .choice{display:flex;flex-direction:column;gap:12px}#boss-gift-choices .rarity{width:100%;box-sizing:border-box}#boss-gift-choices strong{min-height:48px}
+@media(max-width:600px){#potion-dialog .decision,#boss-gift-dialog .decision{padding:24px 18px}.potion-targets{grid-template-columns:1fr}.potion-target img{height:95px}.potion-target{padding:14px}.potion-symbol{width:65px;height:75px;margin:16px auto}.potion-target strong{font-size:17px}}

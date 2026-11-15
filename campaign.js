@@ -49,24 +49,24 @@ function campaignRitual(){
  switch(k){
  case 'furnace':grantEnemyShield(e.max*.02,e,e.max*.06);e.damageBoost=1.25;break;
  case 'cinder':run.foeBurnPressure=5;spawnMinion(0);break;
- case 'anvil':hurtPlayer(e.damage*(run.shield>0?2:1.4));break;
- case 'hound':hurtPlayer(e.damage*.7);hurtPlayer(e.damage*.7);run.bleed=5;break;
+ case 'anvil':enemyHit(e.damage*(run.shield>0?2:1.4));break;
+ case 'hound':enemyHit(e.damage*.7);enemyHit(e.damage*.7);run.bleed=5;break;
  case 'crucible':if(e.shield>0){healEnemy(e.shield);e.shield=0;}else grantEnemyShield(e.max*.04);break;
  case 'chains':erodePlayerShield(.3);delaySkills(1);break;
- case 'soot':hurtPlayer(55+e.rituals*12,true);break;
+ case 'soot':enemyHit(55+e.rituals*12,true);break;
  case 'engineer':spawnMinion(0);spawnMinion(0);for(const m of run.minions||[])if(m.hp>0)grantEnemyShield(m.max*.15,m);break;
- case 'armorforge':grantEnemyShield(Math.min(e.max*.05,(e.max-e.hp)*.08));hurtPlayer(e.damage*.8);break;
- case 'sunboss':if(e.hp>e.max*.66)grantEnemyShield(e.max*.04);else if(e.hp>e.max*.33){spawnMinion(0);spawnMinion(0);}else{hurtPlayer(e.damage*.9,true);run.foeBurnPressure=5;}break;
- case 'prune':hurtPlayer(e.damage);run.attackTimer+=1.5;break;
+ case 'armorforge':grantEnemyShield(Math.min(e.max*.05,(e.max-e.hp)*.08));enemyHit(e.damage*.8);break;
+ case 'sunboss':if(e.hp>e.max*.66)grantEnemyShield(e.max*.04);else if(e.hp>e.max*.33){spawnMinion(0);spawnMinion(0);}else{enemyHit(e.damage*.9,true);run.foeBurnPressure=5;}break;
+ case 'prune':enemyHit(e.damage);run.attackTimer+=1.5;break;
  case 'moth':spawnMinion(1);e.veil=true;break;
- case 'duelist':for(let i=0;i<3;i++)hurtPlayer(e.damage*.45);erodePlayerShield(.2);break;
+ case 'duelist':for(let i=0;i<3;i++)enemyHit(e.damage*.45);erodePlayerShield(.2);break;
  case 'grave':healEnemy(e.max*.025);spawnMinion(2);break;
- case 'orbit':hurtPlayer(e.damage*(.4+(1-run.hp/run.max)*.7),true);break;
- case 'centipede':hurtPlayer(e.damage*(e.hp<e.max*.5?1.7:1.1));if(e.hp<e.max*.5)run.enemyTimer=Math.min(run.enemyTimer,.6);break;
+ case 'orbit':enemyHit(e.damage*(.4+(1-run.hp/run.max)*.7),true);break;
+ case 'centipede':enemyHit(e.damage*(e.hp<e.max*.5?1.7:1.1));if(e.hp<e.max*.5)run.enemyTimer=Math.min(run.enemyTimer,.6);break;
  case 'seedqueen':spawnMinion(2);spawnMinion(2);healEnemy((run.minions||[]).filter(m=>m.hp>0).length*e.max*.007);break;
- case 'hands':{const hp=run.hp;hurtPlayer(e.damage*.65,true);healEnemy((hp-run.hp)*.6);delaySkills(1.5);break;}
+ case 'hands':{const hp=run.hp;enemyHit(e.damage*.65,true);healEnemy((hp-run.hp)*.6);delaySkills(1.5);break;}
  case 'herbarium':{const alive=(run.minions||[]).filter(m=>m.hp>0);grantEnemyShield(e.max*.025+alive.length*e.max*.008);for(const m of alive)m.hp=0;spawnMinion(1);break;}
- case 'eclipseboss':if(e.hp>e.max*.66){grantEnemyShield(e.max*.035);run.attackTimer+=1;}else if(e.hp>e.max*.33){spawnMinion(2);spawnMinion(2);}else{const hp=run.hp;hurtPlayer(e.damage*.85,true);healEnemy((hp-run.hp)*.5);run.bleed=4;}break;
+ case 'eclipseboss':if(e.hp>e.max*.66){grantEnemyShield(e.max*.035);run.attackTimer+=1;}else if(e.hp>e.max*.33){spawnMinion(2);spawnMinion(2);}else{const hp=run.hp;enemyHit(e.damage*.85,true);healEnemy((hp-run.hp)*.5);run.bleed=4;}break;
  }
 }
 function erodePlayerShield(ratio){run.shield*=1-ratio;run.wardShield=Math.min(run.wardShield||0,run.shield);}
@@ -77,7 +77,7 @@ updateExtraSkills=function(dt){
  updateMinions(dt);
  if(run.stage>=20){run.campaignTimer=(run.campaignTimer||0)+dt;const period=run.stage>=30?6:7;if(run.foeBurnPressure>0){run.foeBurnPressure=Math.max(0,run.foeBurnPressure-dt);hurtPlayer(run.max*.012*dt,true);}
  if(run.time>180)hurtPlayer(run.max*.003*dt*(1+(run.time-180)/60),true,true);
- if(run.campaignTimer>=period){run.campaignTimer-=period;const act=Math.floor(run.stage/10);hurtPlayer(run.max*ACT_REGIONS[act].pressure*(1-abyssResistance()),true,true);campaignRitual();}}
+ if(run.campaignTimer>=period){run.campaignTimer-=period;const act=Math.floor(run.stage/10);enemyHit(run.max*ACT_REGIONS[act].pressure*(1-abyssResistance()),true,true);campaignRitual();}}
 };
 const campaignPreviousRender=render;
 render=function(){campaignPreviousRender();const act=Math.floor(run.stage/10);$('act-heading').textContent='ATO '+['I','II','III','IV'][act]+' · '+ACT_REGIONS[act].name+(act?' · Resistência '+Math.round(abyssResistance()*100)+'%':'');$('arena').classList.toggle('act-two',act===1);$('arena').classList.toggle('act-three',act===2);$('arena').classList.toggle('act-four',act===3);if(run.stage%10===0&&run.stage>0&&mode==='camp'){$('decision-title').textContent='As portas de '+ACT_REGIONS[act].name+' se abrem';$('decision-label').textContent='RECOMPENSA DO SOBERANO · LENDÁRIO GARANTIDO';}
